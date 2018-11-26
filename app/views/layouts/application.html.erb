@@ -13,11 +13,11 @@
 
     <p class="navbar-text pull-right">
       <% if client_signed_in? %>
-          Logged in as <strong><%= current_client.email %></strong>.
+          Logged in as <strong><%= current_user.email %></strong>.
           <%= link_to 'Edit profile', edit_client_registration_path, :class => 'navbar-link' %> |
           <%= link_to "Logout", destroy_client_session_path, method: :delete, :class => 'navbar-link'  %>
       <% elsif business_signed_in? %>  
-          Logged in as <strong><%= current_business.email %></strong>.
+          Logged in as <strong><%= current_user.email %></strong>.
           <%= link_to 'Edit profile', edit_business_registration_path, :class => 'navbar-link' %> |
           <%= link_to "Logout", destroy_business_session_path, method: :delete, :class => 'navbar-link'  %>
       <% else %>
