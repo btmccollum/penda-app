@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-    protect_from_forgery with: :exception
+    protect_from_forgery with: :exception, prepend: true
 
     devise_group :user, contains: [:client, :business]
 
@@ -9,7 +9,8 @@ class ApplicationController < ActionController::Base
     protected
 
         def configure_permitted_parameters
-            devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:username, :email, :first_name, :last_name, :password, :password_confirmation, :type) }
+            devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:username, :email, :first_name, :last_name, :password, :password_confirmation, :type, :provider, :uid) }
+            
             devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:username, :email, :first_name, :last_name, :password, :password_confirmation, :type) }
         end
 end

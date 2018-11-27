@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-
+         
   has_many :comments
   
   validates_presence_of :username
@@ -15,4 +15,8 @@ class User < ApplicationRecord
 
   validates_uniqueness_of :username
   validates_uniqueness_of :email
+
+  def generated_password
+    Devise.friendly_token.first(10)
+  end
 end
