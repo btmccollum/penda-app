@@ -8,20 +8,27 @@ class ClientsController < ApplicationController
     def create
         @client = Client.create(client_params)
         session[:user_id] = @client.id
-        render 'welcome/home'
+        redirect_to root_path
     end
 
     def show
+
     end
 
     def edit
-        @client = current_user
+        if user_is_owner?
+            @client = current_user
+        else
+            flash[:alert] = "Unauthorized Access."
+            redirect_to root_path
+        end
     end
 
     def update
         @client = current_user
         @client.update(client_params)
-        render 'welcome/home'
+        flash[:notice] = "Your account has been updated."
+        redirect_to root_path
     end
 
     def destroy

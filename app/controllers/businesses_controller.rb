@@ -8,18 +8,27 @@ class BusinessesController < ApplicationController
     def create
         business = Business.create(biz_params)
         session[:user_id] = business.id
-        render 'welcome/home'
+        redirect_to root_path
     end
 
     def show
-        binding.pry
+      
     end
 
     def edit
-        @business = current_user
+        if user_is_owner?
+            @business = current_user
+        else
+            flash[:alert] = "Unauthorized Access."
+            redirect_to root_path
+        end
     end
 
     def update
+        @business = current_user
+        @business.update(business_params)
+        flash[:notice] = "Your account has been updated."
+        redirect_to root_path
     end
 
     def destroy

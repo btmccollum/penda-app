@@ -2,8 +2,10 @@
 
 <%= render partial: 'business', locals: {business: @business} %>
 
-<h3>Cancel my account</h3>
+<h3>Delete Account</h3>
 
-<p>Unhappy? <%= button_to "Cancel my account", business_path(business), data: { confirm: "Are you sure?" }, method: :delete %></p>
+Warning! This cannot be undone. You will need to create a new account if you wish to use this app in the future.
+
+<p><%= button_to "Cancel my account", business_path(@business), data: { confirm: "Are you sure?" }, method: :delete %></p>
 
 <%= link_to "Back", :back %>

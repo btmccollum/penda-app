@@ -7,6 +7,10 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <script type="text/javascript">
+      if (window.location.hash && window.location.hash == '#_=_') { window.location.hash = ''; }
+    </script>
   </head>
 
   <body>
@@ -29,6 +33,7 @@
 
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+    <p class="error"><%= error %></p>
 
     <%= yield %>
   </body>

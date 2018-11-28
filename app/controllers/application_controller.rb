@@ -1,10 +1,6 @@
 class ApplicationController < ActionController::Base
     protect_from_forgery with: :exception, prepend: true
-    # skip_before_action :verify_authenticity_token 
 
-    # devise_group :user, contains: [:client, :business]
-
-    # before_action :configure_permitted_parameters, if: :devise_controller?
 private
 
     def current_user
@@ -13,6 +9,13 @@ private
     end
 
     def signed_in?
-            !!session[:user_id]
+        unless current_user
+            flash[:danger] = "Please log in."
+            redirect_to 'sessions/new'
+        end
+    end
+
+    def user_is_owner?
+        params[:id].to_i == current_user.id
     end
 end
