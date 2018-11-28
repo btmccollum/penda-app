@@ -1,0 +1,22 @@
+
+<% if signed_in? %>
+  <h1><%= current_user.username %></h1>
+  <h2>Email: <%= current_user.email %></h2>
+  <h2>UID: <%= current_user.uid %></h2>
+
+  Projects:
+
+  <ul>
+      <% if current_user.projects != [] %>
+          <% current_user.projects.each do |p| %>
+              <li><strong>Title:</strong> <%= p.title %> | <strong>Billable Hours:</strong> <%= Filler %></li>
+          <% end %>
+      <% else %>
+          You have no current projects!
+      <% end %>
+  </ul>
+
+<% else %>
+  Sign up or log in to get started today!
+<% end %>
+

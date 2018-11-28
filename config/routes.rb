@@ -4,10 +4,10 @@ Rails.application.routes.draw do
   resources :businesses, except: %i[index]
   resources :sessions, only: %i[new create destroy]
 
- 
-  get "/auth/:provider/callback" => "sessions#create"
-
-
-  root 'welcome#home'
+  root 'home#front'
+  
+  get "/auth/:provider/callback", to: "sessions#create"
+  get "/dashboard", to: 'home#dashboard'
+  
 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_28_162707) do
+ActiveRecord::Schema.define(version: 2018_11_28_211229) do
 
   create_table "comments", force: :cascade do |t|
     t.text "content"
@@ -26,6 +26,11 @@ ActiveRecord::Schema.define(version: 2018_11_28_162707) do
     t.boolean "completed", default: false, null: false
     t.boolean "business_signed", default: false, null: false
     t.boolean "client_signed", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "dashboards", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

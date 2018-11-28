@@ -1,0 +1,11 @@
+Projects:
+
+<ul>
+    <% if current_user.projects != [] %>
+        <% current_user.projects.each do |p| %>
+            <li><strong>Title:</strong> <%= p.title %> | <strong>Billable Hours:</strong> <%= Filler %></li>
+        <% end %>
+    <% else %>
+        You have no current projects!
+    <% end %>
+</ul>
