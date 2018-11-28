@@ -1,0 +1,23 @@
+<h2>Log in</h2>
+
+<p>
+<%= link_to('Log in with Facebook', '/auth/facebook') %> <br>
+<%= link_to('Log in with Google', '/auth/google_oauth2') %><br>
+</p>
+
+<%= form_tag '/sessions' do %>
+  <div class="field">
+      <strong>Email:</strong><br>
+      <%= email_field_tag 'email', :email, autofocus: true, autocomplete: "email", class: "field" %>
+    </div>
+    
+  <div class="field">
+      <strong>Password:</strong><br>
+      <%= password_field_tag 'password', :password, autocomplete: "current-password", class: "field" %>
+  </div>
+  
+  <div class="actions">
+      <p><%= submit_tag "Log In" %></p>
+  </div>
+<% end %>
+

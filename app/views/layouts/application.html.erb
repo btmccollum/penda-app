@@ -12,19 +12,18 @@
   <body>
 
     <p class="navbar-text pull-right">
-      <% if signed_in? %>
-          Logged in as <strong><%= app_current_user.email %></strong>.
-          <%= link_to 'Edit profile', edit_client_registration_path, :class => 'navbar-link' %> |
-          <%= link_to 'Log out', destroy_client_session_path, method: :delete %>
+      <% if client_signed_in? %>
+          Logged in as <strong><%= current_user.email %></strong>.
+          <%= link_to 'Edit profile', edit_client_path(current_user), :class => 'navbar-link' %> |
+          <%= link_to 'Log out', session_path(current_user), method: :delete %>
       <% elsif business_signed_in? %>  
           Logged in as <strong><%= current_user.email %></strong>.
-          <%= link_to 'Edit profile', edit_business_registration_path, :class => 'navbar-link' %> |
-          <%= link_to "Logout", destroy_business_session_path, method: :delete, :class => 'navbar-link'  %>
+          <%= link_to 'Edit profile', edit_business_path, :class => 'navbar-link' %> |
+          <%= link_to "Logout", destroy_session_path, method: :delete, :class => 'navbar-link'  %>
       <% else %>
-          <%= link_to "Client Sign up", new_client_registration_path, :class => 'navbar-link'  %> |
-          <%= link_to "Client Login", new_client_session_path, :class => 'navbar-link'  %>
-          <%= link_to "Business Sign up", new_business_registration_path, :class => 'navbar-link'  %> |
-          <%= link_to "Business Login", new_client_session_path, :class => 'navbar-link'  %>
+          <%= link_to "Client Sign up", new_client_path, :class => 'navbar-link'  %> |
+          <%= link_to "Business Sign up", new_business_path, :class => 'navbar-link'  %> |
+          <%= link_to "Login", new_session_path, :class => 'navbar-link'  %>
       <% end %>
     </p>
 

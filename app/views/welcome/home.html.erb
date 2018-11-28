@@ -1,7 +1,11 @@
 
-<% if user_signed_in? %>
-Welcome!
-You are logged in as <%= @user.username %>
+<% if signed_in? %>
+  <h1><%= current_user.username %></h1>
+  <h2>Email: <%= current_user.email %></h2>
+  <h2>UID: <%= current_user.uid %></h2>
+
+    
 <% else %>
-Welcome!
+  Sign up or log in to get started today!
 <% end %>
+
