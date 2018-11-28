@@ -1,4 +1,4 @@
-class BusinessController < ApplicationController
+class BusinessesController < ApplicationController
     before_action :signed_in?, only: %i[edit update show destroy]
 
     def new
