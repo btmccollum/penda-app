@@ -10,11 +10,7 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
-    raise params
-    binding.pry
-    if auth_hash = request.env["omniauth.auth"]
-      hi
-    end
+   super
   end
 
   # DELETE /resource/sign_out
