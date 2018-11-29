@@ -1,4 +1,5 @@
 Rails.application.routes.draw do  
+  
   resources :users, skip: :all
   resources :clients, except: %i[index]
   resources :businesses, except: %i[index]
@@ -9,5 +10,4 @@ Rails.application.routes.draw do
   get "/auth/:provider/callback", to: "sessions#create"
   get "/dashboard", to: 'home#dashboard'
   
-
 end

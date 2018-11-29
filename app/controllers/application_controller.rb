@@ -16,6 +16,9 @@ private
     end
 
     def user_is_owner?
-        params[:id].to_i == current_user.id
+        if params[:id].to_i != current_user.id
+            flash[:alert] = "Unauthorized Access."
+            redirect_to root_path
+        end
     end
 end

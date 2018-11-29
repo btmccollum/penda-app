@@ -4,9 +4,9 @@ class SessionsController < ApplicationController
 
     def create
         if auth && !existing_oauth_user? #oauth login for new user
-            @user = User.create_from_oauth(auth)
+            user = User.create_from_oauth(auth)
             reset_session
-            session[:user_id] = @user.id
+            session[:user_id] = user.id
                     
             redirect_to dashboard_path, notice: "Welcome to Penda! It looks like you haven't created an account with us before so we got you started with a basic client account! If you would like to register as a business user, please log out and create a business account."
         elsif auth && existing_oauth_user? #oauth login for existing user
