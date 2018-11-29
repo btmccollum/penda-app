@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+    before_action :already_signed_in?, only: %i[new create]
+
     def new
     end
 
@@ -34,6 +36,10 @@ class SessionsController < ApplicationController
         redirect_to root_path
     end
 
+    def failure
+        redirect_to root_path, alert: "There was an issue authenticating your account. Please try again."
+    end
+
     private
 
     def auth
@@ -44,7 +50,11 @@ class SessionsController < ApplicationController
         User.find_by(uid: auth[:uid])
     end
     
-    def failure
-        redirect_to root_path, alert: "There was an issue authenticating your account. Please try again."
+    def already_signed_in? 
+        unless !current_user
+            flash[:notice] = "You are already logged in."
+            redirect_to dashboard_path
+        end 
     end
+
 end

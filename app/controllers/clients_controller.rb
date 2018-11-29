@@ -26,7 +26,8 @@ class ClientsController < ApplicationController
             if @client && @client.authenticate(client_params[:password])
                 @client.update(client_params)
 
-                redirect_to dashboard_path, notice: "Your account has been updated."
+                flash[:notice] = "Your account has been updated."
+                redirect_to dashboard_path
             else 
                 flash[:alert] = "Unable to authenticate password."
                 render :edit

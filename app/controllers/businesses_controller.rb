@@ -26,7 +26,8 @@ class BusinessesController < ApplicationController
             if @business && @business.authenticate(business_params[:password])
                 @business.update(business_params)
 
-                redirect_to dashboard_path, notice: "Your account has been updated."
+                flash[:notice] = "Your account has been updated."
+                redirect_to dashboard_path
             else 
                 flash[:alert] = "Unable to authenticate password."
                 render :edit
