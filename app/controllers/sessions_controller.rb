@@ -3,29 +3,25 @@ class SessionsController < ApplicationController
     end
 
     def create
-        if auth #omniauth login
-            session.clear
-            @user = User.find_or_create_by(email: auth[:info][:email]) do |u|
-                u.username = auth[:info][:email]
-                u.email = auth[:info][:email]
-                u.first_name = auth[:info][:name].split(" ").first
-                u.last_name = auth[:info][:name].split(" ").last
-                u.password = User.generated_password
-                u.password_confirmation = u.password
-                u.type = "Client"
-                u.provider = auth[:provider]
-                u.uid = auth[:uid]
-                # u.image = auth['info']['image']
-            end
+        if auth && !existing_oauth_user? #oauth login for new user
+            @user = User.create_from_oauth(auth)
+            reset_session
             session[:user_id] = @user.id
                     
-            redirect_to dashboard_path
+            redirect_to dashboard_path, notice: "Welcome to Penda! It looks like you haven't created an account with us before so we got you started with a basic client account! If you would like to register as a business user, please log out and create a business account."
+        elsif auth && existing_oauth_user? #oauth login for existing user
+            user = User.where(provider: auth[:provider], uid: auth[:uid]).first
+            reset_session
+            session[:user_id] = user.id
+
+            redirect_to dashboard_path, notice: "Signed in!"
         else #normal login
-            session.clear
-            @user = User.find_by(email: params[:email])
-            if @user && @user.authenticate(params[:password])
-                session[:user_id] = @user.id
-                redirect_to dashboard_path
+            user = User.find_by(email: params[:email])
+            if user && user.authenticate(params[:password])
+                reset_session
+                session[:user_id] = user.id
+
+                redirect_to dashboard_path, notice: "Signed in!"
             else 
                 redirect_to root_path, alert: "Invalid credentials."
             end
@@ -33,7 +29,7 @@ class SessionsController < ApplicationController
     end
 
     def destroy
-        session.clear
+        reset_session
     
         redirect_to root_path
     end
@@ -43,17 +39,12 @@ class SessionsController < ApplicationController
     def auth
         request.env["omniauth.auth"]
     end
+
+    def existing_oauth_user?
+        User.find_by(uid: auth[:uid])
+    end
     
     def failure
-        raise params.inspect
+        redirect_to root_path, alert: "There was an issue authenticating your account. Please try again."
     end
-
-        # def resource_params
-        #     params.require(:client).permit(:username, :email, :first_name, :last_name, :password, :password_confirmation, :type, :provider, :uid)
-        # end
-
-        # def sign_in_params
-        #     params.permit(:username, :email, :first_name, :last_name, :password, :password_confirmation, :type, :provider, :uid)
-        # end
-    # end
 end
