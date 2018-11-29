@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+    before_action :has_permission?, except: %i[index show]
+    
     def new
         @project = Project.new
     end

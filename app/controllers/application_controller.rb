@@ -21,4 +21,11 @@ private
             redirect_to root_path
         end
     end
+
+    def has_permission? #authorization for business only
+        unless current_user.class.name == "Business"
+            flash[:alert] = "Unauthorized Access." 
+            signed_in? ? (redirect_to dashboard_path) : (redirect_to root_path)
+        end
+    end
 end
