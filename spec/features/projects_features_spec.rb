@@ -12,11 +12,7 @@ describe 'Feature Test: Projects', :type => :feature do
         expect(page).to have_content('Create a New Project')
       end
 
-    it 'does not allow unauthorized users (client or otherwise) to access the form' do 
-        visit '/projects/new'
-        expect(current_path).to eq('/')
-        expect(page).to have_content('Unauthorized Access.')
-        
+    it 'successfully access form when logged in as a client user' do
         visit '/clients/new'
         expect(current_path).to eq('/clients/new')
 
@@ -24,7 +20,12 @@ describe 'Feature Test: Projects', :type => :feature do
         expect(current_path).to eq('/dashboard')
 
         visit '/projects/new'
-        expect(current_path).to eq('/dashboard')
+        expect(page).to have_content('Create a New Project')
+    end
+
+    it 'does not allow unauthorized users to access the form' do 
+        visit '/projects/new'
+        expect(current_path).to eq('/')
         expect(page).to have_content('Unauthorized Access.')
     end
 

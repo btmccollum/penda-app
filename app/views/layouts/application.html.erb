@@ -26,8 +26,8 @@
             <span class="icon-bar"></span>
           </button>
           <%= link_to "Penda", root_path, class: "navbar-brand" %>
-          <% if has_permission? %>
-            <%= link_to "New Project", new_project_path %>
+          <% if current_user %>
+            <%= link_to "Create Project", new_project_path %>
             <%= link_to "Your Projects", projects_path %>
           <% end %>
         </div>
@@ -41,14 +41,19 @@
         <div class="nav navbar-nav navbar-right">
           <div class="navbar-header">
           <% if client_signed_in? %>
+          
             <!-- Logged in as <strong><%= current_user.email %></strong>. -->
             <%= link_to 'Edit profile', edit_client_path(current_user), :class => 'navbar-link' %>
             <%= link_to 'Log out', session_path(current_user), method: :delete, :class => 'navbar-link' %><span class="glyphicon glyphicon-user"></span>
+          
           <% elsif business_signed_in? %>  
+
             <!-- Logged in as <strong><%= current_user.email %></strong>. -->
             <%= link_to 'Edit profile', edit_business_path, :class => 'navbar-link' %>
             <%= link_to "Logout", destroy_session_path, method: :delete, :class => 'navbar-link' %><span class="glyphicon glyphicon-user"></span>
+          
           <% else %>
+            
             <ul class="nav navbar-nav">
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Sign Up
@@ -59,19 +64,23 @@
                 </ul>
               </li>
             </ul>
-
+           
             <%= link_to "Login", new_session_path, :class => 'navbar-link' %><span class="glyphicon glyphicon-log-in"></span>
+          
           <% end %>
           </div>
         </div>
       </div>
     </nav>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <div class="container center">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+    </div>
 
     <div class="container">
       <%= yield %>
     </div>
+    
   </body>
 </html>

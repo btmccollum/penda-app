@@ -9,7 +9,11 @@ class ProjectsController < ApplicationController
         @project = Project.new
         @project.title = project_params[:title]
         @project.business_id = project_params[:business_id]
-        @project.client_id = Client.where(email: project_params[:client], type: "Client").first.id
+        
+        unless project_params[:client].blank?
+            @project.client_id = Client.where(email: project_params[:client], type: "Client").first.id
+        end
+
         @project.save
 
         flash[:notice] = "Project successfully created!"

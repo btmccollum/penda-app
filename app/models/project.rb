@@ -1,6 +1,6 @@
 class Project < ApplicationRecord
-    belongs_to :client, class_name: 'User'
-    belongs_to :business, class_name: 'User'
+    belongs_to :client, class_name: 'User', optional: true
+    belongs_to :business, class_name: 'User', optional: true
     has_one :contract
     has_many :comments
 

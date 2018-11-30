@@ -22,8 +22,8 @@ private
         end
     end
 
-    def has_permission? #authorization for business only
-        unless current_user.class.name == "Business"
+    def has_permission? #authorization for access
+        unless current_user.class.name == "Business" || current_user.class.name == "Client"
             flash[:alert] = "Unauthorized Access." 
             if current_user
                 redirect_to dashboard_path
