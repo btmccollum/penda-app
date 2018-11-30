@@ -16,7 +16,7 @@ class ProjectsController < ApplicationController
         project.business_id = project_params[:business_id].to_i
         
         if business_user?
-            project_client = project.find_or_build_by(project_params[:client_attributes])
+            project_client = project.find_or_build_client_by(project_params[:client_attributes])
             project.save
         else
             project.save
