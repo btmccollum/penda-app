@@ -28,7 +28,7 @@ module LoginHelper
 
   def business_login
     fill_in("email", :with => "biztest01@test.com")
-    fill_in("password", :with => "123")
+    fill_in("password", :with => "111111")
     click_button('Log In')
   end
 
@@ -47,7 +47,7 @@ module LoginHelper
   def create_business_user
     @biztest = User.create(
         username: "testbiz", 
-        email: "testllc@test.com", 
+        email: "biztest01@test.com", 
         first_name: "Jane", 
         last_name: "Doe", 
         password: "111111", 

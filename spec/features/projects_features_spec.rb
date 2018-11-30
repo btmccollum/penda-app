@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Feature Test: Projects', :type => :feature do
-    it 'successfully access creation form when logged in as a business user' do
+    it 'successfully access form when logged in as a business user' do
         visit '/businesses/new'
         expect(current_path).to eq('/businesses/new')
 
@@ -9,10 +9,14 @@ describe 'Feature Test: Projects', :type => :feature do
         expect(current_path).to eq('/dashboard')
 
         visit '/projects/new'
-        expect(page).to have_content("Create a New Project")
+        expect(page).to have_content('Create a New Project')
       end
 
-    it 'does not allow a client user to access the form' do 
+    it 'does not allow unauthorized users (client or otherwise) to access the form' do 
+        visit '/projects/new'
+        expect(current_path).to eq('/')
+        expect(page).to have_content('Unauthorized Access.')
+        
         visit '/clients/new'
         expect(current_path).to eq('/clients/new')
 
@@ -21,12 +25,25 @@ describe 'Feature Test: Projects', :type => :feature do
 
         visit '/projects/new'
         expect(current_path).to eq('/dashboard')
-        expect(page).to have_content("Unauthorized Access.")
+        expect(page).to have_content('Unauthorized Access.')
     end
 
-    it 'does not allow a user to access if not signed in' do
+    it 'allows a business user to create a new project' do
+        create_business_user
+        create_client_user
+
+        visit '/sessions/new' 
+
+        business_login
+        expect(current_path).to eq('/dashboard')
+
         visit '/projects/new'
-        expect(current_path).to eq('/')
-        expect(page).to have_content("Unauthorized Access.")
+        fill_in('project[title]', with: 'Form Test Project')
+        fill_in('project[client]', with: 'test@test.com')
+        click_button('Submit')
+
+        expect(Project.last.id).to eq(1)
     end
+
+    
 end

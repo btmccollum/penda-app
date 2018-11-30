@@ -6,12 +6,19 @@ class ProjectsController < ApplicationController
     end
     
     def create
-        @project = Project.create(project_params)
+        @project = Project.new
+        @project.title = project_params[:title]
+        @project.business_id = project_params[:business_id]
+        @project.client_id = Client.where(email: project_params[:client], type: "Client").first.id
+        @project.save
+
+        flash[:notice] = "Project successfully created!"
+        redirect_to dashboard_path
     end
 
     private
 
         def project_params
-            params.require(:project).permit(:title, :business_id, :client_id)
+            params.require(:project).permit(:title, :client_email, :client, :business_id, :client_id)
         end
 end
