@@ -8,10 +8,12 @@
       <%= f.text_field :title, autofocus: true, autocomplete: "title" %>
     </div>
   
-    <div class="field">
-      <%= f.label "client_email" %><br />
-      <%= f.text_field :client, autofocus: true, autocomplete: "client email" %>
-    </div>
+    <% if has_permission? %>
+      <div class="field">
+        <%= f.label "client_email" %><br />
+        <%= f.text_field :client, autofocus: true, autocomplete: "client email" %>
+      </div>
+    <% end %>
 
     <div class="actions">
       <%= f.submit "Submit" %>

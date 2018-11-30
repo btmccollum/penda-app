@@ -44,7 +44,7 @@ describe 'Feature Test: Projects', :type => :feature do
         click_button('Submit')
 
         expect(Project.last.id).to eq(1)
-        expect(current_path).to eq('/dashboard')
+        expect(current_path).to eq('/projects/1')
         expect(page).to have_content("Form Test Project")
     end
 
