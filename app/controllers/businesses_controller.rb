@@ -9,7 +9,7 @@ class BusinessesController < ApplicationController
     def create
         business = Business.create(business_params)
         session[:user_id] = business.id
-        redirect_to root_path
+        redirect_to dashboard_path
     end
 
     def show

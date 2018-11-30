@@ -9,7 +9,8 @@ class ClientsController < ApplicationController
     def create
         @client = Client.create(client_params)
         session[:user_id] = @client.id
-        redirect_to root_path
+        
+        redirect_to dashboard_path
     end
 
     def show

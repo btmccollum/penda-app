@@ -39,7 +39,7 @@ gem 'omniauth-google-oauth2'
 
 gem 'omniauth-twitter'
 
-
+gem 'pry'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -62,7 +62,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 
-  gem 'pry'
+  
 end
 
 group :test do
@@ -72,6 +72,8 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+  gem 'database_cleaner'
+  gem 'rack_session_access'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
