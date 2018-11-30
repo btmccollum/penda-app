@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en">
 <html>
   <head>
     <title>PendaApp</title>
@@ -15,25 +16,62 @@
 
   <body>
 
-    <p class="navbar-text pull-right">
-      <% if client_signed_in? %>
-          Logged in as <strong><%= current_user.email %></strong>.
-          <%= link_to 'Edit profile', edit_client_path(current_user), :class => 'navbar-link' %> |
-          <%= link_to 'Log out', session_path(current_user), method: :delete %>
-      <% elsif business_signed_in? %>  
-          Logged in as <strong><%= current_user.email %></strong>.
-          <%= link_to 'Edit profile', edit_business_path, :class => 'navbar-link' %> |
-          <%= link_to "Logout", destroy_session_path, method: :delete, :class => 'navbar-link'  %>
-      <% else %>
-          <%= link_to "Client Sign up", new_client_path, :class => 'navbar-link'  %> |
-          <%= link_to "Business Sign up", new_business_path, :class => 'navbar-link'  %> |
-          <%= link_to "Login", new_session_path, :class => 'navbar-link'  %>
-      <% end %>
-    </p>
+    <nav class="navbar navbar-inverse bg-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <%= link_to "Penda", root_path, class: "navbar-brand" %>
+          <% if has_permission? %>
+            <%= link_to "New Project", new_project_path %>
+            <%= link_to "Your Projects", projects_path %>
+          <% end %>
+        </div>
+
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            
+          </ul>
+        </div> <!-- nav collapse -->
+
+        <div class="nav navbar-nav navbar-right">
+          <div class="navbar-header">
+          <% if client_signed_in? %>
+            <!-- Logged in as <strong><%= current_user.email %></strong>. -->
+            <%= link_to 'Edit profile', edit_client_path(current_user), :class => 'navbar-link' %>
+            <%= link_to 'Log out', session_path(current_user), method: :delete, :class => 'navbar-link' %><span class="glyphicon glyphicon-user"></span>
+          <% elsif business_signed_in? %>  
+            <!-- Logged in as <strong><%= current_user.email %></strong>. -->
+            <%= link_to 'Edit profile', edit_business_path, :class => 'navbar-link' %>
+            <%= link_to "Logout", destroy_session_path, method: :delete, :class => 'navbar-link' %><span class="glyphicon glyphicon-user"></span>
+          <% else %>
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Sign Up
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to "Clients", new_client_path, :class => 'navbar-link' %><span class="glyphicon glyphicon-user"></span></li>
+                  <li><%= link_to "Businesses", new_business_path, :class => 'navbar-link' %><span class="glyphicon glyphicon-user"></span></li>
+                </ul>
+              </li>
+            </ul>
+
+            <%= link_to "Login", new_session_path, :class => 'navbar-link' %><span class="glyphicon glyphicon-log-in"></span>
+          <% end %>
+          </div>
+        </div>
+      </div>
+    </nav>
 
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>
