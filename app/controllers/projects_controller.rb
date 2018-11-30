@@ -7,18 +7,20 @@ class ProjectsController < ApplicationController
 
     def new
         @project = Project.new
+        @project.build_client
     end
     
-    def create
+    def create 
         project = Project.new
         project.title = project_params[:title]
         project.business_id = project_params[:business_id].to_i
         
-        unless project_params[:client].blank?
-            project.client_id = Client.where(email: project_params[:client], type: "Client").first.id
+        if business_user?
+            project_client = project.find_or_build_by(project_params[:client_attributes])
+            project.save
+        else
+            project.save
         end
-
-        project.save
 
         flash[:notice] = "Project successfully created!"
         redirect_to project_path(project)
@@ -27,6 +29,6 @@ class ProjectsController < ApplicationController
     private
 
         def project_params
-            params.require(:project).permit(:title, :client_email, :client, :business_id, :client_id)
+            params.require(:project).permit(:title, :client_email, :client, :business_id, :client_id, client_attributes: [:first_name, :last_name, :email])
         end
 end

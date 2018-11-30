@@ -29,7 +29,7 @@ describe 'Feature Test: Projects', :type => :feature do
         expect(page).to have_content('Unauthorized Access.')
     end
 
-    it 'allows a business user to create a new project' do
+    it 'allows a business user to create a new project and a new client' do
         create_business_user
         create_client_user
 
@@ -40,13 +40,15 @@ describe 'Feature Test: Projects', :type => :feature do
 
         visit '/projects/new'
         fill_in('project[title]', with: 'Form Test Project')
-        fill_in('project[client]', with: 'test@test.com')
+        fill_in('project[client_attributes][first_name]', with: 'John')
+        fill_in('project[client_attributes][last_name]', with: 'Smith')
+        fill_in('project[client_attributes][email]', with: 'test@test.com')
         click_button('Submit')
 
         expect(Project.last.id).to eq(1)
+        expect(Client.last.email).to eq('test@test.com')
         expect(current_path).to eq('/projects/1')
         expect(page).to have_content("Form Test Project")
     end
-
     
 end

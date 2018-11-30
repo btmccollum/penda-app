@@ -1,2 +1,7 @@
 <h1><%= @project.title %></h1>
 
+<% if @project.client %>
+    Client: <%= @project.client.first_name %> <%= @project.client.last_name %>
+<% else %>
+    <%= link_to "Add a Client", new_project_client_path(@project, @project.build_client) %>
+<% end %>

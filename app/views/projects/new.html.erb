@@ -9,10 +9,23 @@
     </div>
   
     <% if has_permission? %>
-      <div class="field">
-        <%= f.label "client_email" %><br />
-        <%= f.text_field :client, autofocus: true, autocomplete: "client email" %>
-      </div>
+    Client Information:
+      <%= f.fields_for :client do |c| %>
+        <div class="field">
+          <%= c.label :first_name %>
+          <%= c.text_field :first_name, autofocus: true, autocomplete: "title" %>
+        </div> 
+
+        <div class="field">
+          <%= c.label :last_name %>
+          <%= c.text_field :last_name, autofocus: true, autocomplete: "title" %>
+        </div>
+
+        <div class="field">
+          <%= c.label :email %>
+          <%= c.text_field :email, autofocus: true, autocomplete: "title" %>
+        </div>
+      <% end %>
     <% end %>
 
     <div class="actions">

@@ -32,4 +32,8 @@ private
             end
         end
     end
+
+    def business_user?
+        current_user.class.name == "Business"
+    end
 end
