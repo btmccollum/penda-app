@@ -4,6 +4,9 @@ class Project < ApplicationRecord
     has_one :contract
     has_many :comments
 
+    validates :title, presence: true
+    # validate :title_not_blank
+
     accepts_nested_attributes_for :client
 
     def last_updated
@@ -23,4 +26,18 @@ class Project < ApplicationRecord
             self.client
         end
     end
+
+    def add_form_errors
+        self.errors.add(:title, "cannot be blank.") if self.title.blank?
+        self.client.errors.add(:first_name, "cannot be blank.") if self.client.first_name.blank?
+        self.client.errors.add(:last_name, "cannot be blank.") if self.client.last_name.blank?
+        self.client.errors.add(:email, "cannot be blank.") if self.client.email.blank?
+    end
+
+    # def title_not_blank
+    #     binding.pry
+    #     if title.blank?
+    #         errors.add(:title, "can't be blank.")
+    #     end
+    # end
 end

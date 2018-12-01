@@ -2,6 +2,21 @@
 
 <%= form_for @project do |f| %>
     <%= f.hidden_field :business_id, :value => current_user.id %>
+
+    <% if @project.errors.any? || @project.client.errors.any? %>
+        <div id="error_explanation">
+          <h2> Oops! Looks like something was missing. </h2>
+          <ul>
+                <% @project.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+  
+                <% @project.client.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+          </ul>
+        </div>
+    <% end %>
   
     <div class="field">
       <%= f.label :title %><br />
@@ -23,7 +38,7 @@
 
         <div class="field">
           <%= c.label :email %>
-          <%= c.text_field :email, autofocus: true, autocomplete: "title" %>
+          <%= c.email_field :email, autofocus: true, autocomplete: "title" %>
         </div>
       <% end %>
     <% end %>
