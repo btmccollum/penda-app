@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 2018_12_03_175240) do
     t.text "content"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.boolean "finished"
+    t.boolean "finished", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
