@@ -5,3 +5,15 @@
 <% else %>
     <%= link_to "Add a Client", new_project_client_path(@project, @project.build_client) %>
 <% end %>
+
+<p><strong>Time Entries:</strong></p>
+
+<ul class="list-group">
+    <% if @project.timeevents != [] %>
+        <% current_user.projects.each do |p| %>
+            <li class="list-group-item"><strong>Title:</strong> <%= link_to p.title, project_path(p) %> | <strong>Billable Hours:</strong> Filler | <strong>Last Update:</strong> <%= p.last_updated %></li>
+        <% end %>
+    <% else %>
+        No current projects. Click 'Create Project' to get started.
+    <% end %>
+</ul>
