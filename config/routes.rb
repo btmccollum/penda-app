@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :sessions, only: %i[new create destroy]
   resources :projects do
     resources :clients, only: %i[new create]
+    resources :time_entries
   end
 
   root 'home#front'

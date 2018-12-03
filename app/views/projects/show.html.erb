@@ -8,12 +8,14 @@
 
 <p><strong>Time Entries:</strong></p>
 
+<p><%= button_to 'Add New Entry', new_project_time_entry_path(@project), class: 'btn btn-primary', method: :get %></p>
+
 <ul class="list-group">
-    <% if @project.timeevents != [] %>
-        <% current_user.projects.each do |p| %>
-            <li class="list-group-item"><strong>Title:</strong> <%= link_to p.title, project_path(p) %> | <strong>Billable Hours:</strong> Filler | <strong>Last Update:</strong> <%= p.last_updated %></li>
+    <% if @project.time_entries != [] %>
+        <% current_user.projects.each do |t| %>
+            <li class="list-group-item"><strong>Title:</strong> <%= link_to "Time Entry:", project_time_entry_path(@project, t) %> | <strong>Billable Hours:</strong> Filler </li>
         <% end %>
     <% else %>
-        No current projects. Click 'Create Project' to get started.
+        No recorded time entries. Click 'Add New Entry' to get started.
     <% end %>
 </ul>
