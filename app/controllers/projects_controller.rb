@@ -34,7 +34,6 @@ class ProjectsController < ApplicationController
                 redirect_to project_path(project)
             end
         else
-            binding.pry
             project = Project.create(project_params)
 
             flash[:notice] = "Project successfully created!"
