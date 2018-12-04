@@ -8,13 +8,17 @@ class ClientsController < ApplicationController
 
     def create
         @client = Client.create(client_params)
-        session[:user_id] = @client.id
-        
-        redirect_to dashboard_path
+        if @client.valid?
+            session[:user_id] = @client.id
+            
+            redirect_to dashboard_path, flash[:notice] = "Account successfully created!"
+        else
+            render :new
+        end
     end
 
     def show
-        
+
     end
 
     def edit
@@ -27,15 +31,12 @@ class ClientsController < ApplicationController
             if @client && @client.authenticate(client_params[:password])
                 @client.update(client_params)
 
-                flash[:notice] = "Your account has been updated."
-                redirect_to dashboard_path
+                redirect_to dashboard_path, flash[:notice] = "Your account has been updated."
             else 
-                flash[:alert] = "Unable to authenticate password."
-                render :edit
+                render :edit, flash[:alert] = "Unable to authenticate password."
             end
         else
-            flash[:alert] = "Passwords must match."
-            render :edit
+            render :edit, flash[:alert] = "Passwords must match."
         end
     end
 
@@ -43,8 +44,7 @@ class ClientsController < ApplicationController
         User.destroy(current_user.id)
         reset_session
 
-        flash[:alert] = "Account was successfully deleted. We're sad to see you go :("
-        redirect_to root_path
+        redirect_to root_path, flash[:alert] = "Account was successfully deleted. We're sad to see you go :("
     end
 
     private

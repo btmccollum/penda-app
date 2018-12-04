@@ -7,9 +7,14 @@ class BusinessesController < ApplicationController
     end
 
     def create
-        business = Business.create(business_params)
-        session[:user_id] = business.id
-        redirect_to dashboard_path
+        @business = Business.create(business_params)
+        if @business.valid?
+            session[:user_id] = @business.id
+            
+            redirect_to dashboard_path, flash[:notice] = "Account successfully created!"
+        else
+            render :new
+        end
     end
 
     def show
@@ -26,11 +31,9 @@ class BusinessesController < ApplicationController
             if @business && @business.authenticate(business_params[:password])
                 @business.update(business_params)
 
-                flash[:notice] = "Your account has been updated."
-                redirect_to dashboard_path
+                redirect_to dashboard_path, flash[:notice] = "Your account has been updated."
             else 
-                flash[:alert] = "Unable to authenticate password."
-                render :edit
+                render :edit, flash[:alert] = "Unable to authenticate password."
             end
         else
             flash[:alert] = "Passwords must match."
@@ -42,8 +45,7 @@ class BusinessesController < ApplicationController
         User.destroy(current_user.id)
         reset_session
 
-        flash[:alert] = "Account was successfully deleted. We're sad to see you go :("
-        redirect_to root_path
+        redirect_to root_path, flash[:alert] = "Account was successfully deleted. We're sad to see you go :("
     end
 
     private
