@@ -1,5 +1,5 @@
 class BusinessesController < ApplicationController
-    before_action :signed_in?, only: %i[edit update show destroy]
+    before_action :signed_in?, only: %i[show edit update destroy]
     before_action :user_is_owner?, only: %i[show edit update destroy]
 
     def new

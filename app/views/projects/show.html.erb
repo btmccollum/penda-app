@@ -17,9 +17,9 @@
 <p>Displaying the five most recent entries:</p>
 
 <ul class="list-group">
-    <% if @project.time_entries != [] %>
-        <% @project.time_entries.each do |t| %>
-            <li class="list-group-item"><strong>Title:</strong> <%= link_to t.title, time_entry_path(@project, t) %> | <strong>Duration:</strong> <%= time_duration(t) %> </li>
+    <% if @project.time_entries != [] %> 
+        <% latest_entries.each do |t| %> <!-- see projects helper -->
+            <li class="list-group-item"><strong>Title:</strong> <%= link_to t.title, time_entry_path(@project, t) %> | <strong>Duration:</strong> <%= time_duration(t) %> | <strong>Created:</strong> <%= t.created_at.strftime("%A, %d %b %Y %l:%M %p") %></li>
         <% end %>
     <% else %>
         No recorded time entries. Click 'Add New Entry' to get started.

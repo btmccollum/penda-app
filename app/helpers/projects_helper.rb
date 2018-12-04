@@ -12,4 +12,8 @@ module ProjectsHelper
             "#{total} Seconds"
         end
     end
+
+    def latest_entries
+        Project.last_five(@project)
+    end
 end
