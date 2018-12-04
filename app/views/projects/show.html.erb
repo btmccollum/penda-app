@@ -13,7 +13,7 @@
 <ul class="list-group">
     <% if @project.time_entries != [] %>
         <% @project.time_entries.each do |t| %>
-            <li class="list-group-item"><strong>Title:</strong> <%= link_to "Time Entry:", time_entry_path(@project, t) %> | <strong>Duration:</strong> <%= t.end_time - t.start_time %> </li>
+            <li class="list-group-item"><strong>Title:</strong> <%= link_to "Time Entry:", time_entry_path(@project, t) %> | <strong>Duration:</strong> <%= time_duration(t) %> </li>
         <% end %>
     <% else %>
         No recorded time entries. Click 'Add New Entry' to get started.

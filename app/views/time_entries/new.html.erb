@@ -14,6 +14,10 @@
 
     <%= f.hidden_field :project_id, :value => @time_entry.project.id %>
 
+    <div class="field">
+        <%= f.label :title, "Title:" %><br>
+        <%= f.text_field :title %>
+
     <div class="field-with-errors">
         <%= f.label :start_time, "Start Time:" %><br>
         <%= f.text_field :start_time, value: Time.now.strftime("%I:%M:%S %p"), autofocus: true, autocomplete: "start time" %>

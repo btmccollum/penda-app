@@ -9,7 +9,7 @@ class TimeEntriesController < ApplicationController
     def create
         project = Project.find(time_entry_params[:project_id])
         time_entry = project.time_entries.build(time_entry_params)
-        time_entry.end_time = Time.now
+        time_entry.end_time = Time.now.strftime("%I:%M:%S %p")
         time_entry.finished = true
         time_entry.save
 
@@ -19,7 +19,7 @@ class TimeEntriesController < ApplicationController
     private
 
     def time_entry_params
-        params.require(:time_entry).permit(:project_id, :start_time, :end_time, :content)
+        params.require(:time_entry).permit(:project_id, :title, :start_time, :end_time, :content)
     end
 
 end
