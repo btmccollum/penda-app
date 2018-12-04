@@ -18,6 +18,7 @@ class TimeEntriesController < ApplicationController
         time_entry.finished = true
         time_entry.save
 
+        flash[:notice] = "Entry Successfully Added."
         redirect_to project_path(time_entry.project)
     end
 

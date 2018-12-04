@@ -28,7 +28,8 @@ class ProjectsController < ApplicationController
                 project.save
             end
 
-            redirect_to project_path(project), flash[:notice] = "Project successfully created!"
+            flash[:notice] = "Project successfully created!"
+            redirect_to project_path(project)
         end
     end
 

@@ -11,7 +11,8 @@ class ClientsController < ApplicationController
         if @client.valid?
             session[:user_id] = @client.id
             
-            redirect_to dashboard_path, flash[:notice] = "Account successfully created!"
+            flash[:notice] = "Account successfully created!"
+            redirect_to dashboard_path
         else
             render :new
         end
@@ -31,12 +32,15 @@ class ClientsController < ApplicationController
             if @client && @client.authenticate(client_params[:password])
                 @client.update(client_params)
 
-                redirect_to dashboard_path, flash[:notice] = "Your account has been updated."
+                flash[:notice] = "Your account has been updated."
+                redirect_to dashboard_path
             else 
-                render :edit, flash[:alert] = "Unable to authenticate password."
+                flash[:alert] = "Unable to authenticate password."
+                render :edit
             end
         else
-            render :edit, flash[:alert] = "Passwords must match."
+            flash[:alert] = "Passwords must match."
+            render :edit
         end
     end
 
@@ -44,7 +48,8 @@ class ClientsController < ApplicationController
         User.destroy(current_user.id)
         reset_session
 
-        redirect_to root_path, flash[:alert] = "Account was successfully deleted. We're sad to see you go :("
+        flash[:alert] = "Account was successfully deleted. We're sad to see you go :("
+        redirect_to root_path
     end
 
     private

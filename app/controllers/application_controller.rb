@@ -10,13 +10,15 @@ private
 
     def signed_in?
         unless current_user
-            redirect_to 'sessions/new', flash[:danger] = "Please log in."
+            flash[:danger] = "Please log in."
+            redirect_to 'sessions/new'
         end
     end
 
     def user_is_owner?
         if params[:id].to_i != current_user.id
-            redirect_to root_path, flash[:alert] = "Unauthorized Access."
+            flash[:alert] = "Unauthorized Access."
+            redirect_to root_path
         end
     end
 

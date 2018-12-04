@@ -10,6 +10,8 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  scope :locate_by_oauth, ->(auth) { where(provider: auth[:provider], uid: auth[:uid]).first }
+
   def self.create_from_oauth(auth)
     User.find_or_create_by(email: auth[:info][:email]) do |u|
       u.username = auth[:info][:email]
