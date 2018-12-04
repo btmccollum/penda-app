@@ -1,8 +1,6 @@
 module TimeEntriesHelper
     def time_duration(time)
-        start_time = time.start_time.to_f    
-        end_time = time.end_time.to_f
-        total = ((end_time - start_time)).round(2)
+        total = time.duration.to_f
 
         if total >= 3600
             new_total = ((total / 60) / 60).round(2)

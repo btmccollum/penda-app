@@ -6,7 +6,6 @@ class Project < ApplicationRecord
     has_many :comments
 
     validates :title, presence: true
-    # validate :title_not_blank
 
     accepts_nested_attributes_for :client
 
@@ -35,10 +34,7 @@ class Project < ApplicationRecord
         self.client.errors.add(:email, "cannot be blank.") if self.client.email.blank?
     end
 
-    # def title_not_blank
-    #     binding.pry
-    #     if title.blank?
-    #         errors.add(:title, "can't be blank.")
-    #     end
-    # end
+    def billable_hours
+        self.time_entries.sum("duration").to_f
+    end
 end

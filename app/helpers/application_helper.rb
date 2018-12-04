@@ -8,4 +8,8 @@ module ApplicationHelper
         @current_user ||= User.find(session[:user_id])
     end
 
+    def business_user?
+        current_user.class.name == "Business"
+    end
+
 end

@@ -1,19 +1,22 @@
 <h1><%= @project.title %></h1>
 
-<% if @project.client %>
-    Client: <%= @project.client.first_name %> <%= @project.client.last_name %>
+<% if business_user? %>
+    <p>
+    <strong>Client:</strong> <%= @project.client.first_name %> <%= @project.client.last_name %><br>
+    <strong>Total Billable Time:</strong> <%= project_total_hours %>
+    <p>
 <% else %>
-    <%= link_to "Add a Client", new_project_client_path(@project, @project.build_client) %>
+    <strong>Total Time:</strong> <%= project_total_hours %>
 <% end %>
 
-<p><strong>Time Entries:</strong></p>
+<h2>Time Entries:</h2>
 
 <p><%= button_to 'Add New Entry', new_project_time_entry_path(@project), class: 'btn btn-primary', method: :get %></p>
 
 <ul class="list-group">
     <% if @project.time_entries != [] %>
         <% @project.time_entries.each do |t| %>
-            <li class="list-group-item"><strong>Title:</strong> <%= link_to "Time Entry:", time_entry_path(@project, t) %> | <strong>Duration:</strong> <%= time_duration(t) %> </li>
+            <li class="list-group-item"><strong>Title:</strong> <%= link_to t.title, time_entry_path(@project, t) %> | <strong>Duration:</strong> <%= time_duration(t) %> </li>
         <% end %>
     <% else %>
         No recorded time entries. Click 'Add New Entry' to get started.
