@@ -1,13 +1,16 @@
 <h1>Projects:</h1>
+
 <div class="btn-group" role="group">
     <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Status
     </button>
     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+        <%= link_to "Show All", dashboard_path, class: "dropdown-item" %>
         <%= link_to "Active", {controller: "home", action: "dashboard", status: "active"}, class: "dropdown-item" %>
         <%= link_to "Completed", {controller: "home", action: "dashboard", status: "completed"}, class: "dropdown-item" %>
     </div>
 </div>
+
 <ul class="list-group">
     <% if @projects != [] %>
         <% @projects.each do |p| %>

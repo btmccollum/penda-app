@@ -23,6 +23,7 @@ class Project < ApplicationRecord
         result = Client.find_by(email: args[:email])
         if result 
             self.client = result
+            self.client.skip_password_req = true
         else
             self.build_client(args)
             self.client.type = "Client"

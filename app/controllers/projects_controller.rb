@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+    before_action :signed_in?
     before_action :has_permission?, except: %i[index show]
 
     def show
@@ -27,7 +28,6 @@ class ProjectsController < ApplicationController
             else
                 project.save
             end
-
             flash[:notice] = "Project successfully created!"
             redirect_to project_path(project)
         end
