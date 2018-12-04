@@ -1,7 +1,11 @@
 <h1>Create a New Project</h1>
 
 <%= form_for @project do |f| %>
-    <%= f.hidden_field :business_id, :value => current_user.id %>
+    <% if business_user? %>
+      <%= f.hidden_field :business_id, :value => current_user.id %>
+    <% else %>
+      <%= f.hidden_field :client_id, :value => current_user.id %>
+    <% end %>
 
     <% if @project.errors.any? || @project.client.errors.any? %>
         <div id="error_explanation">
