@@ -27,12 +27,15 @@ Specs:
     - Same as above, I started with Devise but instead created a custom log out route for both types of users through a singular Sessions controller
 - [x] Include third party signup/login (how e.g. Devise/OmniAuth)
     - Same as above, a custom Sessions controller currently permits a user to login/signup through Facebook and Google
-- [ ] Include nested resource show or index (URL e.g. users/2/recipes)
-- [ ] Include nested resource "new" form (URL e.g. recipes/1/ingredients/new)
-- [ ] Include form display of validation errors (form URL e.g. /recipes/new)
+- [] Include nested resource show or index (URL e.g. users/2/recipes) 
+- [x] Include nested resource "new" form (URL e.g. recipes/1/ingredients/new)
+    - time entries: /projects/:project_id/time_entries/new
+- [x] Include form display of validation errors (form URL e.g. /recipes/new)
+    - forms display validation errors
 
 Confirm:
 - [ ] The application is pretty DRY
 - [ ] Limited logic in controllers
 - [ ] Views use helper methods if appropriate
-- [ ] Views use partials if appropriate
+- [x] Views use partials if appropriate
+    -partials used for user forms

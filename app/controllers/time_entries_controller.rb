@@ -1,5 +1,9 @@
 class TimeEntriesController < ApplicationController
     before_action :signed_in?
+
+    def index
+        @project = Project.find(params[:project_id])
+    end
     
     def new
         project = Project.find(params[:project_id])

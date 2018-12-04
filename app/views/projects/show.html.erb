@@ -12,6 +12,9 @@
 <h2>Time Entries:</h2>
 
 <p><%= button_to 'Add New Entry', new_project_time_entry_path(@project), class: 'btn btn-primary', method: :get %></p>
+<p><%= button_to 'All Time Entries', project_time_entries_path(@project), class: 'btn btn-primary', method: :get %></p>
+
+<p>Displaying the five most recent entries:</p>
 
 <ul class="list-group">
     <% if @project.time_entries != [] %>
