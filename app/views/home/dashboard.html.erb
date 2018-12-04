@@ -3,7 +3,7 @@ Projects:
 <ul class="list-group">
     <% if current_user.projects != [] %>
         <% current_user.projects.each do |p| %>
-            <li class="list-group-item"><strong>Title:</strong> <%= link_to p.title, project_path(p) %> | <strong>Billable Hours:</strong> Filler | <strong>Last Update:</strong> <%= p.last_updated %></li>
+            <li class="list-group-item"><strong>Title:</strong> <%= link_to p.title, project_path(p) %> | <strong>Time Invested:</strong> <%= project_total_hours(p) %>  | <strong>Last Update:</strong> <%= p.last_updated %></li>
         <% end %>
     <% else %>
         No current projects. Click 'Create Project' to get started.

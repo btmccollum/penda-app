@@ -3,10 +3,10 @@
 <% if business_user? %>
     <p>
     <strong>Client:</strong> <%= @project.client.first_name %> <%= @project.client.last_name %><br>
-    <strong>Total Billable Time:</strong> <%= project_total_hours %>
+    <strong>Total Billable Time:</strong> <%= project_total_hours(@project) %>
     <p>
 <% else %>
-    <strong>Total Time:</strong> <%= project_total_hours %>
+    <strong>Total Time:</strong> <%= project_total_hours(@project) %>
 <% end %>
 
 <h2>Time Entries:</h2>
