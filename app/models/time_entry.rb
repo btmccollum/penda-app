@@ -2,6 +2,8 @@ class TimeEntry < ApplicationRecord
     belongs_to :project
     has_many :comments
 
+    validates :title, presence: true
+    validates :content, presence: true
     validates :start_time, presence: true
     validates :end_time, presence: true
 

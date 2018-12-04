@@ -11,8 +11,12 @@
 
 <h2>Time Entries:</h2>
 
-<p><%= button_to 'Add New Entry', new_project_time_entry_path(@project), class: 'btn btn-primary', method: :get %></p>
-<p><%= button_to 'All Time Entries', project_time_entries_path(@project), class: 'btn btn-primary', method: :get %></p>
+<div class="te-display-group">
+    <div class="btn-group" role="group" aria-label="Button group for time entries">
+        <%= button_to 'Add New Entry', new_project_time_entry_path(@project), class: 'btn btn-primary', method: :get %>
+        <%= button_to 'All Time Entries', project_time_entries_path(@project), class: 'btn btn-secondary', method: :get %>
+    </div> <!-- btn-group -->
+</div> <!-- row -->
 
 <p>Displaying the five most recent entries:</p>
 

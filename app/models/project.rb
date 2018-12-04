@@ -9,8 +9,11 @@ class Project < ApplicationRecord
 
     accepts_nested_attributes_for :client
 
-    #find last 5 time entries for a given project
     scope :last_five, ->(p) { where(id: p.id).first.time_entries.order("created_at DESC").limit(5) }
+    scope :by_active, -> { where(status: "active") }
+        scope :by_user_active, ->(user) { by_active.where(business_id: user.id).or(by_active.where(client_id: user.id))}
+    scope :by_completed, -> { where(status: "completed") }
+        scope :by_user_completed, ->(user) { by_completed.where(business_id: user.id).or(by_active.where(client_id: user.id))}
 
     def last_updated
         self.updated_at.strftime("%A, %d %b %Y %l:%M %p")
