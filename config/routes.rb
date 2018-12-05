@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :projects, shallow: true do
     resources :clients, only: %i[new create]
     resources :time_entries, only: %i[index show new create]
+    resources :comments, only: %i[index]
   end
 
   root 'home#front'

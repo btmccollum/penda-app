@@ -1,16 +1,16 @@
 class CommentsController < ApplicationController
-    before_action :signed_in?, only: %i[create edit destroy]
-    
+    before_action :signed_in?, only: %i[new create edit destroy]
+
     def index
     end
 
     def create
         project = Project.find(comment_params[:project_id])
-        if !comment_params[:content].blank?
-            comment = project.comments.create(comment_params)
+        @comment = project.comments.create(comment_params)
+        if @comment.valid?
             redirect_back(fallback_location: project_path(project))
         else
-            flash[:alert] = comment.errors.full_messages
+            @comment.errors.map {|x,y| flash[:alert] = "Message #{x.to_s} #{y}" }
             redirect_back(fallback_location: project_path(project))
         end
     end

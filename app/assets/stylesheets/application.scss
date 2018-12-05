@@ -25,6 +25,16 @@
     background-color: red;
     display: table;
   }
+
+  .error {
+    font-style: italic;
+    font-size: 80%;
+  } 
+  .alert {
+    font-style: italic;
+    font-size: 80%;
+  }
+
   
  // Custom bootstrap variables must be set or imported *before* bootstrap. 
 //  @import "bootstrap";

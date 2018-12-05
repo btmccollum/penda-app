@@ -47,12 +47,14 @@
     <% end %>
 </ul>
 
+<h2>Join the Conversation:</h2>
+
 <p><%= render partial: 'comments/comment', locals: {comment: @comment} %></p>
 
 <% if permitted_to_take_action? %>
     <div class="te-display-group">
         <div class="btn-group" role="group" aria-label="Button group for project status">
-            <p><%= button_to 'Mark Project Completed', project_path(@project), class: 'btn btn-primary', method: :patch %><p>
+            <p><%= button_to 'Mark Project Completed', project_path(@project), data: { confirm: "Are you sure?" }, class: 'btn btn-danger', method: :patch %><p>
         </div> <!-- btn-group -->
     </div> <!-- row -->
 <% end %>
