@@ -12,7 +12,7 @@
 
 <h2>Time Entries:</h2>
 
-<% if permitted_to_add_entries? %>
+<% if permitted_to_take_action? %>
     <div class="te-display-group">
         <div class="btn-group" role="group" aria-label="Button group for time entries">
             <%= button_to 'Add New Entry', new_project_time_entry_path(@project), class: 'btn btn-primary', method: :get %>
@@ -35,8 +35,10 @@
     <% end %>
 </ul>
 
-<div class="te-display-group">
-    <div class="btn-group" role="group" aria-label="Button group for project status">
-        <p><%= button_to 'Mark Project Completed', project_path(@project), class: 'btn btn-primary', method: :patch %><p>
-    </div> <!-- btn-group -->
-</div> <!-- row -->
+<% if permitted_to_take_action? %>
+    <div class="te-display-group">
+        <div class="btn-group" role="group" aria-label="Button group for project status">
+            <p><%= button_to 'Mark Project Completed', project_path(@project), class: 'btn btn-primary', method: :patch %><p>
+        </div> <!-- btn-group -->
+    </div> <!-- row -->
+<% end %>

@@ -17,7 +17,7 @@ module ProjectsHelper
         Project.last_five(@project)
     end
 
-    def permitted_to_add_entries?
+    def permitted_to_take_action?
         (@project.business_id && current_user.type == "Business") || (@project.business_id.nil? && current_user.type == "Client")
     end
 end
