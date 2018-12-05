@@ -18,7 +18,7 @@ Specs:
     - A project has many attributes that are submittable by the business, and a client can view these and has the ability to make comments to the business
 - [x] Include reasonable validations for simple model objects (list of model objects with validations e.g. User, Recipe, Ingredient, Item)
     - A user has many validations for key data such as validating the uniqueness of a username and email, and expects that information such as first name, last name, password, password confirmation, etc. are present
-- [ ] Include a class level ActiveRecord scope method (model object & class method name and URL to see the working feature e.g. User.most_recipes URL: /users/most_recipes)
+- [x] Include a class level ActiveRecord scope method (model object & class method name and URL to see the working feature e.g. User.most_recipes URL: /users/most_recipes)
 - [x] Include signup (how e.g. Devise) 
     - Started with Devise but instead created a custom sign up system for both types of users
 - [x] Include login (how e.g. Devise)
@@ -27,15 +27,16 @@ Specs:
     - Same as above, I started with Devise but instead created a custom log out route for both types of users through a singular Sessions controller
 - [x] Include third party signup/login (how e.g. Devise/OmniAuth)
     - Same as above, a custom Sessions controller currently permits a user to login/signup through Facebook and Google
-- [] Include nested resource show or index (URL e.g. users/2/recipes) 
+- [x] Include nested resource show or index (URL e.g. users/2/recipes)
+    - project time entries index, '/projects/:project_id/time_entries'
 - [x] Include nested resource "new" form (URL e.g. recipes/1/ingredients/new)
-    - time entries: /projects/:project_id/time_entries/new
+    - new time entries for projects '/projects/:project_id/time_entries/new'
 - [x] Include form display of validation errors (form URL e.g. /recipes/new)
     - forms display validation errors
 
 Confirm:
-- [ ] The application is pretty DRY
-- [ ] Limited logic in controllers
-- [ ] Views use helper methods if appropriate
+- [x] The application is pretty DRY
+- [x] Limited logic in controllers
+- [x] Views use helper methods if appropriate
 - [x] Views use partials if appropriate
     -partials used for user forms
