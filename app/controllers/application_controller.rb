@@ -15,6 +15,13 @@ private
         end
     end
 
+    def already_signed_in?
+        if current_user
+            flash[:notice] = "You are already signed in."
+            redirect_to dashboard_path
+        end
+    end
+
     def user_is_owner?
         if params[:id].to_i != current_user.id
             flash[:alert] = "Unauthorized Access."

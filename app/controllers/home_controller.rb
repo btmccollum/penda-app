@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   before_action :signed_in?, only: %i[dashboard]
+  before_action :already_signed_in?, only: %i[front choice]
   layout "welcome_screen", only: %i[front choice]
 
   def front         
