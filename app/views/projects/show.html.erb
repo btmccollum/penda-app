@@ -32,3 +32,9 @@
         No recorded time entries. 
     <% end %>
 </ul>
+
+<div class="te-display-group">
+    <div class="btn-group" role="group" aria-label="Button group for project status">
+        <p><%= button_to 'Mark Project Completed', project_path(@project), class: 'btn btn-primary', method: :patch %><p>
+    </div> <!-- btn-group -->
+</div> <!-- row -->

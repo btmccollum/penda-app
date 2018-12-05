@@ -41,6 +41,12 @@ class ProjectsController < ApplicationController
         end
     end
 
+    def update
+        project = Project.find(params[:id])
+        project.update(status: "completed")
+        redirect_to dashboard_path
+    end
+
     private
 
         def project_params
