@@ -20,4 +20,8 @@ module ProjectsHelper
     def permitted_to_take_action?
         (@project.business_id && current_user.type == "Business") || (@project.business_id.nil? && current_user.type == "Client")
     end
+
+    def recent_comments
+        Comment.last_ten_comments(@project)
+    end
 end

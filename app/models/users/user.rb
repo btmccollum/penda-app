@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-
   attr_accessor :skip_password_req
   
   has_many :comments

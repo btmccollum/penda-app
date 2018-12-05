@@ -1,0 +1,22 @@
+<%= form_for comment do |f| %>
+    <% if comment.errors.any? %>
+      <div id="error_explanation">
+        <h2> Oops! Looks like something was missing. </h2>
+        <ul>
+          <% comment.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= f.hidden_field :project_id, :value => @project.id %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+  
+    <div class="field-with-errors">
+      <%= f.label :content, "Message:" %><br>
+      <%= f.text_field :content, autofocus: true, autocomplete: "content" %>
+    </div>
+
+    <%= f.submit "Submit", class: "btn btn-primary" %>
+<% end %>

@@ -35,6 +35,20 @@
     <% end %>
 </ul>
 
+<h2>Conversation History:</h2>
+
+<ul class="list-group">
+    <% if @project.comments.exists? %> 
+        <% recent_comments.each do |c| %> <!-- see projects helper -->
+            <li class="list-group-item"><strong><%= c.user.username %></strong> says: <%= c.content %> | <strong>Posted at:</strong> <%= c.created_at.strftime("%A, %d %b %Y %l:%M %p") %></li>
+        <% end %>
+    <% else %>
+        No comments yet. 
+    <% end %>
+</ul>
+
+<p><%= render partial: 'comments/comment', locals: {comment: @comment} %></p>
+
 <% if permitted_to_take_action? %>
     <div class="te-display-group">
         <div class="btn-group" role="group" aria-label="Button group for project status">
