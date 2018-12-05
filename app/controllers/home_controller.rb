@@ -1,8 +1,11 @@
 class HomeController < ApplicationController
   before_action :signed_in?, only: %i[dashboard]
+  layout "welcome_screen", only: %i[front choice]
 
   def front         
-    @user = current_user
+  end
+
+  def choice
   end
 
   def dashboard
@@ -14,4 +17,6 @@ class HomeController < ApplicationController
       @projects = current_user.projects
     end
   end
+
+  
 end

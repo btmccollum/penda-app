@@ -19,6 +19,8 @@
             <%= button_to 'All Time Entries', project_time_entries_path(@project), class: 'btn btn-secondary', method: :get %>
         </div> <!-- btn-group -->
     </div> <!-- row -->
+<% else %>
+    <%= button_to 'All Time Entries', project_time_entries_path(@project), class: 'btn btn-secondary', method: :get %>
 <% end %>
 
 <p>Displaying the five most recent entries:</p>

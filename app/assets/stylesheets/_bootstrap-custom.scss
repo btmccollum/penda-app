@@ -43,4 +43,62 @@
  
  body {
     background-color: rgba(240, 252, 255, .5);
+    height: 100%;
+  }
+  
+  #welcome-splash {
+    background: rgb(2, 236, 146);
+    color: #ffffff;
+    border-radius: 50%;
+    border: 2px solid rgba(202, 201, 201, 0.322);
+    width: 420px;
+    margin: 8% auto 0 auto;
+    box-sizing: border-box;
+    position: relative;
+    -webkit-box-shadow: 2px 2px 5px 0px rgba(173, 173, 173, 0.61);
+    -moz-box-shadow: 2px 2px 5px 0px rgba(173, 173, 173, 0.61);
+    box-shadow: 2px 2px 5px 0px rgba(173, 173, 173, 0.61); 
+  }
+
+  #welcome-logo {
+    text-align: center;
+    font-family: rubik;
+    font-size: 600%;
+    // font-size: 6rem;
+    display: table;
+    padding-top: 75px;
+    padding-bottom: 40px;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-text-stroke-width: .5px;
+    -webkit-text-stroke-color: rgba(202, 201, 201, 0.322);
+  }
+
+  a#logo-link:link,
+  a#logo-link:visited,
+  a#logo-link:focus,
+  a#logo-link:hover,
+  a#logo-link:active {
+    text-decoration: none;
+    color: white;
+    -webkit-text-stroke-width: 3.5px;
+    -webkit-text-stroke-color: rgba(202, 201, 201, 0.322);
+  }
+
+  .choices-btn1 {
+    background: white;
+    // color: rgb(2, 236, 146);
+    color: rgb(2, 236, 146);
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-bottom: 100px;
+  }
+
+  .choices-btn2 {
+    background: white;
+    // color: rgb(2, 236, 146);
+    color: rgb(2, 236, 146);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-bottom: 100px;
   }

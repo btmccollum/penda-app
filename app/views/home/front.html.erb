@@ -1,9 +1,11 @@
-<% if signed_in? %>
-  <h1><%= current_user.username %></h1>
-  <h2>Email: <%= current_user.email %></h2>
- 
-
-<% else %>
-  Sign up or log in to get started today!
-<% end %>
-
+<div id="welcome-splash">
+  <div id="welcome-logo">
+    <%= link_to "penda", root_path, id: "logo-link" %>
+    <div class="welcome-options">
+          <div class="btn-group" role="group" aria-label="Button group for time entries">
+              <%= button_to 'Sign Up', choice_path,  class: 'btn choices-btn1', method: :get %>
+              <%= button_to 'Log In', new_session_path, class: 'btn choices-btn2', method: :get %>
+          </div> <!-- btn-group -->
+    </div> <!-- .welcome-options -->
+  </div> <!-- .welcome-logo -->
+</div> <!-- .welcome-splash -->

@@ -2,10 +2,13 @@
 
 <%= render partial: 'client', locals: {client: @client} %>
 
+<br>
+<p><%= link_to "Back", :back, class: "btn btn-secondary" %></p>
+
 <h3>Delete Account</h3>
 
 Warning! This cannot be undone. You will need to create a new account if you wish to use this app in the future.
 
-<p><%= button_to "Cancel my account", client_path(@client), data: { confirm: "Are you sure?" }, method: :delete %></p>
+<p><%= button_to "Cancel my account", client_path(@client), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger" %></p>
 
-<%= link_to "Back", :back %>
+
