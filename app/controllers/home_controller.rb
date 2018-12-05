@@ -7,9 +7,9 @@ class HomeController < ApplicationController
 
   def dashboard
     if params[:status] == "active"
-      @projects = Project.by_user_active(current_user)
+      @projects = Project.active_projects(current_user)
     elsif params[:status] == "completed"
-      @projects = Project.by_user_completed(current_user)
+      @projects = Project.completed_projects(current_user)
     else
       @projects = current_user.projects
     end

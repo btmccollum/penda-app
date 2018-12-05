@@ -12,12 +12,14 @@
 
 <h2>Time Entries:</h2>
 
+<% if professional_use? && business_user? %>
 <div class="te-display-group">
     <div class="btn-group" role="group" aria-label="Button group for time entries">
         <%= button_to 'Add New Entry', new_project_time_entry_path(@project), class: 'btn btn-primary', method: :get %>
         <%= button_to 'All Time Entries', project_time_entries_path(@project), class: 'btn btn-secondary', method: :get %>
     </div> <!-- btn-group -->
 </div> <!-- row -->
+<% end %>
 
 <p>Displaying the five most recent entries:</p>
 
@@ -27,6 +29,6 @@
             <li class="list-group-item"><strong>Title:</strong> <%= link_to t.title, time_entry_path(@project, t) %> | <strong>Duration:</strong> <%= time_duration(t) %> | <strong>Created:</strong> <%= t.created_at.strftime("%A, %d %b %Y %l:%M %p") %></li>
         <% end %>
     <% else %>
-        No recorded time entries. Click 'Add New Entry' to get started.
+        No recorded time entries. 
     <% end %>
 </ul>

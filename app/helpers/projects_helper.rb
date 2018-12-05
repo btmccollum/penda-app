@@ -16,4 +16,8 @@ module ProjectsHelper
     def latest_entries
         Project.last_five(@project)
     end
+
+    def professional_use?
+        @project.business_id
+    end
 end
