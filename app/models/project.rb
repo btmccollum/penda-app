@@ -2,8 +2,8 @@ class Project < ApplicationRecord
     belongs_to :client, class_name: 'User', optional: true
     belongs_to :business, class_name: 'User', optional: true
     has_one :contract
-    has_many :time_entries
-    has_many :comments
+    has_many :time_entries, dependent: :destroy
+    has_many :comments, dependent: :destroy
 
     validates :title, presence: true
 

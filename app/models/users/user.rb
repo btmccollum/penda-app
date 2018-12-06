@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   attr_accessor :skip_password_req
   
-  has_many :comments
+  has_many :comments, dependent: :destroy
   
   validates :username, presence: true
   validates :email, presence: true

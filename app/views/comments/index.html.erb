@@ -3,7 +3,11 @@
 <ul class="list-group">
     <% if @project.comments.exists? %>
         <% @project.comments.each do |c| %>
-            <li class="list-group-item"><strong><%= c.user.username %></strong> says: <%= c.content %> | <strong>Posted at:</strong> <%= c.created_at.strftime("%A, %d %b %Y %l:%M %p") %></li>
+            <% if c.user == current_user %>
+                <li class="list-group-item"><strong><%= c.user.username %></strong> says: <%= c.content %> | <strong>Posted at:</strong> <%= c.created_at.strftime("%A, %d %b %Y %l:%M %p") %> <%= link_to "X", comment_path(c), data: { confirm: "Are you sure?" }, method: :delete, class: "btn-sm btn-danger pull-right" %></li>
+            <% else %>
+                <li class="list-group-item"><strong><%= c.user.username %></strong> says: <%= c.content %> | <strong>Posted at:</strong> <%= c.created_at.strftime("%A, %d %b %Y %l:%M %p") %></li>
+            <% end %>
         <% end %>
     <% else %>
         No recorded time entries. Click 'Add New Entry' to get started.
