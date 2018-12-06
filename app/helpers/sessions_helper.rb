@@ -4,13 +4,13 @@ module SessionsHelper
     end
 
     def client_signed_in?
-        if signed_in? && current_user.type = "Client"
+        if signed_in? && current_user.type == "Client"
             true
         end
     end
 
     def business_signed_in?
-        if signed_in? && current_user.type = "Business"
+        if signed_in? && current_user.type == "Business"
             true
         end
     end

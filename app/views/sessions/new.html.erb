@@ -1,23 +1,27 @@
-<h2>Welcome Back to Penda!</h2>
+<div id="welcome-splash-mini">
+    <div id="welcome-logo-mini">
+        <%= link_to "penda", root_path, id: "logo-link" %>
+    </div> 
+</div>
 
 <p>
-Log In With:
+Log in with:
 <%= link_to fa_stacked_icon('facebook', text: '', class: "fa-fw"), '/auth/facebook' %>
 <%= link_to fa_stacked_icon('google', text: '', class: "fa-fw"), '/auth/google_oauth2' %><br>
 </p>
 
 <%= form_tag '/sessions' do %>
-  <div class="field">
-      <strong>Email:</strong><br>
-      <%= email_field_tag :email, "", autofocus: true, autocomplete: "email", class: "field" %>
-    </div>
     
-  <div class="field">
-      <strong>Password:</strong><br>
-      <%= password_field_tag :password, "", autocomplete: "current-password", class: "field" %>
-  </div>
+    <div class="form-group col-md-4 mx-auto">
+        <strong>Email:</strong><br>
+        <%= email_field_tag :email, "", autofocus: true, autocomplete: "email", class: "form-control" %>
+    </div>
 
-  <br>
+    <div class="form-group col-md-4 mx-auto">
+        <strong>Password:</strong><br>
+        <%= password_field_tag :password, "", autofocus: true, autocomplete: "current-password", class: "form-control" %>
+    </div>
+
   <div class="actions">
       <p><%= submit_tag "Log In", class: "btn btn-primary" %></p>
   </div>
