@@ -1,15 +1,15 @@
 class BusinessesController < ApplicationController
     before_action :signed_in?, only: %i[edit update destroy]
     before_action :user_is_owner?, only: %i[edit update destroy]
-    layout "welcome_screen", only: %i[new]
+    layout "welcome_screen", only: %i[new create]
 
     def new
         @business = Business.new
     end
 
     def create
-        @business = Business.create(business_params)
-        if @business.valid?
+        @business = Business.new(business_params)
+        if @business.save
             session[:user_id] = @business.id
             
             flash[:notice] = "Account successfully created!"

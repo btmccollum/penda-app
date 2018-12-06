@@ -1,15 +1,15 @@
 class ClientsController < ApplicationController
     before_action :signed_in?, only: %i[edit update show destroy]
     before_action :user_is_owner?, only: %i[show edit update destroy]
-    layout "welcome_screen", only: %i[new]
+    layout "welcome_screen", only: %i[new create]
     
     def new
         @client = Client.new
     end
 
     def create
-        @client = Client.create(client_params)
-        if @client.valid?
+        @client = Client.new(client_params)
+        if @client.save
             session[:user_id] = @client.id
             
             flash[:notice] = "Account successfully created!"
