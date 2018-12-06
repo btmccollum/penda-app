@@ -12,14 +12,16 @@ class TimeEntriesController < ApplicationController
 
     def create
         project = Project.find(time_entry_params[:project_id])
-        time_entry = project.time_entries.build(time_entry_params)
-        time_entry.end_time = Time.now.strftime("%I:%M:%S %p")
-        time_entry.duration = time_entry.total_time
-        time_entry.finished = true
-        time_entry.save!
-
-        flash[:notice] = "Entry Successfully Added."
-        redirect_to project_path(time_entry.project)
+        @time_entry = project.time_entries.build(time_entry_params)
+        @time_entry.end_time = Time.now.strftime("%I:%M:%S %p")
+        @time_entry.duration = @time_entry.total_time
+        @time_entry.finished = true
+        if @time_entry.save
+            flash[:notice] = "Entry Successfully Added."
+            redirect_to project_path(@time_entry.project)
+        else
+            render :new
+        end
     end
 
     private
