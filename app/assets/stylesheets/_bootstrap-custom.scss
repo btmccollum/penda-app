@@ -42,14 +42,15 @@
  @import "bootstrap/print";
  
  body {
-    background-color: rgba(240, 252, 255, .5);
+    background-color: rgb(237, 242, 240);
     height: 100%;
   }
   
   #welcome-splash {
-    background: rgb(2, 236, 146);
+    // background: rgb(2, 236, 146);
     // background: rgb(246, 44, 115);
     // background: rgb(255, 0, 30);
+    background: rgb(72, 186, 131);
     color: #ffffff;
     border-radius: 50%;
     border: 2px solid rgba(202, 201, 201, 0.322);
@@ -82,24 +83,31 @@
   a#logo-link:hover,
   a#logo-link:active {
     text-decoration: none;
-    color: white;
+    color: rgb(201, 239, 221);
     -webkit-text-stroke-width: 3.5px;
-    -webkit-text-stroke-color: rgba(202, 201, 201, 0.322);
+    // -webkit-text-stroke-color: rgba(202, 201, 201, 0.322);
+    -webkit-text-stroke-color: rgb(72, 186, 131);
   }
 
   .choices-btn1 {
-    background: white;
+    // background: white;
+    // background: rgb(237, 242, 240);
+    background: rgb(201, 239, 221);
     // color: rgb(2, 236, 146);
-    color: rgb(2, 236, 146);
+    // color: rgb(2, 236, 146);
+    color: rgb(72, 186, 131);
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     margin-bottom: 100px;
   }
 
   .choices-btn2 {
-    background: white;
+    // background: white;
+    background: rgb(201, 239, 221);
+    // background: rgb(237, 242, 240);
     // color: rgb(2, 236, 146);
-    color: rgb(2, 236, 146);
+    // color: rgb(2, 236, 146);
+    color: rgb(72, 186, 131);
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     margin-bottom: 100px;

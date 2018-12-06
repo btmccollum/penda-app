@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
     before_action :already_signed_in?, only: %i[new create]
+    layout "welcome_screen", only: %i[new]
 
     def new
     end
