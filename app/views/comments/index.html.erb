@@ -1,7 +1,7 @@
 <h1>Displaying All Comments for <%= @project.title %>:</h1>
 
 <ul class="list-group">
-    <% if @project.time_entries != [] %>
+    <% if @project.comments.exists? %>
         <% @project.comments.each do |c| %>
             <li class="list-group-item"><strong><%= c.user.username %></strong> says: <%= c.content %> | <strong>Posted at:</strong> <%= c.created_at.strftime("%A, %d %b %Y %l:%M %p") %></li>
         <% end %>
