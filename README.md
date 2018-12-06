@@ -1,24 +1,31 @@
-# README
+# Penda
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Penda is a sample web app that gives businesses and clients the ability to come together for the sake of transparency in time tracking and billable hours, whether that's through freelance work, contract work, or otherwise. Additionally, users can use Penda in a non-professional capacity as a great time tracker and project management application. 
 
-Things you may want to cover:
+## Getting Started
 
-* Ruby version
+To get started, fork and close this repo.
 
-* System dependencies
+Run 'thin start --ssl' in your terminal to launch a local server and navigate to it (https://localhost:3000) - have fun!
 
-* Configuration
+### Motivation
 
-* Database creation
+This project largely exists to challenge and demonstrate my knowledge with the standard Rails framework. In the future additional features will be added, and undergo a larger overhaul with JavaScript worked in. 
 
-* Database initialization
+## Built With
 
-* How to run the test suite
+* Ruby on Rails
 
-* Services (job queues, cache servers, search engines, etc.)
+## Authors
 
-* Deployment instructions
+* **Brad McCollum
 
-* ...
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+
+* Hat tip to anyone whose code was used
+* Inspiration
+* etc
