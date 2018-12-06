@@ -27,10 +27,17 @@
   }
 
   .error {
+    margin-top: 5%;
     font-style: italic;
     font-size: 80%;
   } 
   .alert {
+    margin-top: 5%;
+    font-style: italic;
+    font-size: 80%;
+  }
+  .notice {
+    margin-top: 5%;
     font-style: italic;
     font-size: 80%;
   }
@@ -39,6 +46,9 @@
  // Custom bootstrap variables must be set or imported *before* bootstrap. 
 //  @import "bootstrap";
  @import 'bootstrap-custom';
+ @import "bootstrap-social";
+ @import "font-awesome";
+ @import 'font-awesome.css'
 
  
  

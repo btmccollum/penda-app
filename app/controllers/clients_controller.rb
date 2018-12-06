@@ -19,28 +19,17 @@ class ClientsController < ApplicationController
         end
     end
 
-    def show
-
-    end
-
     def edit
         @client = current_user
     end
 
     def update
         @client = current_user
-        if matching_passwords?(client_params)
-            if @client && @client.authenticate(client_params[:password])
-                @client.update(client_params)
-
-                flash[:notice] = "Your account has been updated."
-                redirect_to dashboard_path
-            else 
-                flash[:alert] = "Unable to authenticate password."
-                render :edit
-            end
+        @client.update(client_params)
+        if @client.valid?
+            flash[:notice] = "Your account has been updated."
+            redirect_to dashboard_path
         else
-            flash[:alert] = "Passwords must match."
             render :edit
         end
     end
@@ -59,7 +48,7 @@ class ClientsController < ApplicationController
             params.require(:client).permit(:username, :email, :first_name, :last_name, :password, :password_confirmation, :type, :provider, :uid)
         end
 
-        def matching_passwords?(client_params)
-            client_params[:password] == client_params[:password_confirmation]
-        end
+        # def matching_passwords?(client_params)
+        #     client_params[:password] == client_params[:password_confirmation]
+        # end
 end

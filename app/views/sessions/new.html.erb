@@ -1,8 +1,8 @@
 <h2>Welcome Back to Penda!</h2>
 
 <p>
-<%= link_to('Log in with Facebook', '/auth/facebook') %> <br>
-<%= link_to('Log in with Google', '/auth/google_oauth2') %><br>
+<%= link_to fa_stacked_icon('facebook', text: 'Log in with Facebook', class: "fa-fw"), '/auth/facebook' %>
+<%= link_to fa_stacked_icon('google', text: 'Log in with Google', class: "fa-fw"), '/auth/google_oauth2' %><br>
 </p>
 
 <%= form_tag '/sessions' do %>

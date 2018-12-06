@@ -19,28 +19,17 @@ class BusinessesController < ApplicationController
         end
     end
 
-    def show
-      
-    end
-
     def edit
         @business = current_user
     end
 
     def update
         @business = current_user
-        if matching_passwords?(business_params)
-            if @business && @business.authenticate(business_params[:password])
-                @business.update(business_params)
-
-                flash[:notice] = "Your account has been updated."
-                redirect_to dashboard_path
-            else 
-                flash[:alert] = "Unable to authenticate password."
-                render :edit
-            end
+        @business.update(business_params)
+        if @business.valid?
+            flash[:notice] = "Your account has been updated."
+            redirect_to dashboard_path
         else
-            flash[:alert] = "Passwords must match."
             render :edit
         end
     end
