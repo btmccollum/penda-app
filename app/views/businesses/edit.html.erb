@@ -1,4 +1,4 @@
-<h2>Edit <%= @client.username %></h2>
+<h2>Edit <%= @business.username %></h2>
 
 <%= render partial: 'business', locals: {business: @business} %>
 
@@ -9,4 +9,4 @@
 
 Warning! This cannot be undone. You will need to create a new account if you wish to use this app in the future.
 
-<p><%= button_to "Cancel my account", business_path(@business), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-primary" %></p>
+<p><%= button_to "Cancel my account", business_path(@business), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger" %></p>
