@@ -1,53 +1,56 @@
-<%= form_for client do |f| %>
-    <% if client.errors.any? %>
-      <div id="error_explanation">
-        <h2> Oops! Looks like something was missing. </h2>
-        <ul>
-          <% client.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-    <%= f.hidden_field :type, :value => "Client" %>
-  
-    <div class="field-with-errors">
-      <%= f.label :username %><br />
-      <%= f.text_field :username, autofocus: true, autocomplete: "username" %>
-    </div>
-  
-    <div class="field-with-errors">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-    </div>
-  
-    <div class="field-with-errors">
-      <%= f.label :first_name %><br />
-      <%= f.text_field :first_name, autofocus: true, autocomplete: "first-name" %>
-    </div>
-  
-    <div class="field-with-errors">
-      <%= f.label :last_name %><br />
-      <%= f.text_field :last_name, autofocus: true, autocomplete: "last-name" %>
-    </div>
-  
-    <div class="field-with-errors">
-      <%= f.label :password %>
-      <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
-      <% end %><br />
-      <%= f.password_field :password, autocomplete: "new-password" %>
-    </div>
-  
-    <div class="field-with-errors">
-      <%= f.label :password_confirmation %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-    </div>
-  
-    <div class="actions">
-      <%= f.submit "Submit", class: "btn btn-primary" %>
+<%= form_for client, class: "was-validated" do |f| %>
+  <% if client.errors.any? %>
+    <div id="error_explanation">
+      <h2> Oops! Looks like something was missing. </h2>
+      <ul>
+        <% client.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
     </div>
   <% end %>
+
+  <%= f.hidden_field :type, :value => "Client" %>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <%= f.label :username %>
+      <%= f.text_field :username, autofocus: true, autocomplete: "username", class: "form-control" %>
+    </div> <!-- .form-group -->
+  
+    <div class="form-group col-md-6">
+      <%= f.label :email %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+    </div> <!-- .form-group -->
+  </div> <!-- .form-row -->
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+        <%= f.label :first_name %>
+        <%= f.text_field :first_name, autofocus: true, autocomplete: "first-name", class: "form-control" %>
+    </div> <!-- .form-group -->
+    
+    <div class="form-group col-md-6">
+        <%= f.label :last_name %>
+        <%= f.text_field :last_name, autofocus: true, autocomplete: "last-name", class: "form-control" %>
+    </div> <!-- .form-group -->
+  </div> <!-- .form-row -->
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+        <%= f.label :password %>
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+    </div> <!-- .form-group -->
+
+    <div class="form-group col-md-6">
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+    </div> <!-- .form-group -->
+  </div> <!-- .form-row -->
+
+  <div class="actions">
+    <%= f.submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>
 
 

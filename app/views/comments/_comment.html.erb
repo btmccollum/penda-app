@@ -1,4 +1,4 @@
-<%= form_for comment do |f| %>
+<%= form_for comment, class: "was-validated" do |f| %>
     <% if comment.errors.any? %>
       <div id="error_explanation">
         <h2> Oops! Looks like something was missing. </h2>
@@ -13,11 +13,12 @@
     <%= f.hidden_field :project_id, :value => @project.id %>
     <%= f.hidden_field :user_id, :value => current_user.id %>
   
-    <div class="field-with-errors">
-      <%= f.label :content, "New comment:" %><br>
-      <%= f.text_field :content, autofocus: true, autocomplete: "content" %>
+    <div class="form-row">
+      <div class="form-group col-md-5">         
+        <span><%= f.label :content, "New Comment:" %></span>
+        <%= f.text_area :content, autofocus: true, autocomplete: "content", class: "form-control" %>
+      </div>
     </div>
 
-    <br>
     <%= f.submit "Submit", class: "btn btn-primary" %>
 <% end %>

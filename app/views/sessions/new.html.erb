@@ -1,8 +1,9 @@
 <h2>Welcome Back to Penda!</h2>
 
 <p>
-<%= link_to fa_stacked_icon('facebook', text: 'Log in with Facebook', class: "fa-fw"), '/auth/facebook' %>
-<%= link_to fa_stacked_icon('google', text: 'Log in with Google', class: "fa-fw"), '/auth/google_oauth2' %><br>
+Log In With:
+<%= link_to fa_stacked_icon('facebook', text: '', class: "fa-fw"), '/auth/facebook' %>
+<%= link_to fa_stacked_icon('google', text: '', class: "fa-fw"), '/auth/google_oauth2' %><br>
 </p>
 
 <%= form_tag '/sessions' do %>
@@ -16,6 +17,7 @@
       <%= password_field_tag :password, "", autocomplete: "current-password", class: "field" %>
   </div>
 
+  <br>
   <div class="actions">
       <p><%= submit_tag "Log In", class: "btn btn-primary" %></p>
   </div>

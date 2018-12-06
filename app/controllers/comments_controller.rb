@@ -6,13 +6,12 @@ class CommentsController < ApplicationController
     end
 
     def create
-        project = Project.find(comment_params[:project_id])
-        @comment = project.comments.create(comment_params)
+        @project = Project.find(comment_params[:project_id])
+        @comment = @project.comments.create(comment_params)
         if @comment.valid?
-            redirect_back(fallback_location: project_path(project))
+            redirect_back(fallback_location: project_path(@project))
         else
-            @comment.errors.map {|x,y| flash[:alert] = "Message #{x.to_s} #{y}" }
-            redirect_back(fallback_location: project_path(project))
+            render 'projects/show'
         end
     end
 
