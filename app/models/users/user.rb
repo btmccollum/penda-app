@@ -3,12 +3,12 @@ class User < ApplicationRecord
   
   has_many :comments
   
-  validates_presence_of :username
-  validates_presence_of :email
-  validates_presence_of :first_name
-  validates_presence_of :last_name
-  validates_presence_of :password, unless: :skip_password_req
-  validates_presence_of :password_confirmation, unless: :skip_password_req
+  validates :username, presence: true
+  validates :email, presence: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :password, presence: true, unless: :skip_password_req
+  validates :password_confirmation, presence: true, unless: :skip_password_req
 
   has_secure_password
 

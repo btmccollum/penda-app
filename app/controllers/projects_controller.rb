@@ -27,9 +27,9 @@ class ProjectsController < ApplicationController
                 
                 if business_user?
                     project_client = project.find_or_build_client_by(project_params[:client_attributes])
-                    project.save
+                    project.save!
                 else
-                    project.save
+                    project.save!
                 end
                 flash[:notice] = "Project successfully created!"
                 redirect_to project_path(project)
@@ -44,7 +44,7 @@ class ProjectsController < ApplicationController
 
     def update
         project = Project.find(params[:id])
-        project.update(status: "completed")
+        project.update!(status: "completed")
         redirect_to dashboard_path
     end
 

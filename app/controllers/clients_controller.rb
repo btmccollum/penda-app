@@ -47,8 +47,4 @@ class ClientsController < ApplicationController
         def client_params
             params.require(:client).permit(:username, :email, :first_name, :last_name, :password, :password_confirmation, :type, :provider, :uid)
         end
-
-        # def matching_passwords?(client_params)
-        #     client_params[:password] == client_params[:password_confirmation]
-        # end
 end

@@ -1,6 +1,6 @@
 class BusinessesController < ApplicationController
-    before_action :signed_in?, only: %i[show edit update destroy]
-    before_action :user_is_owner?, only: %i[show edit update destroy]
+    before_action :signed_in?, only: %i[edit update destroy]
+    before_action :user_is_owner?, only: %i[edit update destroy]
     layout "welcome_screen", only: %i[new]
 
     def new
@@ -46,9 +46,5 @@ class BusinessesController < ApplicationController
 
         def business_params
             params.require(:business).permit(:username, :email, :first_name, :last_name, :password, :password_confirmation, :type, :provider, :uid)
-        end
-
-        def matching_passwords?(business_params)
-            business_params[:password] == business_params[:password_confirmation]
         end
 end

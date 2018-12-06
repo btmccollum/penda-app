@@ -16,7 +16,7 @@ class TimeEntriesController < ApplicationController
         time_entry.end_time = Time.now.strftime("%I:%M:%S %p")
         time_entry.duration = time_entry.total_time
         time_entry.finished = true
-        time_entry.save
+        time_entry.save!
 
         flash[:notice] = "Entry Successfully Added."
         redirect_to project_path(time_entry.project)

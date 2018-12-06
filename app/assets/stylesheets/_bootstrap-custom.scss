@@ -45,6 +45,7 @@
  body {
     background-color: rgb(237, 242, 240);
     height: 100%;
+    padding-top: 65px;
   }
   
   #welcome-splash {
@@ -56,7 +57,7 @@
     border-radius: 50%;
     border: 2px solid rgba(202, 201, 201, 0.322);
     width: 420px;
-    margin: 5% auto 0 auto;
+    margin: 2% auto 0 auto;
     box-sizing: border-box;
     position: relative;
     -webkit-box-shadow: 2px 2px 5px 0px rgba(173, 173, 173, 0.61);
@@ -157,3 +158,5 @@
     border-bottom-left-radius: 0;
     margin-bottom: 100px;
   }
+
+  
