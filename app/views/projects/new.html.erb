@@ -1,6 +1,6 @@
 <h1>Create a New Project</h1>
 
-<%= form_for @project do |f| %>
+<%= form_for @project, class: "was-validated" do |f| %>
     <% if business_user? %>
       <%= f.hidden_field :business_id, :value => current_user.id %>
     <% else %>
@@ -21,34 +21,40 @@
           </ul>
         </div>
     <% end %>
-  
-    <div class="field">
-      <%= f.label :title %><br />
-      <%= f.text_field :title, autofocus: true, autocomplete: "title" %>
+    
+    <div class="form-row">
+      <div class="form-group col-md-8">
+        <%= f.label :title, "Title:" %>
+        <%= f.text_field :title, autofocus: true, autocomplete: "title", class: "form-control" %>
+      </div>
     </div>
-  
+   
     <% if has_permission? %>
-    Client Information:
+      <p>Client Information:</p>
       <%= f.fields_for :client do |c| %>
-        <div class="field">
-          <%= c.label :first_name %>
-          <%= c.text_field :first_name, autofocus: true, autocomplete: "title" %>
-        </div> 
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <%= c.label :first_name %>
+            <%= c.text_field :first_name, autofocus: true, autocomplete: "title", class: "form-control" %>
+          </div> 
 
-        <div class="field">
-          <%= c.label :last_name %>
-          <%= c.text_field :last_name, autofocus: true, autocomplete: "title" %>
+          <div class="form-group col-md-4">
+            <%= c.label :last_name %>
+            <%= c.text_field :last_name, autofocus: true, autocomplete: "title", class: "form-control" %>
+          </div>
         </div>
 
-        <div class="field">
-          <%= c.label :email %>
-          <%= c.email_field :email, autofocus: true, autocomplete: "title" %>
+        <div class="form-row">
+          <div class="form-group col-md-8">
+            <%= c.label :email %>
+            <%= c.email_field :email, autofocus: true, autocomplete: "title", class: "form-control" %>
+          </div>
         </div>
       <% end %>
     <% end %>
 
     <div class="actions">
-      <%= f.submit "Submit" %>
+      <%= f.submit "Submit", class: "btn btn-primary" %>
     </div>
 
 <% end %>
