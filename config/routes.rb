@@ -17,5 +17,6 @@ Rails.application.routes.draw do
   get "/dashboard", to: "home#dashboard"
   get "/choice", to: "home#choice"
   get "/failure", to: "sessions#failure"
+  get "/login", to: "sessions#new"
   
 end
