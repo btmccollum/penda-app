@@ -133,6 +133,11 @@
     -webkit-text-stroke-color: rgb(72, 186, 131);
   }
 
+  #error_explanation > ul {
+    list-style-position: inside;
+    vertical-align: middle;
+  }
+
   .choices-btn1 {
     font-family: "Merriweather Sans";
     // background: white;

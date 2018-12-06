@@ -1,6 +1,6 @@
 <%= form_for client, class: "was-validated" do |f| %>
   <% if client.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="col-md-8 mx-auto text-center">
       <h2> Oops! Looks like something was missing. </h2>
       <ul>
         <% client.errors.full_messages.each do |message| %>
