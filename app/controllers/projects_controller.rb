@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
     before_action :signed_in?
     before_action :has_permission?, except: %i[index show]
+    before_action :project_owner?, only: %i[destroy]
 
     def show
         @project = Project.find(params[:id])
@@ -48,9 +49,22 @@ class ProjectsController < ApplicationController
         redirect_to dashboard_path
     end
 
+    def destroy
+        @project = Project.find(params[:id])
+        @project.destroy!
+
+        flash[:notice] = "Project successfully removed."
+        redirect_to dashboard_path
+    end
+
     private
 
         def project_params
             params.require(:project).permit(:title, :client, :business_id, :client_id, client_attributes: [:first_name, :last_name, :email])
+        end
+
+        def project_owner?
+            @project = Project.find(params[:id])
+            @project.business_id == current_user.id || (@project.client_id == current_user.id && @project.business_id.nil?)
         end
 end

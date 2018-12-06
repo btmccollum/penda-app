@@ -65,3 +65,13 @@
         </div> <!-- btn-group -->
     </div> <!-- row -->
 <% end %>
+
+<br>
+
+<% if permitted_to_take_action? %>
+    <h3>Delete Project</h3>
+
+    Warning! This cannot be undone.
+
+    <p><%= button_to "Delete This Project", project_path(@project), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger" %></p>
+<% end %>
