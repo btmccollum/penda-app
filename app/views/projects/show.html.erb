@@ -47,6 +47,8 @@
     <% end %>
 </ul>
 
+<p><%= button_to 'All Comments', project_comments_path(@project), class: 'btn btn-secondary', method: :get %><p>
+
 <h2>Join the Conversation:</h2>
 
 <p><%= render partial: 'comments/comment', locals: {comment: @comment} %></p>

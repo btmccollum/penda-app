@@ -1,7 +1,8 @@
 class CommentsController < ApplicationController
-    before_action :signed_in?, only: %i[new create edit destroy]
+    before_action :signed_in?, only: %i[index create edit destroy]
 
     def index
+        @project = Project.find(params[:project_id])
     end
 
     def create
