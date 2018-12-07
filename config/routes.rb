@@ -5,10 +5,10 @@ Rails.application.routes.draw do
   resources :businesses, except: %i[index show]
   resources :sessions, only: %i[new create destroy]
   resources :comments, only: %i[create destroy]
-  resources :projects, shallow: true do
-    resources :clients, only: %i[new create]
+  resources :projects do
+    resources :clients, only: %i[new create], shallow: true
     resources :time_entries, only: %i[index show new create]
-    resources :comments, only: %i[index]
+    resources :comments, only: %i[index], shallow: true
   end
 
   root 'home#front'
