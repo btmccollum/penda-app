@@ -12,4 +12,8 @@ module TimeEntriesHelper
             "#{total} Seconds"
         end
     end
+
+    def current_time
+        Time.zone.now.strftime("%I:%M:%S %p")
+    end
 end

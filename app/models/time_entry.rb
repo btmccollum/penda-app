@@ -14,7 +14,7 @@ class TimeEntry < ApplicationRecord
 
     def self.new_from_params(params)
         time_entry = self.new(params).tap do |u|
-            u.end_time = Time.now.strftime("%I:%M:%S %p")
+            u.end_time = Time.zone.now.strftime("%I:%M:%S %p")
             u.duration = u.total_time
             u.finished = true
         end

@@ -1,0 +1,52 @@
+<h1>Editing <%= @time_entry.project.title %></h1>
+
+<%= form_for [@time_entry.project, @time_entry], class: "was-validated" do |f| %>
+    <% if @time_entry.errors.any? %>
+        <div id="error_explanation">
+          <h2> Oops! Looks like something was missing. </h2>
+          <ul>
+            <% @time_entry.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <%= f.hidden_field :project_id, :value => @time_entry.project.id %>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <%= f.label :title, "Title:" %><br>
+            <%= f.text_field :title, class: "form-control" %>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <%= f.label :start_time, "Start Time:" %><br>
+            <%= f.text_field :start_time, value: current_time, autofocus: true, autocomplete: "start time", class: "form-control" %>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <%= f.label :end_time, "End Time:" %><br>
+            <%= f.text_field :end_time, value: , autofocus: true, autocomplete: "end_time", class: "form-control" %>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <%= f.label :content, "What was completed?" %><br>
+            <%= f.text_area :content, autofocues: true, class: "form-control" %>
+        </div>
+    </div>
+
+    <%= f.submit "Submit", class: "btn btn-primary" %>
+<% end %>
+
+<h3>Delete Entry</h3>
+
+Warning! This cannot be undone.
+
+<p><%= button_to "Delete This Entry", project_time_entry_path(@time_entry), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger" %></p>

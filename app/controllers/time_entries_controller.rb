@@ -25,6 +25,18 @@ class TimeEntriesController < ApplicationController
         end
     end
 
+    def edit
+        @project = Project.find(params[:project_id])
+        @time_entry = TimeEntry.find(params[:id])
+    end
+
+    def update
+        binding.pry
+    end
+
+    def destroy
+    end
+
     private
 
     def time_entry_params

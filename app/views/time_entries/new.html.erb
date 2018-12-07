@@ -1,38 +1,4 @@
 <h1>Adding a New Time Entry for <%= @time_entry.project.title %></h1>
 
-<%= form_for [@time_entry.project, @time_entry] do |f| %>
-    <% if @time_entry.errors.any? %>
-        <div id="error_explanation">
-          <h2> Oops! Looks like something was missing. </h2>
-          <ul>
-            <% @time_entry.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
+<%= render partial: 'time_entry', locals: {time_entry: @time_entry} %>
 
-    <%= f.hidden_field :project_id, :value => @time_entry.project.id %>
-
-    <div class="field">
-        <%= f.label :title, "Title:" %><br>
-        <%= f.text_field :title %>
-
-    <div class="field-with-errors">
-        <%= f.label :start_time, "Start Time:" %><br>
-        <%= f.text_field :start_time, value: Time.now.strftime("%I:%M:%S %p"), autofocus: true, autocomplete: "start time" %>
-    </div>
-
-    <!-- proper stopwatch functionality will be added with JS at a later point -->
-    <!-- <div class="field-with-errors"> --> 
-    <!-- <%= f.label :end_time, "End Time:" %><br> -->
-    <!-- <%= f.text_field :end_time, autofocus: true, autocomplete: "end_time" %> -->
-    <!-- </div> -->
-
-    <div class="field-with-errors">
-        <%= f.label :content, "What was completed?" %><br>
-        <%= f.text_area :content, autofocues: true %>
-    </div>
-
-    <%= f.submit "End Time", class: "btn btn-primary" %>
-<% end %>
