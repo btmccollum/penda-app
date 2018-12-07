@@ -2,6 +2,7 @@ class User < ApplicationRecord
   attr_accessor :skip_password_req
   
   has_many :comments, dependent: :destroy
+  has_many :time_entries, dependent: :nullify
   
   validates :username, presence: true
   validates :email, presence: true

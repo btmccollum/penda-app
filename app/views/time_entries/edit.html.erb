@@ -13,6 +13,7 @@
     <% end %>
 
     <%= f.hidden_field :project_id, :value => @time_entry.project.id %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
 
     <div class="form-row">
         <div class="form-group col-md-6">

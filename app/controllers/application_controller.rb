@@ -55,11 +55,12 @@ private
     end
 
     def is_resource_owner?
-        r = self.class.name.gsub('Controller', '').downcase.singularize
+        r = self.class.name.gsub('Controller', '').singularize
         r_id = params[:id]
-        resource = (r.capitalize.constantize).find(r_id)
+        resource = (r.constantize).find(r_id)
 
         if current_user.id == resource.user_id
+            binding.pry
             true
         else
             flash[:alert] = "Unauthorized Access."
