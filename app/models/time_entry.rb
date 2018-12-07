@@ -3,8 +3,8 @@ class TimeEntry < ApplicationRecord
 
     validates :title, presence: true
     validates :content, presence: true
-    validates :start_time, presence: true
-    validates :end_time, presence: true
+    validates :start_time, presence: true, allow_blank: false
+    validates :end_time, presence: true, allow_blank: false
 
     def total_time
         start_time = self.start_time.to_f    

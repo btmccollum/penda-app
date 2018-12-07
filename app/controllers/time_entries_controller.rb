@@ -31,7 +31,16 @@ class TimeEntriesController < ApplicationController
     end
 
     def update
-        binding.pry
+        @time_entry = TimeEntry.find(params[:id])
+        @time_entry.assign_attributes(time_entry_params)
+        if @time_entry.valid?
+            @time_entry.update(time_entry_params)
+            @time_entry.duration = @time_entry.total_time
+            
+            redirect_to project_path(@time_entry.project)
+        else
+            render :edit
+        end
     end
 
     def destroy
