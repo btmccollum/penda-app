@@ -32,4 +32,8 @@ class User < ApplicationRecord
   def self.generated_password
     Sysrandom.hex(32)
   end
+
+  def full_name
+    "#{self.first_name.upcase_first} #{self.last_name.upcase_first}"
+  end
 end

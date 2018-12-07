@@ -1,14 +1,14 @@
 <div class="row">
-    <div class="col-md-9 col-sm-9 d-flex mr-auto">
+    <div class="col-md-9 col-sm-9 col-6 d-flex mr-auto">
         <h3>Projects:</h3>
     </div>
 
-    <div class="col-md-3 col-sm-3 d-flex">
+    <div class="col-md-3 col-sm-3 col-6 d-flex">
     <div class="btn-group ml-auto" role="group">
         <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Status
         </button>
-        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
             <%= link_to "Show All", dashboard_path, class: "dropdown-item" %>
             <%= link_to "Active", {controller: "home", action: "dashboard", status: "active"}, class: "dropdown-item" %>
             <%= link_to "Completed", {controller: "home", action: "dashboard", status: "completed"}, class: "dropdown-item" %>
@@ -18,11 +18,11 @@
 </div>
 
 <ul class="list-group">
-    <% if @projects != [] %>
+    <% if @projects.exists? %>
         <% @projects.each do |p| %>
             <li class="list-group-item"><strong>Title:</strong> <%= link_to p.title, project_path(p) %> | <strong>Time Invested:</strong> <%= project_total_hours(p) %>  | <strong>Last Update:</strong> <%= p.last_updated %></li>
         <% end %>
     <% else %>
-        No current projects. Click 'Create Project' to get started.
+        No current projects. Click 'New Project' to get started.
     <% end %>
 </ul>

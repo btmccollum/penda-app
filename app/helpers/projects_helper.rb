@@ -24,4 +24,24 @@ module ProjectsHelper
     def recent_comments
         Comment.last_ten_comments(@project)
     end
+
+    def professional_use?
+        business_user? || @project.business_id
+    end
+
+    def business_full_name
+        @project.business.full_name
+    end
+
+    def client_full_name
+        @project.client.full_name
+    end
+
+    def project_has_time_entries?
+        @project.time_entries.exists?
+    end
+
+    def project_has_comments?
+        @project.comments.exists?
+    end
 end
