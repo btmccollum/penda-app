@@ -4,6 +4,11 @@ class TimeEntriesController < ApplicationController
     def index
         @project = Project.find(params[:project_id])
     end
+
+    def show
+        @project = Project.find(params[:project_id])
+        @time_entry = TimeEntry.find(params[:id])
+    end
     
     def new
         project = Project.find(params[:project_id])
