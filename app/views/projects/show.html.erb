@@ -39,12 +39,12 @@
 <h2>Conversation History:</h2>
 
 <ul class="list-group">
-    <% if @project.comments.exists? %> 
+    <% if project_has_comments? %> 
         <% recent_comments.each do |c| %> <!-- see projects helper -->
             <% if c.user == current_user %>
-                <li class="list-group-item"><strong><%= c.user.username %></strong> says: <%= c.content %> | <strong>Posted at:</strong> <%= c.created_at.strftime("%A, %d %b %Y %l:%M %p") %> <%= link_to "X", comment_path(c), data: { confirm: "Are you sure?" }, method: :delete, class: "btn-sm btn-danger pull-right" %></li>
+                <li class="list-group-item"><strong><%= c.user.username %></strong> says: <%= c.content %> | <strong>Posted at:</strong> <%= c.time_created %> <%= link_to "X", comment_path(c), data: { confirm: "Are you sure?" }, method: :delete, class: "btn-sm btn-danger pull-right" %></li>
             <% else %>
-                <li class="list-group-item"><strong><%= c.user.username %></strong> says: <%= c.content %> | <strong>Posted at:</strong> <%= c.created_at.strftime("%A, %d %b %Y %l:%M %p") %></li>
+                <li class="list-group-item"><strong><%= c.user.username %></strong> says: <%= c.content %> | <strong>Posted at:</strong> <%= c.time_created %></li>
             <% end %>
         <% end %>
     <% else %>
