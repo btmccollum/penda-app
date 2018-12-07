@@ -1,24 +1,24 @@
 class CommentsController < ApplicationController
     before_action :signed_in?, only: %i[index create destroy]
-    before_action :comment_owner?, only: %i[edit destroy]
+    before_action :is_resource_owner?, only: %i[destroy]
 
     def index
         @project = Project.find(params[:project_id])
     end
 
     def create
-        @project = Project.find(comment_params[:project_id])
-        @comment = @project.comments.create(comment_params)
-        if @comment.valid?
-            redirect_back(fallback_location: project_path(@project))
+        @comment = Comment.new(comment_params)
+        if @comment.save
+            redirect_back(fallback_location: project_path(@comment.project_id))
         else
+            @project = Project.find(comment_params[:project_id])
             render 'projects/show'
         end
     end
 
     def destroy
-        @comment = Comment.find(params[:id])
-        @comment.destroy
+        comment = Comment.find(params[:id])
+        comment.destroy
 
         flash[:notice] = "Comment successfully removed."
         redirect_back(fallback_location: dashboard_path)
