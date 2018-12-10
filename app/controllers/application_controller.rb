@@ -60,7 +60,6 @@ private
         resource = (r.constantize).find(r_id)
 
         if current_user.id == resource.user_id
-            binding.pry
             true
         else
             flash[:alert] = "Unauthorized Access."

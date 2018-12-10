@@ -17,7 +17,6 @@ class TimeEntriesController < ApplicationController
     end
 
     def create
-        binding.pry
         @time_entry = TimeEntry.new_from_params(time_entry_params)
         if @time_entry.save
             flash[:notice] = "Entry Successfully Added."
@@ -38,6 +37,7 @@ class TimeEntriesController < ApplicationController
         if @time_entry.valid?
             @time_entry.update(time_entry_params)
             @time_entry.duration = @time_entry.total_time
+            @time_entry.save
 
             redirect_to project_path(@time_entry.project)
         else
