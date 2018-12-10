@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
     before_action :signed_in?
-    before_action :has_permission?, except: %i[index show]
-    before_action :project_owner?, only: %i[destroy]
+    before_action :has_permission?, except: %i[index show update]
+    before_action :project_owner?, only: %i[update destroy]
 
     def show
         @project = Project.find(params[:id])
@@ -44,7 +44,7 @@ class ProjectsController < ApplicationController
 
     def update
         project = Project.find(params[:id])
-        project.update!(status: "completed")
+        project.update(status: "completed")
         redirect_to dashboard_path
     end
 

@@ -50,5 +50,30 @@ describe 'Feature Test: Projects', :type => :feature do
         expect(current_path).to eq('/projects/1')
         expect(page).to have_content("Form Test Project")
     end
+
+    # clicking the mark project completed button updates the status of the current project
+    it 'marks a project as completed if an authorized user chooses to do so' do
+        create_client_user
+        @project_one = Project.create(title: "Project one", client_id: 1, status: "active")
+
+        visit '/login'
+        log_in_client
+        visit '/projects/1'
+        click_button('Mark Project Completed')
+
+        expect(current_path).to eq('/dashboard')
+        expect(Project.first.status).to eq('completed') 
+    end
+
+    it 'does not allow an unauthorized owner to complete a project' do 
+        create_client_user
+        create_business_user
+        @project_one = Project.create(title: "Project one", client_id: 1, business_id: 2, status: "active")
+
+        visit '/login'
+        log_in_client
+        visit '/projects/1'
+        expect(page).to have_no_content('Mark Project Completed')
+    end
     
 end
