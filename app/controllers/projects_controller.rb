@@ -14,7 +14,6 @@ class ProjectsController < ApplicationController
     end
     
     def create 
-        
         if project_params[:client_attributes]
             if project_params[:client_attributes].values.any? {|x| x.blank?}
                 @project = Project.new(project_params)

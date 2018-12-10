@@ -1,0 +1,7 @@
+<h1>The Ten Most Recent Active Users:</h1>
+
+<ul class="list-group">
+<% @list.each do |u| %>
+    <li class="list-group-item"><%= u.username %>, last active at: <%= u.updated_at.strftime("%I:%M:%S %p") %></li>
+<% end %>
+</ul>

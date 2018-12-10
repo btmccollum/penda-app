@@ -19,5 +19,7 @@ class HomeController < ApplicationController
     end
   end
 
-  
+  def activity
+    @list = User.most_recently_active
+  end  
 end

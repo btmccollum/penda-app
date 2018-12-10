@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   root 'home#front'
   
+  get "/most-recently-active", to: "home#activity"
   get "/auth/:provider/callback", to: "sessions#create"
   get "/dashboard", to: "home#dashboard"
   get "/choice", to: "home#choice"
