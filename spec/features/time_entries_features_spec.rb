@@ -36,4 +36,29 @@ describe 'Feature Test: Dashboard', :type => :feature do
         visit '/projects/2'
         expect(page).to have_no_content('Add New Entry')
     end
+
+    # an authorized user should be able to edit a time entry
+    it 'allows a user to edit a time entry' do
+        visit '/projects/1/time_entries/new'
+        fill_in('time_entry[title]', with: 'time entry test')
+        fill_in('time_entry[content]', with: 'test description')
+        click_button('End Time')
+        click_link('time entry test')
+        click_link('Edit This Entry')
+        fill_in('time_entry[title]', with: 'updated title')
+        click_button('Submit')
+        expect(page).to have_content('updated title')
+    end
+
+    # an authorized user should be able to delete a time entry
+    it 'allows a user to delete a time entry' do
+        visit '/projects/1/time_entries/new'
+        fill_in('time_entry[title]', with: 'time entry test')
+        fill_in('time_entry[content]', with: 'test description')
+        click_button('End Time')
+        click_link('time entry test')
+        click_link('Edit This Entry')
+        click_button('Delete This Entry')
+        expect(@project.time_entries.count).to eq(0)
+    end
 end
