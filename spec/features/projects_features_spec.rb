@@ -25,8 +25,8 @@ describe 'Feature Test: Projects', :type => :feature do
 
     it 'does not allow unauthorized users to access the form' do 
         visit '/projects/new'
-        expect(current_path).to eq('/')
-        expect(page).to have_content('Unauthorized Access.')
+        expect(current_path).to eq('/login')
+        expect(page).to have_content('Please log in.')
     end
 
     it 'allows a business user to create a new project and a new client' do

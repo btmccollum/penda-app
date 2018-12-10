@@ -44,6 +44,12 @@ module LoginHelper
         )
   end
 
+  def log_in_client
+    fill_in("email", :with => "test@test.com")
+    fill_in("password", :with => "123456")
+    click_button('Log In')
+  end
+
   def create_business_user
     @biztest = User.create(
         username: "testbiz", 
