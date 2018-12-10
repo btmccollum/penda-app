@@ -19,6 +19,9 @@ Specs:
 - [x] Include reasonable validations for simple model objects (list of model objects with validations e.g. User, Recipe, Ingredient, Item)
     - A user has many validations for key data such as validating the uniqueness of a username and email, and expects that information such as first name, last name, password, password confirmation, etc. are present
 - [x] Include a class level ActiveRecord scope method (model object & class method name and URL to see the working feature e.g. User.most_recipes URL: /users/most_recipes)
+    - most recently active users, url: /most-recently-active
+        scope :most_recently_active, -> { select('users.id, users.username').joins(:time_entries).select('time_entries.updated_at').where('users.id IS time_entries.user_id').order("time_entries.updated_at DESC").limit(10).uniq }
+    - Projects sorted by active or completed
 - [x] Include signup (how e.g. Devise) 
     - Started with Devise but instead created a custom sign up system for both types of users
 - [x] Include login (how e.g. Devise)
