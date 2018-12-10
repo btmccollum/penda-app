@@ -44,4 +44,8 @@ module ProjectsHelper
     def project_has_comments?
         @project.comments.exists?
     end
+
+    def li_group_project_status(p)
+        p.status.capitalize
+    end
 end
