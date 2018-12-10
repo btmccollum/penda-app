@@ -50,7 +50,7 @@ class TimeEntriesController < ApplicationController
         time_entry.destroy
 
         flash[:notice] = "Time entry was successfully removed."
-        redirect_back(fallback_location: dashboard_path)
+        redirect_to project_path(params[:project_id])
     end
 
     private

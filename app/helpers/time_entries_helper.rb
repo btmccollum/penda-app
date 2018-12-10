@@ -24,4 +24,8 @@ module TimeEntriesHelper
     def normalized_end
         @time_entry.end_time.strftime("%I:%M:%S %p") unless @time_entry.end_time.nil?
     end
+
+    def current_user_created?
+        @time_entry.user_id == current_user.id
+    end
 end

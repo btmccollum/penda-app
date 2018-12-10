@@ -15,5 +15,7 @@
 </div>
 
 <br>
+<% if current_user_created? %>
 <p><%= link_to "Edit This Entry", edit_project_time_entry_path(@time_entry.project, @time_entry), class: "btn btn-secondary" %></p>
+<% end %>
 <p><%= link_to "Back to Project", project_path(@project), class: "btn btn-secondary" %></p>

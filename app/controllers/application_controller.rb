@@ -47,14 +47,14 @@ private
         else
             flash[:alert] = "Unauthorized Access."
             if signed_in?
-                redirect_back(fallback_location: dashboard_path)
+                redirect_to dashboard_path
             else
                 redirect_to root_path
             end
         end
     end
 
-    def is_resource_owner?
+    def is_resource_owner?        
         r = self.class.name.gsub('Controller', '').singularize
         r_id = params[:id]
         resource = (r.constantize).find(r_id)
@@ -64,7 +64,7 @@ private
         else
             flash[:alert] = "Unauthorized Access."
             if signed_in?
-                redirect_back(fallback_location: dashboard_path)
+                redirect_to dashboard_path
             else
                 redirect_to root_path
             end
