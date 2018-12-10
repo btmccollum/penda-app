@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :comments, only: %i[create destroy]
   resources :projects do
     resources :clients, only: %i[new create], shallow: true
-    resources :time_entries, only: %i[index show new create]
+    resources :time_entries
     resources :comments, only: %i[index], shallow: true
   end
 

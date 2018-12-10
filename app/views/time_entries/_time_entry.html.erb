@@ -1,0 +1,44 @@
+<%= form_for [time_entry.project, time_entry], class: "was-validated" do |f| %>
+    <% if time_entry.errors.any? %>
+        <div id="error_explanation">
+          <h2> Oops! Looks like something was missing. </h2>
+          <ul>
+            <% time_entry.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <%= f.hidden_field :project_id, :value => time_entry.project.id %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <%= f.label :title, "Title:" %><br>
+            <%= f.text_field :title, class: "form-control" %>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <%= f.label :start_time, "Start Time:" %><br>
+            <%= f.text_field :start_time, value: current_time, autofocus: true, autocomplete: "start time", class: "form-control" %>
+        </div>
+    </div>
+
+    <!-- proper stopwatch functionality will be added with JS at a later point -->
+    <!-- <div class="field-with-errors"> --> 
+    <!-- <%= f.label :end_time, "End Time:" %><br> -->
+    <!-- <%= f.text_field :end_time, autofocus: true, autocomplete: "end_time" %> -->
+    <!-- </div> -->
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <%= f.label :content, "What was completed?" %><br>
+            <%= f.text_area :content, autofocues: true, class: "form-control" %>
+        </div>
+    </div>
+
+    <%= f.submit "End Time", class: "btn btn-primary" %>
+<% end %>

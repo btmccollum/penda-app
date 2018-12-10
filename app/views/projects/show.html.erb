@@ -1,9 +1,9 @@
 <h1><%= @project.title %></h1>
 
-<% if business_user? || @project.business_id %>
+<% if professional_use? %>
     <p>
-    <strong>Business:</strong> <%= @project.business.first_name %> <%= @project.business.last_name %><br>
-    <strong>Client:</strong> <%= @project.client.first_name %> <%= @project.client.last_name %><br>
+    <strong>Business:</strong> <%= business_full_name %><br>
+    <strong>Client:</strong> <%= client_full_name %><br>
     <strong>Total Billable Time:</strong> <%= project_total_hours(@project) %>
     <p>
 <% else %>
@@ -15,8 +15,8 @@
 <p>Displaying the five most recent entries:</p>
 
 <ul class="list-group">
-    <% if @project.time_entries != [] %> 
-        <% latest_entries.each do |t| %> <!-- see projects helper -->
+    <% if project_has_time_entries? %> 
+        <% latest_entries.each do |t| %> 
             <li class="list-group-item"><strong>Title:</strong> <%= link_to t.title, project_time_entry_path(@project, t) %> | <strong>Duration:</strong> <%= time_duration(t) %> | <strong>Created:</strong> <%= t.created_at.strftime("%A, %d %b %Y %l:%M %p") %></li>
         <% end %>
     <% else %>
@@ -30,8 +30,8 @@
         <div class="btn-group" role="group" aria-label="Button group for time entries">
             <%= button_to 'Add New Entry', new_project_time_entry_path(@project), class: 'btn btn-primary', method: :get %>
             <%= button_to 'All Time Entries', project_time_entries_path(@project), class: 'btn btn-secondary', method: :get %>
-        </div> <!-- btn-group -->
-    </div> <!-- row -->
+        </div> <!-- .btn-group -->
+    </div> <!-- .te-display-group -->
 <% else %>
     <%= button_to 'All Time Entries', project_time_entries_path(@project), class: 'btn btn-secondary', method: :get %>
 <% end %>
@@ -39,12 +39,12 @@
 <h2>Conversation History:</h2>
 
 <ul class="list-group">
-    <% if @project.comments.exists? %> 
+    <% if project_has_comments? %> 
         <% recent_comments.each do |c| %> <!-- see projects helper -->
             <% if c.user == current_user %>
-                <li class="list-group-item"><strong><%= c.user.username %></strong> says: <%= c.content %> | <strong>Posted at:</strong> <%= c.created_at.strftime("%A, %d %b %Y %l:%M %p") %> <%= link_to "X", comment_path(c), data: { confirm: "Are you sure?" }, method: :delete, class: "btn-sm btn-danger pull-right" %></li>
+                <li class="list-group-item"><strong><%= c.user.username %></strong> says: <%= c.content %> | <strong>Posted at:</strong> <%= c.time_created %> <%= link_to "X", comment_path(c), data: { confirm: "Are you sure?" }, method: :delete, class: "btn-sm btn-danger pull-right" %></li>
             <% else %>
-                <li class="list-group-item"><strong><%= c.user.username %></strong> says: <%= c.content %> | <strong>Posted at:</strong> <%= c.created_at.strftime("%A, %d %b %Y %l:%M %p") %></li>
+                <li class="list-group-item"><strong><%= c.user.username %></strong> says: <%= c.content %> | <strong>Posted at:</strong> <%= c.time_created %></li>
             <% end %>
         <% end %>
     <% else %>

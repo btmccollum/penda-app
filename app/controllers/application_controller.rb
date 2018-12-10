@@ -9,23 +9,16 @@ private
     end
 
     def signed_in?
-        unless current_user
-            flash[:danger] = "Please log in."
-            redirect_to 'sessions/new'
+        unless !!current_user
+            flash[:alert] = "Please log in."
+            redirect_to login_path
         end
     end
 
     def already_signed_in?
-        if current_user
+        if !!current_user
             flash[:notice] = "You are already signed in."
             redirect_to dashboard_path
-        end
-    end
-
-    def user_is_owner?
-        if params[:id].to_i != current_user.id
-            flash[:alert] = "Unauthorized Access."
-            redirect_back(fallback_location: root_path)
         end
     end
 
@@ -42,5 +35,39 @@ private
 
     def business_user?
         current_user.class.name == "Business"
+    end
+
+    def is_owner?
+        r = self.class.name.gsub('Controller', '').downcase.singularize
+        r_id = params[:id]
+        resource = (r.capitalize.constantize).find(r_id)
+
+        if current_user.id == resource.id
+            true
+        else
+            flash[:alert] = "Unauthorized Access."
+            if signed_in?
+                redirect_back(fallback_location: dashboard_path)
+            else
+                redirect_to root_path
+            end
+        end
+    end
+
+    def is_resource_owner?
+        r = self.class.name.gsub('Controller', '').singularize
+        r_id = params[:id]
+        resource = (r.constantize).find(r_id)
+
+        if current_user.id == resource.user_id
+            true
+        else
+            flash[:alert] = "Unauthorized Access."
+            if signed_in?
+                redirect_back(fallback_location: dashboard_path)
+            else
+                redirect_to root_path
+            end
+        end
     end
 end

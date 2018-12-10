@@ -2,6 +2,7 @@ class User < ApplicationRecord
   attr_accessor :skip_password_req
   
   has_many :comments, dependent: :destroy
+  has_many :time_entries, dependent: :nullify
   
   validates :username, presence: true
   validates :email, presence: true
@@ -31,5 +32,9 @@ class User < ApplicationRecord
 
   def self.generated_password
     Sysrandom.hex(32)
+  end
+
+  def full_name
+    "#{self.first_name.upcase_first} #{self.last_name.upcase_first}"
   end
 end

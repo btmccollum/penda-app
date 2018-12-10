@@ -12,4 +12,16 @@ module TimeEntriesHelper
             "#{total} Seconds"
         end
     end
+
+    def current_time
+        Time.zone.now.strftime("%I:%M:%S %p")
+    end
+
+    def normalized_start
+        @time_entry.start_time.strftime("%I:%M:%S %p") unless @time_entry.start_time.nil?
+    end
+
+    def normalized_end
+        @time_entry.end_time.strftime("%I:%M:%S %p") unless @time_entry.end_time.nil?
+    end
 end
