@@ -22,6 +22,7 @@ private
         end
     end
 
+    #authorization methods
     def has_permission? #authorization for access
         unless current_user.class.name == "Business" || current_user.class.name == "Client"
             flash[:alert] = "Unauthorized Access." 
@@ -37,7 +38,7 @@ private
         current_user.class.name == "Business"
     end
 
-    def is_owner?
+    def is_owner? #ensures that a user is the resources owner when accessing certain routes leveraging an id
         r = self.class.name.gsub('Controller', '').downcase.singularize
         r_id = params[:id]
         resource = (r.capitalize.constantize).find(r_id)
@@ -54,7 +55,7 @@ private
         end
     end
 
-    def is_resource_owner?        
+    def is_resource_owner? #ensures that a resource being checked is accessed only by the resource's owner   
         r = self.class.name.gsub('Controller', '').singularize
         r_id = params[:id]
         resource = (r.constantize).find(r_id)

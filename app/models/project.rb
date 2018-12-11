@@ -14,6 +14,7 @@ class Project < ApplicationRecord
         scope :user_active, ->(user) { by_active.where(business_id: user.id).or(by_active.where(client_id: user.id)).order("updated_at DESC") }
     scope :by_completed, -> { where(status: "completed") }
         scope :user_completed, ->(user) { by_completed.where(business_id: user.id).or(by_completed.where(client_id: user.id)).order("updated_at DESC") }
+    scope :search_by_title_and_user, lambda { |query, current_user| where("client_id IS ? OR business_id IS ?", current_user.id, current_user.id).where("title LIKE ?", "%#{query}%") }
 
     def last_updated
         self.updated_at.strftime("%A, %d %b %Y %l:%M %p")
