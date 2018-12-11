@@ -1,5 +1,6 @@
 class ClientsController < ApplicationController
     before_action :signed_in?, only: %i[edit update destroy]
+    before_action :already_signed_in?, only: %i[new create]
     before_action :is_owner?, only: %i[edit update destroy]
     layout "welcome_screen", only: %i[new create]
     
