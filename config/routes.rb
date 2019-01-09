@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :businesses, except: %i[index show]
   resources :sessions, only: %i[new create destroy]
   resources :comments, only: %i[create destroy]
-  resources :projects do
+  resources :projects, except: %i[index edit] do
     resources :clients, only: %i[new create], shallow: true
     resources :time_entries
     resources :comments, only: %i[index], shallow: true

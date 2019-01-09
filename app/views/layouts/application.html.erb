@@ -30,8 +30,14 @@
         <button class="navbar-toggler navbar-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="navbar-collapse collapse" id="navbarNavDropdown">
           <ul class="navbar-nav ml-auto">
+            <%= form_tag(dashboard_path, method: :get, class: "form-inline") do %>
+              <li><%= text_field_tag :search_query, params[:search_query], placeholder: "Project Name...", class: "form-control mr-sm-2"  %>
+              <%= submit_tag 'Search', name: nil, class: "btn-sm btn-outline-secondary" %> </li>
+            <% end %>
+
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Projects
