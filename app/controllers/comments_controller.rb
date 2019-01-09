@@ -9,7 +9,14 @@ class CommentsController < ApplicationController
     def create
         @comment = Comment.new(comment_params)
         if @comment.save
-            redirect_back(fallback_location: project_path(@comment.project_id))
+            respond_to do |f|
+                f.html {redirect_back(fallback_location: project_path(@comment.project_id))}
+                f.json {render :json => { 
+                    comment: @comment, 
+                    user: @comment.user
+                    }
+                }
+            end
         else
             @project = Project.find(comment_params[:project_id])
             render 'projects/show'
