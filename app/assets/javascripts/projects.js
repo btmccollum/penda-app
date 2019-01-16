@@ -43,14 +43,36 @@ $(document).ready(function() {
         let params = $form.serialize();
 
         $.post(action, params)
-        .done(function(json){
-            //getting back a js object of the item just created
-            let $ul = $("#comment-list")
-            //mimicking the rails list style
-            $("#comment_content").val("");
-            $ul.prepend(`<li class="list-group-item"><strong>${json['user']['username']}</strong> says: ${json['comment']['content']} | <strong>Posted at:</strong> Just a moment ago... <a data-confirm="Are you sure?" class="btn-sm btn-danger pull-right" rel="nofollow" data-method="delete" href="/comments/${json['comment']['id']}">X</a></li>`)
-        }).fail(function(response){
-            console.log("Something went wrong.", response);
+            .done(function(json){
+                //getting back a js object of the item just created
+                let $ul = $("#comment-list")
+                //clearing user submission from text area
+                $("#comment_content").val("");
+                //mimicking the rails list style
+                $ul.prepend(`<li class="list-group-item"><strong>${json['user']['username']}</strong> says: ${json['comment']['content']} | <strong>Posted at:</strong> Just a moment ago... <a data-confirm="Are you sure?" class="btn-sm btn-danger pull-right buttonJS" rel="nofollow" data-method="delete" href="/comments/${json['comment']['id']}">X</a></li>`)
+            }).fail(function(response){
+                console.log("Something went wrong.", response);
         });
     });
+
+    $("a.buttonJS").on("click", function(e) {
+        e.preventDefault();
+        // debugger;
+        let $form = this
+        debugger;
+        // let action = $form.attr("method") + ".json"
+        // let params = $form.serialize();
+        console.log($form)
+        // $.post(action, params)
+        //     .done(function(json){
+        //         //getting back a js object of the item just created
+        //         let $ul = $("#comment-list")
+        //         //clearing user submission from text area
+        //         $("#comment_content").val("");
+        //         //mimicking the rails list style
+        //         $ul.prepend(`<li class="list-group-item"><strong>${json['user']['username']}</strong> says: ${json['comment']['content']} | <strong>Posted at:</strong> Just a moment ago... <a data-confirm="Are you sure?" class="btn-sm btn-danger pull-right buttonJS" rel="nofollow" data-method="delete" href="/comments/${json['comment']['id']}">X</a></li>`)
+        //     }).fail(function(response){
+        //         console.log("Something went wrong.", response);
+        // });
+    })
 });
