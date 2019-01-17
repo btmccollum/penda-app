@@ -1,5 +1,7 @@
 {
   "name": "Penda_App",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "easytimer.js": "^3.0.1"
+  }
 }

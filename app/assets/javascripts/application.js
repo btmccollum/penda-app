@@ -15,5 +15,6 @@
 //= require jquery3
 //= require popper
 //= require bootstrap
+//= require flipclock.min
+//= require time_entries.js
 //= require_tree .
-
