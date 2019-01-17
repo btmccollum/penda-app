@@ -42,7 +42,7 @@ const loginHTML = `
         </div>
 
         <div class="actions">
-        <p><input type="submit" name="commit" value="Log In" class="btn btn-primary" data-disable-with="Log In" kl_vkbd_parsed="true"></p>
+        <p><input type="submit" name="commit" value="Log In" class="btn btn-primary" onclick="logInUser();" data-disable-with="Log In" kl_vkbd_parsed="true"></p>
         </div>
         </form>
     `
@@ -61,3 +61,4 @@ function attachListeners() {
         $('#contentBox').html(loginHTML);
     });
 }
+
