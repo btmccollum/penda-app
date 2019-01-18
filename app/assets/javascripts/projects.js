@@ -2,40 +2,6 @@
 // # All this logic will automatically be available in application.js.
 // # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).ready(function() {
-   
-//    $("a.load-comments").on("click", function(e) {
-    // low level with .ajax : 
-    // $.ajax({
-    //     method: "GET",
-    //     url: this.href 
-    // }).done(function(response) {
-    //     // #get the response
-    //     // console.log(data);
-    //     $("div.p-comments").append(response)
-    // }).error(function(notNeeded) {
-    //     alert("Oops! Something went wrong.")
-    // });
-    // e.preventDefault();
-    // });
-
-    // // refactored to this with AJAX/jquery:
-    // $.get(this.href).done(function(response){
-    //     $("div.p-comments").append(response)
-    // });
-    // e.preventDefault();
-    // });
-
-    // refactored for JSON if using JSON:
-    // $.get(this.href).done(function(json) {
-    //     // $("div.p-comments").html("") //empty the content in the div
-    //     let $ul = $("div.p-comments ul")
-    //     $ul.html("")
-    //     json.forEach(function(comment) {
-    //         $ul.append(`<li>${comment.content}<.li>`)
-    //     })  
-    // })
-
-    
     $("#new_comment").on("submit", function(e) {
         e.preventDefault();
         let $form = $(this);
@@ -54,25 +20,16 @@ $(document).ready(function() {
                 console.log("Something went wrong.", response);
         });
     });
-
-    $("a.buttonJS").on("click", function(e) {
-        e.preventDefault();
-        // debugger;
-        let $form = this
-        debugger;
-        // let action = $form.attr("method") + ".json"
-        // let params = $form.serialize();
-        console.log($form)
-        // $.post(action, params)
-        //     .done(function(json){
-        //         //getting back a js object of the item just created
-        //         let $ul = $("#comment-list")
-        //         //clearing user submission from text area
-        //         $("#comment_content").val("");
-        //         //mimicking the rails list style
-        //         $ul.prepend(`<li class="list-group-item"><strong>${json['user']['username']}</strong> says: ${json['comment']['content']} | <strong>Posted at:</strong> Just a moment ago... <a data-confirm="Are you sure?" class="btn-sm btn-danger pull-right buttonJS" rel="nofollow" data-method="delete" href="/comments/${json['comment']['id']}">X</a></li>`)
-        //     }).fail(function(response){
-        //         console.log("Something went wrong.", response);
-        // });
-    })
 });
+
+class Project {
+    constructor(obj) {
+        this.id = obj.id
+        this.client_id = obj.client_id
+        this.business_id = obj.business_id
+        this.title = obj.title
+        this.created_at = obj.created_at
+        this.updated_at = obj.updated_at
+        this.status = obj.status
+    }
+}
