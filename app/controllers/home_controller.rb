@@ -16,6 +16,7 @@ class HomeController < ApplicationController
           flash[:notice] = "No Matches Found."
           @projects = current_user.projects
         end
+        
     else
       if params[:status] == "active"
         @projects = Project.active_projects(current_user)
@@ -24,6 +25,10 @@ class HomeController < ApplicationController
       else
         @projects = current_user.projects
       end
+    end
+    respond_to do |f|
+      f.html {render :dashboard}
+      f.json {render json: @projects}
     end
   end
 
