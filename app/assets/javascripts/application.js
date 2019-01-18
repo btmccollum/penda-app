@@ -11,10 +11,16 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require turbolinks
+
 //= require jquery3
 //= require popper
 //= require bootstrap
 //= require flipclock.min
 //= require time_entries.js
 //= require_tree .
+
+$(function() {
+    $.ajaxSetup({
+        headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') }
+    });
+});
