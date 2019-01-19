@@ -43,16 +43,26 @@ function getProjects(query) {
         $('.js-Projects').html("");
         data['projects'].forEach(function(project) {
             const addedProject = new Project(project);
-            $('.js-Projects').prepend(addedProject.postHTML());
+            $('.js-Projects').prepend(addedProject.projectsListHTML());
         });
     });
 }
 
+// function loadProject(data) {
+//     $.get('/projects/' + data.dataset.id + '.json')
+//         .done(function(data) {
+//             const addedProject = new Project(data['project']);
+//         });
+// }
+
 function loadProject(data) {
+    // debugger;
     $.get('/projects/' + data.dataset.id + '.json')
-        .done(function(data) {
-            const addedProject = new Project(data['project']);
-        })
+        .done(function(project) {
+            const addedProject = new Project(project['project']);
+            $('.js-Content').html("")
+            $('.js-Content').load(`/projects/${addedProject.id}.html .js-Content` )
+        });
 }
 
 function capitalizeFirstLetter(word) {
@@ -74,9 +84,9 @@ class Project {
 }
 
 // return HTML entry for dashboard page
-Project.prototype.postHTML = function() {
+Project.prototype.projectsListHTML = function() {
     return (`
-        <li class="list-group-item"><strong>Title:</strong> <a href="/projects/${this.id}">${this.title}</a> | <strong>Total Time:</strong> 0.0 Seconds  | <strong>Last Update:</strong> ${this.updated_at} | <strong>Status:</strong> ${capitalizeFirstLetter(this.status)}</li>
+        <li class="list-group-item"><strong>Title:</strong> <a href="/projects/${this.id}" data-id="${this.id}">${this.title}</a> | <strong>Total Time:</strong> 0.0 Seconds  | <strong>Last Update:</strong> ${this.updated_at} | <strong>Status:</strong> ${capitalizeFirstLetter(this.status)}</li>
     `)
 }
 
