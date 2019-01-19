@@ -7,6 +7,12 @@ $(function() {
 
 
 function addListeners() {
+    //make use of event delegation to capture link
+    $('.js-Projects').on('click', 'a', function(e) {
+        e.preventDefault();
+        loadProject(this);
+    }); 
+
 	$('a.js-AllProjects').on('click', function (e) {
         e.preventDefault();
 		getProjects();
@@ -22,7 +28,9 @@ function addListeners() {
         e.preventDefault();
         params = { "status": "completed" }
 		getProjects(params);
-	});
+    });
+    
+    
 }
 
 function getProjects(query) {
@@ -35,10 +43,16 @@ function getProjects(query) {
         $('.js-Projects').html("");
         data['projects'].forEach(function(project) {
             const addedProject = new Project(project);
-            console.log(addedProject);
             $('.js-Projects').prepend(addedProject.postHTML());
         });
     });
+}
+
+function loadProject(data) {
+    $.get('/projects/' + data.dataset.id + '.json')
+        .done(function(data) {
+            const addedProject = new Project(data['project']);
+        })
 }
 
 function capitalizeFirstLetter(word) {
