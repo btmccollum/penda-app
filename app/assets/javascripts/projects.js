@@ -30,8 +30,12 @@ function addListeners() {
 		getProjects(params);
     });
     
-    
+    $('body').on('click', '#new_comment input.btn', () => {
+        bindCommentsForm();
+    });
 }
+
+let currentProject;
 
 function getProjects(query) {
     $.ajax({
@@ -42,29 +46,30 @@ function getProjects(query) {
     }).done(function(data) {
         $('.js-Projects').html("");
         data['projects'].forEach(function(project) {
-            const addedProject = new Project(project);
-            $('.js-Projects').prepend(addedProject.projectsListHTML());
+            currentProject = new Project(project);
+            $('.js-Projects').prepend(currentProject.projectsListHTML());
         });
     });
 }
 
-// function loadProject(data) {
-//     $.get('/projects/' + data.dataset.id + '.json')
-//         .done(function(data) {
-//             const addedProject = new Project(data['project']);
-//         });
-// }
+// necessary to add JS back to comments form when the projects show view is rendered after ajax get
+function bindCommentsForm() {
+    $('#new_comment').submit(function(e) {
+        e.preventDefault();
+        currentProject.createComment();
+    });
+}
 
 function loadProject(data) {
-    // debugger;
     $.get('/projects/' + data.dataset.id + '.json')
         .done(function(project) {
-            const addedProject = new Project(project['project']);
+            currentProject = new Project(project['project']);
             $('.js-Content').html("")
-            $('.js-Content').load(`/projects/${addedProject.id}.html .js-Content` )
+            $('.js-Content').load(`/projects/${currentProject.id}.html .js-Content`);
         });
 }
 
+// use for data formatting on #projectsListHTML
 function capitalizeFirstLetter(word) {
     return word.charAt(0).toUpperCase() + word.slice(1)    
 }
@@ -78,8 +83,8 @@ class Project {
         this.created_at = obj.created_at
         this.updated_at = obj.updated_at
         this.status = obj.status
-        this.comments =  new Array(obj.comments)
-        this.time_entries = new Array(obj.time_entries)
+        this.comments = obj.comments
+        this.time_entries = obj.time_entries
     }
 }
 
@@ -90,37 +95,22 @@ Project.prototype.projectsListHTML = function() {
     `)
 }
 
-// Project.prototype.getTimeEntries = () => {
-//     $.get(action, params)
-//         .done(function(json){
-//             //getting back a js object of the item just created
-//             let $ul = $("#comment-list")
-//             //clearing user submission from text area
-//             $("#comment_content").val("");
-//             //mimicking the rails list style
-//             $ul.prepend(`<li class="list-group-item"><strong>${json['user']['username']}</strong> says: ${json['comment']['content']} | <strong>Posted at:</strong> Just a moment ago... <a data-confirm="Are you sure?" class="btn-sm btn-danger pull-right buttonJS" rel="nofollow" data-method="delete" href="/comments/${json['comment']['id']}">X</a></li>`)
-//         }).fail(function(response){
-//             console.log("Something went wrong.", response);
-//     });
-// }
+Project.prototype.createComment = function() {
+    const $form = $('form#new_comment');
+    const action = $form.attr("action") + ".json"
+    const params = $form.serialize();
 
-Project.prototype.getComments = () => {
-    $("#new_comment").on("submit", function(e) {
-        e.preventDefault();
-        let $form = $(this);
-        let action = $form.attr("action") + ".json"
-        let params = $form.serialize();
-    
-        $.post(action, params)
-            .done(function(json){
-                //getting back a js object of the item just created
-                let $ul = $("#comment-list")
-                //clearing user submission from text area
-                $("#comment_content").val("");
-                //mimicking the rails list style
-                $ul.prepend(`<li class="list-group-item"><strong>${json['user']['username']}</strong> says: ${json['comment']['content']} | <strong>Posted at:</strong> Just a moment ago... <a data-confirm="Are you sure?" class="btn-sm btn-danger pull-right buttonJS" rel="nofollow" data-method="delete" href="/comments/${json['comment']['id']}">X</a></li>`)
-            }).fail(function(response){
-                console.log("Something went wrong.", response);
+    $.post(action, params)
+        .done(function(json){
+            //add to currentProjects comments property
+            currentProject.comments.push(json.comment);
+
+            const $ul = $("#comment-list")
+            //clearing user submission from text area
+            $("#comment_content").val("");
+            //mimicking the rails list style
+            $ul.prepend(`<li class="list-group-item"><strong>${json['user']['username']}</strong> says: ${json['comment']['content']} | <strong>Posted at:</strong> Just a moment ago... <a data-confirm="Are you sure?" class="btn-sm btn-danger pull-right buttonJS" rel="nofollow" data-method="delete" href="/comments/${json['comment']['id']}">X</a></li>`)
+        }).fail(function(response){
+            console.log("Something went wrong.", response);
         });
-    });
 }
