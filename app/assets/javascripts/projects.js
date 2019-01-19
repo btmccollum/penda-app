@@ -33,8 +33,9 @@ function getProjects(query) {
         data: query
     }).done(function(data) {
         $('.js-Projects').html("");
-        data.forEach(function(project) {
+        data['projects'].forEach(function(project) {
             const addedProject = new Project(project);
+            console.log(addedProject);
             $('.js-Projects').prepend(addedProject.postHTML());
         });
     });
@@ -53,6 +54,8 @@ class Project {
         this.created_at = obj.created_at
         this.updated_at = obj.updated_at
         this.status = obj.status
+        this.comments =  new Array(obj.comments)
+        this.time_entries = new Array(obj.time_entries)
     }
 }
 

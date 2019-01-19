@@ -26,6 +26,7 @@ class HomeController < ApplicationController
         @projects = current_user.projects
       end
     end
+    
     respond_to do |f|
       f.html {render :dashboard}
       f.json {render json: @projects}
