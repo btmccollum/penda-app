@@ -61,10 +61,12 @@ function bindCommentsForm() {
 }
 
 function loadProject(data) {
+    // create a get request using the id fetched from the project link's dataset
     $.get('/projects/' + data.dataset.id + '.json')
         .done(function(project) {
             currentProject = new Project(project['project']);
             $('.js-Content').html("")
+            // using a get request to fetch just the .js-Content section from the projects show page to render on top of current page
             $('.js-Content').load(`/projects/${currentProject.id}.html .js-Content`);
         });
 }
@@ -101,15 +103,16 @@ Project.prototype.formattedStatus = function() {
 
 Project.prototype.createComment = function() {
     const $form = $('form#new_comment');
-    const action = $form.attr("action") + ".json"
+    const action = $form.attr("action") + ".json";
     const params = $form.serialize();
+    const currentProject = this;
 
     $.post(action, params)
         .done(function(json){
             //add to currentProjects comments property
             currentProject.comments.push(json.comment);
 
-            const $ul = $("#comment-list")
+            const $ul = $("#comment-list");
             //clearing user submission from text area
             $("#comment_content").val("");
             //mimicking the rails list style
