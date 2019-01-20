@@ -4,10 +4,10 @@
     <p>
     <strong>Business:</strong> <%= business_full_name %><br>
     <strong>Client:</strong> <%= client_full_name %><br>
-    <strong>Total Billable Time:</strong> <%= project_total_hours(@project) %>
+    <strong>Total Billable Time:</strong> <%= @project.total_hours %>
     <p>
 <% else %>
-    <p><strong>Total Time:</strong> <%= project_total_hours(@project) %></p>
+    <p><strong>Total Time:</strong> <%= @project.total_hours %></p>
 <% end %>
 
 <h2>Time Entries:</h2>

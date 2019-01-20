@@ -69,30 +69,34 @@ function loadProject(data) {
         });
 }
 
-// use for data formatting on #projectsListHTML
-function capitalizeFirstLetter(word) {
-    return word.charAt(0).toUpperCase() + word.slice(1)    
-}
-
 class Project {
     constructor(obj) {
         this.id = obj.id
         this.client_id = obj.client_id
         this.business_id = obj.business_id
         this.title = obj.title
-        this.created_at = obj.created_at
-        this.updated_at = obj.updated_at
+        // this.created_at = obj.created_at
+        // this.updated_at = obj.updated_at
         this.status = obj.status
         this.comments = obj.comments
         this.time_entries = obj.time_entries
+        // this.billable_hours = obj.billable_hours
+        this.last_updated = obj.last_updated
+        this.total_hours = obj.total_hours
     }
 }
 
 // return HTML entry for dashboard page
 Project.prototype.projectsListHTML = function() {
     return (`
-        <li class="list-group-item"><strong>Title:</strong> <a href="/projects/${this.id}" data-id="${this.id}">${this.title}</a> | <strong>Total Time:</strong> 0.0 Seconds  | <strong>Last Update:</strong> ${this.updated_at} | <strong>Status:</strong> ${capitalizeFirstLetter(this.status)}</li>
+        <li class="list-group-item"><strong>Title:</strong> <a href="/projects/${this.id}" data-id="${this.id}">${this.title}</a> | <strong>Total Time:</strong> ${this.total_hours}  | <strong>Last Update:</strong> ${this.last_updated} | <strong>Status:</strong> ${this.formattedStatus()}</li>
     `)
+}
+
+// display a properly formatted status for the project
+Project.prototype.formattedStatus = function() {
+    const status = this.status
+    return status.charAt(0).toUpperCase() + status.slice(1)    
 }
 
 Project.prototype.createComment = function() {
@@ -115,6 +119,6 @@ Project.prototype.createComment = function() {
         });
 }
 
-Project.prototype.deleteComment = function() {
+// Project.prototype.deleteComment = function() {
 
-}
+// }
