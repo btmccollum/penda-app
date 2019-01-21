@@ -142,5 +142,7 @@ Project.prototype.createComment = function() {
 // }
 
 Project.prototype.newTimeEntryForm = function() {
-    $('.js-Content').load(`/projects/${this.id}/time_entries/new .js-Content`);
+    $('.js-Content').load(`/projects/${this.id}/time_entries/new .js-Content`, () => {
+        $('.clock').FlipClock();
+    });
 }
