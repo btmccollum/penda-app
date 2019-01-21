@@ -29,9 +29,20 @@ function addListeners() {
         params = { "status": "completed" }
 		getProjects(params);
     });
-    
+ 
     $('body').on('click', '#new_comment input.btn', () => {
-        bindCommentsForm();
+        if (currentProject !== undefined) {
+            console.log('loaded1')
+            bindCommentsForm();
+        }
+    });
+
+    $('body').on('click', '.js-NewTimeEntry', function(e) {
+        if (currentProject !== undefined) {
+            console.log('loaded2')
+            e.preventDefault();
+            bindTimeEntryForm();
+        }
     });
 }
 
@@ -58,6 +69,10 @@ function bindCommentsForm() {
         e.preventDefault();
         currentProject.createComment();
     });
+}
+
+function bindTimeEntryForm() {
+    currentProject.newTimeEntryForm();
 }
 
 function loadProject(data) {
@@ -125,3 +140,7 @@ Project.prototype.createComment = function() {
 // Project.prototype.deleteComment = function() {
 
 // }
+
+Project.prototype.newTimeEntryForm = function() {
+    $('.js-Content').load(`/projects/${this.id}/time_entries/new .js-Content`);
+}

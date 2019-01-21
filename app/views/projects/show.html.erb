@@ -28,8 +28,8 @@
 <% if permitted_to_take_action? %>
     <div class="te-display-group">
         <div class="btn-group" role="group" aria-label="Button group for time entries">
-            <%= button_to 'Add New Entry', new_project_time_entry_path(@project), class: 'btn btn-primary', method: :get %>
-            <%= button_to 'All Time Entries', project_time_entries_path(@project), class: 'btn btn-secondary', method: :get %>
+            <%= button_to 'Add New Entry', new_project_time_entry_path(@project), class: 'js-NewTimeEntry btn btn-primary', method: :get %>
+            <%= button_to 'All Time Entries', project_time_entries_path(@project), class: 'js-AllTimeEntries btn btn-secondary', method: :get %>
         </div> <!-- .btn-group -->
     </div> <!-- .te-display-group -->
 <% else %>
