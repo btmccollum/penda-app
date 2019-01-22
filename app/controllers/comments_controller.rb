@@ -25,6 +25,7 @@ class CommentsController < ApplicationController
 
     def destroy
         comment = Comment.find(params[:id])
+        @project = Project.find(comment.project_id)
         comment.destroy
         
         flash[:notice] = "Comment successfully removed."

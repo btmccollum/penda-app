@@ -9,7 +9,6 @@ $(() => {
 
 function addListeners() {
     $('body').on('click', 'a.js-Delete', function (e) {
-        console.log('got it')
         e.preventDefault();
 		if (currentProject !== undefined) {
             currentProject.deleteComment(this);
@@ -48,10 +47,9 @@ function addListeners() {
 let currentProject;
 
 function defineCurrentProject() {
-    path = window.location.pathname.match(/\w+/g)
+    path = window.location.pathname.match(/\w+/g);
     if (path[0] === 'projects') {
-        console.log('firing defineCurrentProject')
-        const id = window.location.pathname.match(/\d+/g)[0]
+        const id = window.location.pathname.match(/\d+/g)[0];
         fetch(`/projects/${id}.json`)
             .then(response => response.json())
                 .then(result => {
@@ -136,16 +134,32 @@ Project.prototype.createComment = function() {
 }
 
 Project.prototype.deleteComment = function(comment) {
-// debugger;
-    const commentId = comment.dataset.id;
 
-    fetch(`/comments/${commentId}`, {
-        type: 'DELETE',
-        body: JSON.stringify({id: commentId})
-    }).then(function(response) {
-        // debugger;
-        console.log('removed!')
-    })
+    let commentId = comment.dataset.id;
+    // debugger;
+    // debugger;
+    // fetch(`/comments/${commentId}`, {
+    //     method: 'post',
+    //     data: {
+    //         action: 'delete'
+    //     }
+    //     })
+    //     .then(response => response.json())
+            // .then(data => {
+            //     $('.js-Content').append(data)
+            // })
+            // debugger;
+    // $.post(`/comments/${commentId}`, { type: 'POST', data: { _method: 'delete'}})
+    // .done(() => {
+    //     console.log('hi')
+    // })
+    // let url = 'https://localhost:3000/comments/' + commentId;
+    // fetch(url, {
+    //     method: "delete"
+    // })
+    // .then(
+    //     response => response.json()).then(data => { console.log(data) }
+    // )
 }
 
 Project.prototype.newTimeEntryForm = function() {
