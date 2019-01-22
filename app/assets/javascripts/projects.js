@@ -8,12 +8,12 @@ $(() => {
 
 
 function addListeners() {
-    $('body').on('click', 'a.js-Delete', function (e) {
-        e.preventDefault();
-		if (currentProject !== undefined) {
-            currentProject.deleteComment(this);
-        }
-    });
+    // $('body').on('click', 'a.js-Delete', function (e) {
+    //     e.preventDefault();
+	// 	if (currentProject !== undefined) {
+    //         currentProject.deleteComment(this);
+    //     }
+    // });
  
     $('body').on('click', '#new_comment input.btn', () => {
         if (currentProject !== undefined) {
@@ -133,9 +133,9 @@ Project.prototype.createComment = function() {
         });
 }
 
-Project.prototype.deleteComment = function(comment) {
+// Project.prototype.deleteComment = function(comment) {
 
-    let commentId = comment.dataset.id;
+//     let commentId = comment.dataset.id;
     // debugger;
     // debugger;
     // fetch(`/comments/${commentId}`, {
@@ -153,14 +153,27 @@ Project.prototype.deleteComment = function(comment) {
     // .done(() => {
     //     console.log('hi')
     // })
-    // let url = 'https://localhost:3000/comments/' + commentId;
+    // let newurl = 'https://localhost:3000/comments/' + commentId;
     // fetch(url, {
     //     method: "delete"
     // })
     // .then(
     //     response => response.json()).then(data => { console.log(data) }
     // )
-}
+    // $.ajax({
+    //     url: `https://localhost:3000/comments/${commentId}`,
+    //     method: 'DELETE',
+    //     contentType: 'application/json',
+    //     success: function(result) {
+    //         $('.js-Content').html("");
+    //         $('.js-Content').load(`/projects/${currentProject.id}.html .js-Content`);
+    //     },
+    //     error: function(request,msg,error) {
+    //         // handle failure
+    //         console.error(error);
+    //     }
+    // });
+// }
 
 Project.prototype.newTimeEntryForm = function() {
     $('.js-Content').load(`/projects/${this.id}/time_entries/new .js-Content`, () => {
@@ -168,6 +181,26 @@ Project.prototype.newTimeEntryForm = function() {
     });
 }
 
-// Project.prototype.timeEntriesIndex = function() {
-   
-// }
+Project.prototype.timeEntriesIndex = function() {
+    $('.js-Content').html("");
+    $('.js-Content').html(`
+        <h1>Displaying All Time Entries for ${currentProject.formattedTitle()}:</h1>
+
+        <ul class="list-group js-TimeEntriesList">
+        </ul>
+    `);
+
+    if (currentProject.time_entries !== undefined) {
+        currentProject.time_entries.forEach(function(te) {
+            timeEntry = new TimeEntry(te);
+
+            $('.js-TimeEntriesList').prepend(timeEntry.indexList());
+        })
+    } else {
+        $('.js-TimeEntriesList').prepend('No recorded time entries. Click "Add New Entry" to get started.');
+    }
+
+    //append project path to the URL history
+    window.historyInitiated = true;
+    history.pushState(null, null, `/projects/${currentProject.id}/time_entries`);
+}

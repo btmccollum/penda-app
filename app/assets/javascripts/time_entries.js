@@ -1,3 +1,15 @@
+$(() => {
+    attachListeners();
+});
+
+function attachListeners() {
+    window.addEventListener("popstate", function(e) {
+        if (window.historyInitiated) {
+        window.location.reload();
+        }
+    });
+}
+
 class TimeEntry {
     constructor(obj) {
         this.id = obj.id
@@ -13,4 +25,10 @@ class TimeEntry {
         this.created_at = obj.created_at
         this.updated_at = obj.updated_at
     }
+}
+
+TimeEntry.prototype.indexList = function() {
+    return (`
+        <li class="list-group-item"><strong>Title:</strong> <a href="/projects/${currentProject.id}/time_entries/${this.id}">${this.title}</a> | <strong>Duration:</strong> ${this.total_time} | <strong>Created:</strong> ${this.created_at}</li>
+    `)
 }
