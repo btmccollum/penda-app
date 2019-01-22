@@ -26,7 +26,7 @@ class CommentsController < ApplicationController
     def destroy
         comment = Comment.find(params[:id])
         comment.destroy
-
+        
         flash[:notice] = "Comment successfully removed."
         redirect_back(fallback_location: dashboard_path)
     end

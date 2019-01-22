@@ -1,5 +1,5 @@
 class TimeEntrySerializer < ActiveModel::Serializer
-  attributes :id, :project_id, :start_time, :end_time, :finished, :created_at, :updated_at, :title, :duration, :user_id
+  attributes :id, :project_id, :start_time, :end_time, :finished, :created_at, :updated_at, :title, :content, :duration, :user_id, :total_time
   belongs_to :project
   has_many :comments
 end

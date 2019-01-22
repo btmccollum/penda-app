@@ -16,7 +16,7 @@
 //= require popper
 //= require bootstrap
 //= require flipclock.min
-//= require time_entries.js
+//= require flipclock.js
 //= require_tree .
 
 $(() => {

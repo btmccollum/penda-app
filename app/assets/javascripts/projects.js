@@ -3,31 +3,40 @@
 // # You can use CoffeeScript in this file: http://coffeescript.org/
 $(() => {
     addListeners()
+    defineCurrentProject()
 });
 
 
 function addListeners() {
     //make use of event delegation to capture link
-    $('.js-Projects').on('click', 'a', function(e) {
-        e.preventDefault();
-        loadProject(this);
-    }); 
+    // $('.js-Projects').on('click', 'a', function(e) {
+    //     e.preventDefault();
+    //     loadProject(this);
+    // }); 
 
-	$('a.js-AllProjects').on('click', function (e) {
-        e.preventDefault();
-		getProjects();
-    });
+	// $('a.js-AllProjects').on('click', function (e) {
+    //     e.preventDefault();
+	// 	getProjects();
+    // });
 
-    $('a.js-ActiveProjects').on('click', function (e) {
-        e.preventDefault();
-        const params = { "status": "active" }
-		getProjects(params);
-    });
+    // $('a.js-ActiveProjects').on('click', function (e) {
+    //     e.preventDefault();
+    //     const params = { "status": "active" }
+	// 	getProjects(params);
+    // });
 
-    $('a.js-CompletedProjects').on('click', function (e) {
+    // $('a.js-CompletedProjects').on('click', function (e) {
+    //     e.preventDefault();
+    //     params = { "status": "completed" }
+	// 	getProjects(params);
+    // });
+
+    $('body').on('click', 'a.js-Delete', function (e) {
+        console.log('got it')
         e.preventDefault();
-        params = { "status": "completed" }
-		getProjects(params);
+		if (currentProject !== undefined) {
+            currentProject.deleteComment(this);
+        }
     });
  
     $('body').on('click', '#new_comment input.btn', () => {
@@ -58,9 +67,18 @@ function addListeners() {
     });
 }
 
-
-
 let currentProject;
+
+function defineCurrentProject() {
+    const id = window.location.pathname.match(/\d+/g)[0]
+    fetch(`/projects/${id}.json`)
+        .then(response => response.json())
+            .then(result => {
+                currentProject = new Project(result.project);
+            });
+}
+
+// const currentProject = window.location.pathname.match(/\d+/g)[0]
 
 // necessary to add JS back to comments form when the projects show view is rendered after ajax get
 function bindCommentsForm() {
@@ -157,22 +175,31 @@ Project.prototype.createComment = function() {
 
     $.post(action, params)
         .done(function(json){
-            //add to currentProjects comments property
-            currentProject.comments.push(json.comment);
+            newComment = new Comment(json['comment'])
+            currentProject.comments.push(newComment);
 
             const $ul = $("#comment-list");
             //clearing user submission from text area
             $("#comment_content").val("");
             //mimicking the rails list style
-            $ul.prepend(`<li class="list-group-item"><strong>${json['user']['username']}</strong> says: ${json['comment']['content']} | <strong>Posted at:</strong> Just a moment ago... <a data-confirm="Are you sure?" class="js-DeleteComment btn-sm btn-danger pull-right buttonJS" rel="nofollow" data-method="delete" href="/comments/${json['comment']['id']}">X</a></li>`)
+            $ul.prepend(`<li class="list-group-item"><strong>${json['user']['username']}</strong> says: ${newComment.content} | <strong>Posted at:</strong> Just a moment ago... <a data-id="${newComment.id}" data-confirm="Are you sure?" class="js-DeleteComment btn-sm btn-danger pull-right buttonJS" rel="nofollow" data-method="delete" href="/comments/${newComment.id}">X</a></li>`)
         }).fail(function(response){
             console.log("Something went wrong.", response);
         });
 }
 
-// Project.prototype.deleteComment = function() {
+Project.prototype.deleteComment = function(comment) {
+// debugger;
+    const commentId = comment.dataset.id;
 
-// }
+    fetch(`/comments/${commentId}`, {
+        type: 'DELETE',
+        body: JSON.stringify({id: commentId})
+    }).then(function(response) {
+        // debugger;
+        console.log('removed!')
+    })
+}
 
 Project.prototype.newTimeEntryForm = function() {
     $('.js-Content').load(`/projects/${this.id}/time_entries/new .js-Content`, () => {

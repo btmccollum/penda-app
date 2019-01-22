@@ -44,7 +44,7 @@
     <% if project_has_comments? %> 
         <% recent_comments.each do |c| %> <!-- see projects helper -->
             <% if c.user == current_user %>
-                <li class="list-group-item"><strong><%= c.user.username %></strong> says: <%= c.content %> | <strong>Posted at:</strong> <%= c.time_created %> <%= link_to "X", comment_path(c), data: { confirm: "Are you sure?" }, method: :delete, class: "js-Delete btn-sm btn-danger pull-right buttonJS" %></li>
+                <li class="list-group-item"><strong><%= c.user.username %></strong> says: <%= c.content %> | <strong>Posted at:</strong> <%= c.time_created %> <%= link_to "X", comment_path(c), data: { confirm: "Are you sure?", id: c.id }, method: :delete, class: "js-Delete btn-sm btn-danger pull-right buttonJS" %></li>
             <% else %>
                 <li class="list-group-item"><strong><%= c.user.username %></strong> says: <%= c.content %> | <strong>Posted at:</strong> <%= c.time_created %></li>
             <% end %>
