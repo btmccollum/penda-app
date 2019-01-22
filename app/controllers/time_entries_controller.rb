@@ -4,6 +4,10 @@ class TimeEntriesController < ApplicationController
 
     def index
         @project = Project.find(params[:project_id])
+        respond_to do |f|
+            f.html {render :index}
+            f.json {render json: @project}
+        end
     end
 
     def show

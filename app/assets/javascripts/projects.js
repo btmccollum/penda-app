@@ -32,16 +32,21 @@ function addListeners() {
  
     $('body').on('click', '#new_comment input.btn', () => {
         if (currentProject !== undefined) {
-            console.log('loaded1')
             bindCommentsForm();
         }
     });
 
     $('body').on('click', '.js-NewTimeEntry', function(e) {
         if (currentProject !== undefined) {
-            console.log('loaded2')
             e.preventDefault();
             bindTimeEntryForm();
+        }
+    });
+
+    $('body').on('click', '.js-AllTimeEntries', function(e) {
+        if (currentProject !== undefined) {
+            e.preventDefault();
+            bindAllTimeEntries();
         }
     });
 }
@@ -73,6 +78,10 @@ function bindCommentsForm() {
 
 function bindTimeEntryForm() {
     currentProject.newTimeEntryForm();
+}
+
+function bindAllTimeEntries() {
+    currentProject.timeEntriesIndex();
 }
 
 function loadProject(data) {
@@ -146,3 +155,7 @@ Project.prototype.newTimeEntryForm = function() {
         $('.clock').FlipClock();
     });
 }
+
+// Project.prototype.timeEntriesIndex = function() {
+   
+// }

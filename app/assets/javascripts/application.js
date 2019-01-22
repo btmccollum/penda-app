@@ -25,3 +25,11 @@ $(function() {
         headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') }
     });
 });
+
+window.setTimeout( () => {
+    $(".alert").text("")
+}, 3000);
+
+window.setTimeout( () => {
+    $(".notice").text("")
+}, 3000);
