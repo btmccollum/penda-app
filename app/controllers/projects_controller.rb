@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
         @comment = Comment.new
 
         respond_to do |f|
-            f.html {render :show}
+            f.html
             f.json {render json: @project}
         end
     end

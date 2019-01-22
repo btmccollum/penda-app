@@ -49,7 +49,16 @@ function addListeners() {
             bindAllTimeEntries();
         }
     });
+
+    // used to reset view when popstate is present from pushState() call
+    window.addEventListener("popstate", function(e) {
+        if (window.historyInitiated) {
+          window.location.reload();
+        }
+    });
 }
+
+
 
 let currentProject;
 
@@ -89,20 +98,16 @@ function getProjects(query) {
 }
 
 function loadProject(data) {
-    // create a get request using the id fetched from the project link's dataset
-    // $.get('/projects/' + data.dataset.id + '.json')
-    //     .done(function(project) {
-    //         currentProject = new Project(project['project']);
-    //         $('.js-Content').html("")
-    //         // using a get request to fetch just the .js-Content section from the projects show page to render on top of current page
-    //         $('.js-Content').load(`/projects/${currentProject.id}.html .js-Content`);
-    //     });
     fetch(`/projects/${data.dataset.id}.json`)
         .then(response => response.json())
             .then(data => {
                 currentProject = new Project(data.project);
                 $('.js-Content').html("");
                 $('.js-Content').load(`/projects/${currentProject.id}.html .js-Content`);
+
+                //append project path to the URL history
+                window.historyInitiated = true;
+                history.pushState(null, null, `/projects/${currentProject.id}`);
             });
 }
 
