@@ -22,5 +22,67 @@ function attachListeners() {
         $('#js-ContentBox').html("");
         $('#js-ContentBox').html(splashScreenHTML);
     });
+
+     //make use of event delegation to capture link
+    $('.js-Projects').on('click', 'a', function(e) {
+        e.preventDefault();
+        loadProject(this);
+    }); 
+
+	$('a.js-AllProjects').on('click', function (e) {
+        e.preventDefault();
+		getProjects();
+    });
+
+    $('a.js-ActiveProjects').on('click', function (e) {
+        e.preventDefault();
+        const params = { "status": "active" }
+		getProjects(params);
+    });
+
+    $('a.js-CompletedProjects').on('click', function (e) {
+        e.preventDefault();
+        params = { "status": "completed" }
+		getProjects(params);
+    });
+
+    window.addEventListener("popstate", function(e) {
+        if (window.historyInitiated) {
+          window.location.reload();
+        }
+    });
 }
 
+// populate dashboard view list of projects 
+function getProjects(query) {
+    const url = new URL('https://localhost:3000/dashboard.json'), params = query;
+    
+    // append params to generated url if a query was made
+    if (query !== undefined) {
+        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+    }
+
+    fetch(url)
+        .then(response => response.json())
+            .then(data => {
+                $('.js-Projects').html("");
+                data['projects'].forEach(project => {
+                    currentProject = new Project(project);
+                    $('.js-Projects').prepend(currentProject.projectsListHTML());
+                });
+            });
+}
+
+function loadProject(data) {
+    fetch(`/projects/${data.dataset.id}.json`)
+        .then(response => response.json())
+            .then(data => {
+                currentProject = new Project(data.project);
+                $('.js-Content').html("");
+                $('.js-Content').load(`/projects/${currentProject.id}.html .js-Content`);
+
+                //append project path to the URL history
+                window.historyInitiated = true;
+                history.pushState(null, null, `/projects/${currentProject.id}`);
+            });
+}
