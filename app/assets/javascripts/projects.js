@@ -1,7 +1,7 @@
 // # Place all the behaviors and hooks related to the matching controller here.
 // # All this logic will automatically be available in application.js.
 // # You can use CoffeeScript in this file: http://coffeescript.org/
-$(function() {
+$(() => {
     addListeners()
 });
 
@@ -53,21 +53,6 @@ function addListeners() {
 
 let currentProject;
 
-function getProjects(query) {
-    $.ajax({
-        url: '/dashboard',
-        type: "GET",
-        dataType: 'json',
-        data: query
-    }).done(function(data) {
-        $('.js-Projects').html("");
-        data['projects'].forEach(function(project) {
-            currentProject = new Project(project);
-            $('.js-Projects').prepend(currentProject.projectsListHTML());
-        });
-    });
-}
-
 // necessary to add JS back to comments form when the projects show view is rendered after ajax get
 function bindCommentsForm() {
     $('#new_comment').submit(function(e) {
@@ -84,15 +69,41 @@ function bindAllTimeEntries() {
     currentProject.timeEntriesIndex();
 }
 
+function getProjects(query) {
+    const url = new URL('https://localhost:3000/dashboard.json'), params = query;
+    
+    // append params to generated url if a query was made
+    if (query !== undefined) {
+        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+    }
+
+    fetch(url)
+        .then(response => response.json())
+            .then(data => {
+                $('.js-Projects').html("");
+                data['projects'].forEach(project => {
+                    currentProject = new Project(project);
+                    $('.js-Projects').prepend(currentProject.projectsListHTML());
+                });
+            });
+}
+
 function loadProject(data) {
     // create a get request using the id fetched from the project link's dataset
-    $.get('/projects/' + data.dataset.id + '.json')
-        .done(function(project) {
-            currentProject = new Project(project['project']);
-            $('.js-Content').html("")
-            // using a get request to fetch just the .js-Content section from the projects show page to render on top of current page
-            $('.js-Content').load(`/projects/${currentProject.id}.html .js-Content`);
-        });
+    // $.get('/projects/' + data.dataset.id + '.json')
+    //     .done(function(project) {
+    //         currentProject = new Project(project['project']);
+    //         $('.js-Content').html("")
+    //         // using a get request to fetch just the .js-Content section from the projects show page to render on top of current page
+    //         $('.js-Content').load(`/projects/${currentProject.id}.html .js-Content`);
+    //     });
+    fetch(`/projects/${data.dataset.id}.json`)
+        .then(response => response.json())
+            .then(data => {
+                currentProject = new Project(data.project);
+                $('.js-Content').html("");
+                $('.js-Content').load(`/projects/${currentProject.id}.html .js-Content`);
+            });
 }
 
 class Project {
@@ -115,7 +126,7 @@ class Project {
 // return HTML entry for dashboard page
 Project.prototype.projectsListHTML = function() {
     return (`
-        <li class="list-group-item"><strong>Title:</strong> <a href="/projects/${this.id}" data-id="${this.id}">${this.title}</a> | <strong>Total Time:</strong> ${this.total_hours}  | <strong>Last Update:</strong> ${this.last_updated} | <strong>Status:</strong> ${this.formattedStatus()}</li>
+        <li class="list-group-item"><strong>Title:</strong> <a href="/projects/${this.id}" data-id="${this.id}">${this.formattedTitle()}</a> | <strong>Total Time:</strong> ${this.total_hours}  | <strong>Last Update:</strong> ${this.last_updated} | <strong>Status:</strong> ${this.formattedStatus()}</li>
     `)
 }
 
@@ -123,6 +134,14 @@ Project.prototype.projectsListHTML = function() {
 Project.prototype.formattedStatus = function() {
     const status = this.status
     return status.charAt(0).toUpperCase() + status.slice(1)    
+}
+
+Project.prototype.formattedTitle = function() {
+    const arr = this.title.split(" ");
+    arr.forEach(function(word, index) {
+        return arr[index] = word.charAt(0).toUpperCase() + word.slice(1);    
+    });
+    return arr.join(" ");
 }
 
 Project.prototype.createComment = function() {

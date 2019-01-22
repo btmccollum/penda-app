@@ -19,7 +19,7 @@
 //= require time_entries.js
 //= require_tree .
 
-$(function() {
+$(() => {
     // necessary for js loaded forms to bypass invalid authenticity token error
     $.ajaxSetup({
         headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') }
