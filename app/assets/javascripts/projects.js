@@ -48,7 +48,11 @@ let currentProject;
 
 function defineCurrentProject() {
     path = window.location.pathname.match(/\w+/g);
-    if (path[0] === 'projects') {
+    
+    if (path === null) {
+        return;
+    }
+    else if (path[0] === 'projects') {
         const id = window.location.pathname.match(/\d+/g)[0];
         fetch(`/projects/${id}.json`)
             .then(response => response.json())

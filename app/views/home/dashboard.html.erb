@@ -20,7 +20,7 @@
 <ul class="js-Projects list-group">
     <% if @projects.exists? %>
         <% @projects.each do |p| %>
-            <li class="list-group-item"><strong>Title:</strong> <%= link_to p.title, project_path(p), "data-id": "#{p.id}" %> | <strong>Total Time:</strong> <%= p.total_hours %>  | <strong>Last Update:</strong> <%= p.last_updated %> | <strong>Status:</strong> <%= li_group_project_status(p) %></li>
+            <li class="list-group-item"><strong>Title:</strong> <%= link_to normalized_title(p), project_path(p), "data-id": "#{p.id}" %> | <strong>Total Time:</strong> <%= p.total_hours %>  | <strong>Last Update:</strong> <%= p.last_updated %> | <strong>Status:</strong> <%= li_group_project_status(p) %></li>
         <% end %>
     <% else %>
         No current projects. Click 'New Project' to get started.

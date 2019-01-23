@@ -12,6 +12,9 @@ module ProjectsHelper
     #         "#{total} Seconds"
     #     end
     # end
+    def normalized_title(project)
+        project.title.split.map(&:capitalize).join(' ')
+    end
 
     def latest_entries
         Project.last_five(@project)
