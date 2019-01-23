@@ -17,7 +17,7 @@ describe 'Feature Test: Dashboard', :type => :feature do
     # a user (no business partner) or a business user should be able to add a time entry
     it 'allows an authorized user to create a time entry' do
         visit '/dashboard'
-        click_link('Project one')
+        click_link('Project One')
         expect(current_path).to eq('/projects/1')
 
         click_button('Add New Entry')

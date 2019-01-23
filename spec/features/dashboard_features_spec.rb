@@ -14,32 +14,32 @@ describe 'Feature Test: Dashboard', :type => :feature do
     it 'shows a list of the users projects upon logging in' do
         visit '/dashboard'
 
-        expect(page).to have_content('Project one')
-        expect(page).to have_content('Project two')
-        expect(page).to have_content('Project three')
+        expect(page).to have_content('Project One')
+        expect(page).to have_content('Project Two')
+        expect(page).to have_content('Project Three')
 
         click_link("Show All")
-        expect(page).to have_content('Project one')
-        expect(page).to have_content('Project two')
-        expect(page).to have_content('Project three')
+        expect(page).to have_content('Project One')
+        expect(page).to have_content('Project Two')
+        expect(page).to have_content('Project Three')
     end
 
     it 'only shows active projects when a user clicks active' do
         visit '/dashboard'
         click_link("Active")
 
-        expect(page).to have_content('Project one')
-        expect(page).to have_content('Project two')
-        expect(page).to have_no_content('Project three')
+        expect(page).to have_content('Project One')
+        expect(page).to have_content('Project Two')
+        expect(page).to have_no_content('Project Three')
     end
 
     it 'only shows active projects when a user clicks active' do
         visit '/dashboard'
         click_link("Completed")
 
-        expect(page).to have_no_content('Project one')
-        expect(page).to have_no_content('Project two')
-        expect(page).to have_content('Project three')
+        expect(page).to have_no_content('Project One')
+        expect(page).to have_no_content('Project Two')
+        expect(page).to have_content('Project Three')
     end
 end
 
