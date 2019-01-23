@@ -21,6 +21,10 @@ function addProjectListeners() {
         }
     });
 
+    $('body').on('click', '#new_project input.btn', () => {
+        bindNewProject();
+    });
+
     $('body').on('click', '.js-NewTimeEntry', function(e) {
         if (currentProject !== undefined) {
             e.preventDefault();
@@ -33,6 +37,11 @@ function addProjectListeners() {
             e.preventDefault();
             bindAllTimeEntries();
         }
+    });
+
+    $('body').on('click', '.js-NewProject', function(e) {
+        e.preventDefault();
+        loadNewProject();
     });
 
     // used to reset view when popstate is present from pushState() call, redefine currentproject when necessary
@@ -62,6 +71,12 @@ function defineCurrentProject() {
     }
 }
 
+// sets push state when new pages are dynamically rendered
+function setPushState(url) {
+    window.historyInitiated = true;
+    history.pushState(null, null, url);
+}
+
 // necessary to add JS back to comments form when the projects show view is rendered after ajax get
 function bindCommentsForm() {
     $('#new_comment').submit(function(e) {
@@ -76,6 +91,36 @@ function bindTimeEntryForm() {
 
 function bindAllTimeEntries() {
     currentProject.timeEntriesIndex();
+}
+
+function bindNewProject() {
+    $('#new_project').submit(function(e) {
+        e.preventDefault();
+        newProject();
+    });
+}
+
+function loadNewProject() {
+    $('.js-Content').html("");
+    $('.js-Content').load(`/projects/new #js-ProjectNewForm`);
+    setPushState('/projects/new');
+}
+
+function newProject() {
+    const $form = $('form#new_project');
+    const action = $form.attr("action") + ".json";
+    const params = $form.serialize();
+
+    $.post(action, params)
+        .done(function(json){
+            currentProject = new Project(json['project']);
+
+            $('.js-Content').html("");
+            $('.js-Content').load(`/projects/${currentProject.id} .js-Content`);
+            setPushState(`/projects/${currentProject.id}`);
+        }).fail(function(response){
+            console.log("Something went wrong.", response);
+        });
 }
 
 class Project {
@@ -160,9 +205,6 @@ Project.prototype.createComment = function() {
             // })
             // debugger;
     // $.post(`/comments/${commentId}`, { type: 'POST', data: { _method: 'delete'}})
-    // .done(() => {
-    //     console.log('hi')
-    // })
     // let newurl = 'https://localhost:3000/comments/' + commentId;
     // fetch(url, {
     //     method: "delete"
@@ -199,8 +241,8 @@ Project.prototype.timeEntriesIndex = function() {
         <ul class="list-group js-TimeEntriesList">
         </ul>
     `);
-
-    if (currentProject.time_entries !== undefined) {
+   
+    if (currentProject.time_entries[0] !== undefined) {
         currentProject.time_entries.forEach(function(te) {
             timeEntry = new TimeEntry(te);
 
@@ -210,7 +252,5 @@ Project.prototype.timeEntriesIndex = function() {
         $('.js-TimeEntriesList').prepend('No recorded time entries. Click "Add New Entry" to get started.');
     }
 
-    //append project path to the URL history
-    window.historyInitiated = true;
-    history.pushState(null, null, `/projects/${currentProject.id}/time_entries`);
+    setPushState(`/projects/${currentProject.id}/time_entries`)
 }

@@ -24,26 +24,38 @@ class ProjectsController < ApplicationController
                 @project = Project.new(project_params)
                 @project.add_form_errors
                 
-                render :new
+                # render :new
+                respond_to do |f|
+                    f.html {render :new}
+                    f.json {render json: @project}
+                end
             else
-                project = Project.new
-                project.title = project_params[:title]
-                project.business_id = project_params[:business_id].to_i
+                @project = Project.new
+                @project.title = project_params[:title]
+                @project.business_id = project_params[:business_id].to_i
                 
                 if business_user?
-                    project_client = project.find_or_build_client_by(project_params[:client_attributes])
-                    project.save!
+                    @project_client = project.find_or_build_client_by(project_params[:client_attributes])
+                    @project.save!
                 else
-                    project.save!
+                    @project.save!
                 end
                 flash[:notice] = "Project successfully created!"
-                redirect_to project_path(project)
+                # redirect_to project_path(project)
+                respond_to do |f|
+                    f.html {redirect_to project_path(@project)}
+                    f.json {render json: @project}
+                end
             end
         else
-            project = Project.create(project_params)
+            @project = Project.create(project_params)
 
             flash[:notice] = "Project successfully created!"
-            redirect_to project_path(project)
+            # redirect_to project_path(project)
+            respond_to do |f|
+                f.html {redirect_to project_path(@project)}
+                f.json {render json: @project}
+            end
         end
     end
 

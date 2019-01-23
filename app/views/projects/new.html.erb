@@ -1,60 +1,62 @@
-<h1>Create a New Project</h1>
+<div id="js-ProjectNewForm">
+  <h1>Create a New Project</h1>
 
-<%= form_for @project, class: "was-validated" do |f| %>
-    <% if business_user? %>
-      <%= f.hidden_field :business_id, :value => current_user.id %>
-    <% else %>
-      <%= f.hidden_field :client_id, :value => current_user.id %>
-    <% end %>
-
-    <% if @project.errors.any? || @project.client.errors.any? %>
-        <div id="error_explanation">
-          <h2> Oops! Looks like something was missing. </h2>
-          <ul>
-                <% @project.errors.full_messages.each do |message| %>
-                  <li><%= message %></li>
-                <% end %>
-  
-                <% @project.client.errors.full_messages.each do |message| %>
-                  <li><%= message %></li>
-                <% end %>
-          </ul>
-        </div>
-    <% end %>
-    
-    <div class="form-row">
-      <div class="form-group col-md-8">
-        <%= f.label :title, "Title:" %>
-        <%= f.text_field :title, autofocus: true, autocomplete: "title", class: "form-control" %>
-      </div>
-    </div>
-   
-    <% if has_permission? %>
-      <p>Client Information:</p>
-      <%= f.fields_for :client do |c| %>
-        <div class="form-row">
-          <div class="form-group col-md-4">
-            <%= c.label :first_name %>
-            <%= c.text_field :first_name, autofocus: true, autocomplete: "title", class: "form-control" %>
-          </div> 
-
-          <div class="form-group col-md-4">
-            <%= c.label :last_name %>
-            <%= c.text_field :last_name, autofocus: true, autocomplete: "title", class: "form-control" %>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group col-md-8">
-            <%= c.label :email %>
-            <%= c.email_field :email, autofocus: true, autocomplete: "title", class: "form-control" %>
-          </div>
-        </div>
+  <%= form_for @project, class: "was-validated" do |f| %>
+      <% if business_user? %>
+        <%= f.hidden_field :business_id, :value => current_user.id %>
+      <% else %>
+        <%= f.hidden_field :client_id, :value => current_user.id %>
       <% end %>
-    <% end %>
 
-    <div class="actions">
-      <%= f.submit "Submit", class: "btn btn-primary" %>
-    </div>
+      <% if @project.errors.any? || @project.client.errors.any? %>
+          <div id="error_explanation">
+            <h2> Oops! Looks like something was missing. </h2>
+            <ul>
+                  <% @project.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+    
+                  <% @project.client.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+            </ul>
+          </div>
+      <% end %>
+      
+      <div class="form-row">
+        <div class="form-group col-md-8">
+          <%= f.label :title, "Title:" %>
+          <%= f.text_field :title, autofocus: true, autocomplete: "title", class: "form-control" %>
+        </div>
+      </div>
+    
+      <% if has_permission? %>
+        <p>Client Information:</p>
+        <%= f.fields_for :client do |c| %>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <%= c.label :first_name %>
+              <%= c.text_field :first_name, autofocus: true, autocomplete: "title", class: "form-control" %>
+            </div> 
 
-<% end %>
+            <div class="form-group col-md-4">
+              <%= c.label :last_name %>
+              <%= c.text_field :last_name, autofocus: true, autocomplete: "title", class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-8">
+              <%= c.label :email %>
+              <%= c.email_field :email, autofocus: true, autocomplete: "title", class: "form-control" %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+
+      <div class="actions">
+        <%= f.submit "Submit", class: "btn btn-primary" %>
+      </div>
+
+  <% end %>
+</div>
