@@ -1,5 +1,5 @@
 $(() => {
-    attachListeners()
+    addHomeListeners()
 });
 
 const splashScreenHTML = `
@@ -16,7 +16,7 @@ const splashScreenHTML = `
         </div>
     `
 
-function attachListeners() {
+function addHomeListeners() {
     $('.js-signup').on('click', function (e) {
         e.preventDefault();       
         $('#js-ContentBox').html("");
@@ -61,15 +61,21 @@ function getProjects(query) {
     if (query !== undefined) {
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     }
-
+    
     fetch(url)
         .then(response => response.json())
             .then(data => {
                 $('.js-Projects').html("");
-                data['projects'].forEach(project => {
-                    currentProject = new Project(project);
-                    $('.js-Projects').prepend(currentProject.projectsListHTML());
-                });
+
+                // handle query results
+                if (data.projects[0] === undefined) {
+                    $('.js-Projects').prepend('<span>No results found.</span>');  
+                } else {
+                    data['projects'].forEach(project => {
+                        currentProject = new Project(project);
+                        $('.js-Projects').prepend(currentProject.projectsListHTML());
+                    });
+                }
             });
 }
 

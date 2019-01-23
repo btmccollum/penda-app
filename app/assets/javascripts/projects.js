@@ -2,12 +2,12 @@
 // # All this logic will automatically be available in application.js.
 // # You can use CoffeeScript in this file: http://coffeescript.org/
 $(() => {
-    addListeners()
+    addProjectListeners()
     defineCurrentProject()
 });
 
 
-function addListeners() {
+function addProjectListeners() {
     // $('body').on('click', 'a.js-Delete', function (e) {
     //     e.preventDefault();
 	// 	if (currentProject !== undefined) {
@@ -136,6 +136,12 @@ Project.prototype.createComment = function() {
 // Project.prototype.deleteComment = function(comment) {
 
 //     let commentId = comment.dataset.id;
+    // $.ajax({
+    //     type: this.method,
+    //     url: this.action + '/delete',
+    //     data: $(this).serialize(),
+    //     dataType: 'JSON'
+    // })
     // debugger;
     // debugger;
     // fetch(`/comments/${commentId}`, {
