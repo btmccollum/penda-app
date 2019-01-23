@@ -52,7 +52,6 @@ function addHomeListeners() {
         }
     });
 }
-
 // populate dashboard view list of projects 
 function getProjects(query) {
     const url = new URL('https://localhost:3000/dashboard.json'), params = query;

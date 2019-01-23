@@ -56,12 +56,12 @@ function addProjectListeners() {
 let currentProject;
 
 function defineCurrentProject() {
-    path = window.location.pathname.match(/\w+/g);
+    const path = window.location.pathname.match(/\w+/g);
     
     if (path === null) {
         return;
     }
-    else if (path[0] === 'projects') {
+    else if (path[0] === 'projects' && path[1] !== 'new') {
         const id = window.location.pathname.match(/\d+/g)[0];
         fetch(`/projects/${id}.json`)
             .then(response => response.json())

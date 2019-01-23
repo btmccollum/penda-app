@@ -33,3 +33,4 @@ window.setTimeout( () => {
 window.setTimeout( () => {
     $(".notice").text("")
 }, 3000);
+
