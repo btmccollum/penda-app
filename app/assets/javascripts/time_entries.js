@@ -47,8 +47,8 @@ TimeEntry.prototype.timeCard = function() {
                         <h5 class="card-title">Title: ${this.title}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">Total Duration: ${this.duration}</h6>
                         <p class="card-text">Description: ${this.content}</p>
-                        <p class="card-text">Start Time: ${this.true_start_time}</p>
-                        <p class="card-text">End Time: ${this.true_end_time}</p> 
+                        <p class="card-text">Start Time: ${this.start_time}</p>
+                        <p class="card-text">End Time: ${this.end_time}</p> 
                     </div>
                 </div>
             </div>
