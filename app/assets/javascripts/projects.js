@@ -8,8 +8,8 @@ $(() => {
 
 
 function addProjectListeners() {
-    $("a.js-Delete").on('click', function(e) {
-        const $el      = $(this);
+    $('body').on('click', 'a.js-Delete', function(e) {
+        const $el = $(this);
         const response = confirm($el.data('confirm') || 'Are you sure?');
 
         e.preventDefault();
@@ -22,13 +22,6 @@ function addProjectListeners() {
         return false;
     });
 
-    $("a.js-ShowTE").on('click', function(e) {
-        e.preventDefault();
-        // debugger;
-        const data = e.target;
-        loadTimeEntry(data);
-    })
-
     $('body').on('click', '#new_comment input.btn', () => {
         if (currentProject !== undefined) {
             bindCommentsForm();
@@ -38,6 +31,12 @@ function addProjectListeners() {
     $('body').on('click', '#new_project input.btn', () => {
         bindNewProject();
     });
+
+    $('body').on('click', 'a.js-ShowTE', (e => {
+        e.preventDefault();
+        const data = e.target;
+        currentProject.loadTimeEntry(data);
+    }));
 
     $('body').on('click', '.js-NewTimeEntry', function(e) {
         if (currentProject !== undefined) {
@@ -118,22 +117,6 @@ function loadNewProject() {
     $('.js-Content').html("");
     $('.js-Content').load(`/projects/new #js-ProjectNewForm`);
     setPushState('/projects/new');
-}
-
-function loadTimeEntry(data) {
-    const dataId = data.href.match(/\d+/g);
-    const timeEntry = currentProject.time_entries.find(te => {
-        return te.id === parseInt(dataId[dataId.length - 1]);
-    })
-  
-    $('.js-Content').html("");
-    $('.js-Content').append(timeEntry.timeCard());
-
-    if ( currentProject.client_id === timeEntry.user_id || currentProject.business_id === timeEntry.user_id ) {
-        $('.js-teOptions').prepend(`<p><a class="btn btn-secondary" href="/projects/${currentProject.id}/time_entries/${timeEntry.id}/edit">Edit This Entry</a></p>`);
-    }
-    
-    setPushState(`/projects/${currentProject.id}/time_entries/${timeEntry.id}`);
 }
 
 function newProject() {
@@ -252,6 +235,18 @@ Project.prototype.timeEntriesIndex = function() {
     setPushState(`/projects/${currentProject.id}/time_entries`)
 }
 
-Project.prototype.loadTimeEntry = function() {
+Project.prototype.loadTimeEntry = function(data) {
+    const dataId = data.href.match(/\d+/g);
+    const timeEntry = this.time_entries.find(te => {
+        return te.id === parseInt(dataId[dataId.length - 1]);
+    })
+  
+    $('.js-Content').html("");
+    $('.js-Content').append(timeEntry.timeCard());
+
+    if ( currentProject.client_id === timeEntry.user_id || this.business_id === timeEntry.user_id ) {
+        $('.js-teOptions').prepend(`<p><a class="btn btn-secondary" href="/projects/${this.id}/time_entries/${timeEntry.id}/edit">Edit This Entry</a></p>`);
+    }
     
+    setPushState(`/projects/${this.id}/time_entries/${timeEntry.id}`);
 }

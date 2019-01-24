@@ -90,5 +90,4 @@ function loadProject(data) {
                 window.historyInitiated = true;
                 history.pushState(null, null, `/projects/${currentProject.id}`);
             });
-    addProjectListeners()
 }
