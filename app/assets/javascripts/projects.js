@@ -8,13 +8,14 @@ $(() => {
 
 
 function addProjectListeners() {
-    // $('body').on('click', 'a.js-Delete', function (e) {
-    //     e.preventDefault();
-	// 	if (currentProject !== undefined) {
-    //         currentProject.deleteComment(this);
-    //     }
-    // });
- 
+    $("a.js-Delete").on('click', function() {
+        $(this).parent().fadeOut();
+        $.post(this.href, "_method=delete", function(data) {
+            addProjectListeners();
+        });
+        return false;
+    });
+
     $('body').on('click', '#new_comment input.btn', () => {
         if (currentProject !== undefined) {
             bindCommentsForm();
@@ -181,51 +182,6 @@ Project.prototype.createComment = function() {
             console.log("Something went wrong.", response);
         });
 }
-
-// Project.prototype.deleteComment = function(comment) {
-
-//     let commentId = comment.dataset.id;
-    // $.ajax({
-    //     type: this.method,
-    //     url: this.action + '/delete',
-    //     data: $(this).serialize(),
-    //     dataType: 'JSON'
-    // })
-    // debugger;
-    // debugger;
-    // fetch(`/comments/${commentId}`, {
-    //     method: 'post',
-    //     data: {
-    //         action: 'delete'
-    //     }
-    //     })
-    //     .then(response => response.json())
-            // .then(data => {
-            //     $('.js-Content').append(data)
-            // })
-            // debugger;
-    // $.post(`/comments/${commentId}`, { type: 'POST', data: { _method: 'delete'}})
-    // let newurl = 'https://localhost:3000/comments/' + commentId;
-    // fetch(url, {
-    //     method: "delete"
-    // })
-    // .then(
-    //     response => response.json()).then(data => { console.log(data) }
-    // )
-    // $.ajax({
-    //     url: `https://localhost:3000/comments/${commentId}`,
-    //     method: 'DELETE',
-    //     contentType: 'application/json',
-    //     success: function(result) {
-    //         $('.js-Content').html("");
-    //         $('.js-Content').load(`/projects/${currentProject.id}.html .js-Content`);
-    //     },
-    //     error: function(request,msg,error) {
-    //         // handle failure
-    //         console.error(error);
-    //     }
-    // });
-// }
 
 Project.prototype.newTimeEntryForm = function() {
     $('.js-Content').load(`/projects/${this.id}/time_entries/new .js-Content`, () => {

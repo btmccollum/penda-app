@@ -24,17 +24,16 @@ class CommentsController < ApplicationController
     end
 
     def destroy
-        # raise params.inspect
         comment = Comment.find(params[:id])
         @project = Project.find(comment.project_id)
         comment.destroy
         
         flash[:notice] = "Comment successfully removed."
-        redirect_back(fallback_location: dashboard_path)
-        # respond_to do |f|
-        #     f.html {redirect_to root_path, status: 303 }
-        #     f.json {render json: @project, status: 303}
-        # end
+        
+        respond_to do |f|
+            f.html { }
+            f.json { }
+        end
     end
 
     private
