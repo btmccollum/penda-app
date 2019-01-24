@@ -17,7 +17,7 @@
 <ul class="list-group">
     <% if project_has_time_entries? %> 
         <% latest_entries.each do |t| %> 
-            <li class="list-group-item"><strong>Title:</strong> <%= link_to t.title, project_time_entry_path(@project, t) %> | <strong>Duration:</strong> <%= time_duration(t) %> | <strong>Created:</strong> <%= t.created_at.strftime("%A, %d %b %Y %l:%M %p") %></li>
+            <li class="list-group-item"><strong>Title:</strong> <%= link_to t.title, project_time_entry_path(@project, t), class: "js-ShowTE" %> | <strong>Duration:</strong> <%= time_duration(t) %> | <strong>Created:</strong> <%= t.created_at.strftime("%A, %d %b %Y %l:%M %p") %></li>
         <% end %>
     <% else %>
         No recorded time entries. 

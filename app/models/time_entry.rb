@@ -13,6 +13,14 @@ class TimeEntry < ApplicationRecord
         total = ((end_time - start_time)).round(2).to_f
     end
 
+    def true_start_time
+        self.start_time.strftime("%A, %d %b %Y %l:%M %p")
+    end
+
+    def true_end_time
+        self.end_time.strftime("%A, %d %b %Y %l:%M %p")
+    end
+
     def self.new_from_params(params)
         time_entry = self.new(params).tap do |u|
             u.end_time = Time.zone.now

@@ -22,6 +22,13 @@ function addProjectListeners() {
         return false;
     });
 
+    $("a.js-ShowTE").on('click', function(e) {
+        e.preventDefault();
+        // debugger;
+        const data = e.target;
+        loadTimeEntry(data);
+    })
+
     $('body').on('click', '#new_comment input.btn', () => {
         if (currentProject !== undefined) {
             bindCommentsForm();
@@ -113,6 +120,10 @@ function loadNewProject() {
     setPushState('/projects/new');
 }
 
+function loadTimeEntry(data) {
+    debugger;
+}
+
 function newProject() {
     const $form = $('form#new_project');
     const action = $form.attr("action") + ".json";
@@ -139,11 +150,23 @@ class Project {
         // this.created_at = obj.created_at
         // this.updated_at = obj.updated_at
         this.status = obj.status
-        this.comments = obj.comments
-        this.time_entries = obj.time_entries
+        this.comments = []
+        this.time_entries = []
         // this.billable_hours = obj.billable_hours
         this.last_updated = obj.last_updated
         this.total_hours = obj.total_hours
+
+        // instantiate collection of comment objects for use
+        for(let c of obj.comments) {
+            let comment = new Comment(c)
+            this.comments.push(comment);
+        }
+
+        // instantiate collection of time entry objects for use
+        for(let te of obj.time_entries) {
+            let timeEntry = new TimeEntry(te)
+            this.time_entries.push(timeEntry);
+        }
     }
 }
 
@@ -215,4 +238,8 @@ Project.prototype.timeEntriesIndex = function() {
     }
 
     setPushState(`/projects/${currentProject.id}/time_entries`)
+}
+
+Project.prototype.loadTimeEntry = function() {
+    
 }
