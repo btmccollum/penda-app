@@ -8,11 +8,17 @@ $(() => {
 
 
 function addProjectListeners() {
-    $("a.js-Delete").on('click', function() {
+    $("a.js-Delete").on('click', function(e) {
+        const $el      = $(this);
+        const response = confirm($el.data('confirm') || 'Are you sure?');
+
+        e.preventDefault();
+        if (!response) { return; }
+
         $(this).parent().fadeOut();
-        $.post(this.href, "_method=delete", function(data) {
-            addProjectListeners();
-        });
+        
+        $.post(this.href, "_method=delete");
+        addProjectListeners();
         return false;
     });
 
