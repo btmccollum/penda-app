@@ -1,20 +1,22 @@
-<h1>Displaying Time Entry:</h1>
+<div id="js-teCard">
+    <h1>Displaying Time Entry:</h1>
 
-<div class="row">
-    <div class="col-lg-6 col-md-10 col-sm-10 col-12">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Title: <%= @time_entry.title %></h5>
-                <h6 class="card-subtitle mb-2 text-muted">Total Duration: <%= time_duration(@time_entry) %></h6>
-                <p class="card-text">Description: <%= @time_entry.content %></p>
-                <p class="card-text">Start Time: <%= @time_entry.start_time.strftime("%A, %d %b %Y %l:%M %p") %></p>
-                <p class="card-text">End Time: <%= @time_entry.end_time.strftime("%A, %d %b %Y %l:%M %p") %></p> 
+    <div class="row">
+        <div class="col-lg-6 col-md-10 col-sm-10 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Title: <%= @time_entry.title %></h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Total Duration: <%= time_duration(@time_entry) %></h6>
+                    <p class="card-text">Description: <%= @time_entry.content %></p>
+                    <p class="card-text">Start Time: <%= @time_entry.start_time.strftime("%A, %d %b %Y %l:%M %p") %></p>
+                    <p class="card-text">End Time: <%= @time_entry.end_time.strftime("%A, %d %b %Y %l:%M %p") %></p> 
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<br>
+    <br>
+</div>
 
 <div class="js-teOptions">
     <% if current_user_created? %>

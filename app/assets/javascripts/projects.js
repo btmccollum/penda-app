@@ -121,7 +121,19 @@ function loadNewProject() {
 }
 
 function loadTimeEntry(data) {
-    debugger;
+    const dataId = data.href.match(/\d+/g);
+    const timeEntry = currentProject.time_entries.find(te => {
+        return te.id === parseInt(dataId[dataId.length - 1]);
+    })
+  
+    $('.js-Content').html("");
+    $('.js-Content').append(timeEntry.timeCard());
+
+    if ( currentProject.client_id === timeEntry.user_id || currentProject.business_id === timeEntry.user_id ) {
+        $('.js-teOptions').prepend(`<p><a class="btn btn-secondary" href="/projects/${currentProject.id}/time_entries/${timeEntry.id}/edit">Edit This Entry</a></p>`);
+    }
+    
+    setPushState(`/projects/${currentProject.id}/time_entries/${timeEntry.id}`);
 }
 
 function newProject() {
