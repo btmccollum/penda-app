@@ -9,11 +9,7 @@ $(() => {
 
 function addProjectListeners() {
     $('body').on('click', 'a.js-Delete', function(e) {
-        const $el = $(this);
-        const response = confirm($el.data('confirm') || 'Are you sure?');
-
         e.preventDefault();
-        if (!response) { return; }
 
         $(this).parent().fadeOut();
         
@@ -22,9 +18,10 @@ function addProjectListeners() {
         return false;
     });
 
-    $('body').on('click', '#new_comment input.btn', () => {
+    $('body').on('submit', '#new_comment', function(e) {
         if (currentProject !== undefined) {
-            bindCommentsForm();
+            e.preventDefault();
+            currentProject.createComment();
         }
     });
 
@@ -88,14 +85,6 @@ function defineCurrentProject() {
 function setPushState(url) {
     window.historyInitiated = true;
     history.pushState(null, null, url);
-}
-
-// necessary to add JS back to comments form when the projects show view is rendered after ajax get
-function bindCommentsForm() {
-    $('#new_comment').submit(function(e) {
-        e.preventDefault();
-        currentProject.createComment();
-    });
 }
 
 function bindTimeEntryForm() {
@@ -191,6 +180,7 @@ Project.prototype.createComment = function() {
     const action = $form.attr("action") + ".json";
     const params = $form.serialize();
     const currentProject = this;
+
 
     $.post(action, params)
         .done(function(json){
