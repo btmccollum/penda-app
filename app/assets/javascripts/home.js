@@ -46,6 +46,11 @@ function addHomeListeners() {
 		getProjects(params);
     });
 
+    $('#js-SortAlpha').on('click', function(e) {
+        e.preventDefault();
+        sortProjects();
+    });
+
     window.addEventListener("popstate", function(e) {
         if (window.historyInitiated) {
           window.location.reload();
@@ -90,4 +95,36 @@ function loadProject(data) {
                 window.historyInitiated = true;
                 history.pushState(null, null, `/projects/${currentProject.id}`);
             });
+}
+
+//button that when clicked will sort all projects by title 
+function sortProjects() {
+    fetch('https://localhost:3000/dashboard.json')
+        .then(response => response.json())
+            .then(data => {
+                $('.js-Projects').html("");
+                if (data.projects[0] === undefined) {
+                    $('.js-Projects').prepend('<span>No results found.</span>');  
+                } else {
+                    data.projects.sort(function(a,b) {
+                        const aTitle = a.title.toUpperCase();
+                        const bTitle = b.title.toUpperCase();
+
+                        if ( aTitle < bTitle ) {
+                            return 1;
+                        }
+
+                        if ( aTitle > bTitle ) {
+                            return -1;
+                        }
+
+                        return 0;
+                    })
+                    data['projects'].forEach(project => {
+                        currentProject = new Project(project);
+                        $('.js-Projects').prepend(currentProject.projectsListHTML());
+                    });
+                }
+
+            })
 }
