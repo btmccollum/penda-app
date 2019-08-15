@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   before_action :already_signed_in?, only: %i[front choice]
   layout "welcome_screen", only: %i[front choice activity]
 
-  def front         
+  def front
   end
 
   def choice
@@ -11,12 +11,11 @@ class HomeController < ApplicationController
 
   def dashboard
     if !params[:search_query].blank?
-        @projects = Project.search_by_title_and_user(params[:search_query], current_user)
-        if @projects.blank?
-          flash[:notice] = "No Matches Found."
-          @projects = current_user.projects
-        end
-        
+      @projects = Project.search_by_title_and_user(params[:search_query], current_user)
+      if @projects.blank?
+        flash[:notice] = 'No Matches Found.'
+        @projects = current_user.projects
+      end
     else
       if params[:status] == "active"
         @projects = Project.active_projects(current_user)

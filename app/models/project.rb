@@ -1,20 +1,20 @@
 class Project < ApplicationRecord
-    belongs_to :client, class_name: 'User', optional: true
-    belongs_to :business, class_name: 'User', optional: true
-    has_one :contract
-    has_many :time_entries, dependent: :destroy
-    has_many :comments, dependent: :destroy
+    belongs_to                      :client, class_name: 'User', optional: true
+    belongs_to                      :business, class_name: 'User', optional: true
+    has_one                         :contract
+    has_many                        :time_entries, dependent: :destroy
+    has_many                        :comments, dependent: :destroy
 
-    validates :title, presence: true
+    validates                       :title, presence: true
 
-    accepts_nested_attributes_for :client
+    accepts_nested_attributes_for   :client
 
-    scope :last_five, ->(p) { where(id: p.id).first.time_entries.order("updated_at DESC").limit(5) }
-    scope :by_active, -> { where(status: "active") }
-        scope :user_active, ->(user) { by_active.where(business_id: user.id).or(by_active.where(client_id: user.id)).order("updated_at DESC") }
-    scope :by_completed, -> { where(status: "completed") }
-        scope :user_completed, ->(user) { by_completed.where(business_id: user.id).or(by_completed.where(client_id: user.id)).order("updated_at DESC") }
-    scope :search_by_title_and_user, lambda { |query, current_user| where("client_id IS ? OR business_id IS ?", current_user.id, current_user.id).where("title LIKE ?", "%#{query}%") }
+    scope                           :last_five, ->(p) { where(id: p.id).first.time_entries.order("updated_at DESC").limit(5) }
+    scope                           :by_active, -> { where(status: "active") }
+    scope                           :user_active, ->(user) { by_active.where(business_id: user.id).or(by_active.where(client_id: user.id)).order("updated_at DESC") }
+    scope                           :by_completed, -> { where(status: "completed") }
+    scope                           :user_completed, ->(user) { by_completed.where(business_id: user.id).or(by_completed.where(client_id: user.id)).order("updated_at DESC") }
+    scope                           :search_by_title_and_user, lambda { |query, current_user| where("client_id IS ? OR business_id IS ?", current_user.id, current_user.id).where("title LIKE ?", "%#{query}%") }
 
     def last_updated
         self.updated_at.strftime("%A, %d %b %Y %l:%M %p")

@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   attr_accessor :skip_password_req
   
-  has_many :comments, dependent: :destroy
-  has_many :time_entries, dependent: :nullify
+  has_many  :comments, dependent: :destroy
+  has_many  :time_entries, dependent: :nullify
   
   validates :username, presence: true
   validates :email, presence: true
@@ -13,9 +13,9 @@ class User < ApplicationRecord
 
   has_secure_password
 
-  scope :locate_by_oauth, ->(auth) { where(provider: auth[:provider], uid: auth[:uid]).first }
-  scope :with_time_entries, -> { select('users.id, users.username').joins(:time_entries).where('users.id IS time_entries.user_id').uniq }
-  scope :most_recently_active, -> { select('users.id, users.username').joins(:time_entries).select('time_entries.updated_at').where('users.id IS time_entries.user_id').order("time_entries.updated_at DESC").limit(10).uniq }
+  scope     :locate_by_oauth, ->(auth) { where(provider: auth[:provider], uid: auth[:uid]).first }
+  scope     :with_time_entries, -> { select('users.id, users.username').joins(:time_entries).where('users.id IS time_entries.user_id').uniq }
+  scope     :most_recently_active, -> { select('users.id, users.username').joins(:time_entries).select('time_entries.updated_at').where('users.id IS time_entries.user_id').order("time_entries.updated_at DESC").limit(10).uniq }
 
   def self.create_from_oauth(auth)
     User.find_or_create_by(email: auth[:info][:email]) do |u|
@@ -40,7 +40,7 @@ class User < ApplicationRecord
     "#{self.first_name.upcase_first} #{self.last_name.upcase_first}"
   end
 
-  def self.num_projects 
+  def self.num_projects
     self.projects.count
   end
 end
